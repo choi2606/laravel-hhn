@@ -47,8 +47,6 @@ Route::middleware('admin')->group(function () {
 
     Route::get('add-user', [AddUserController::class, 'index']);
     Route::post('add-user', [AddUserController::class, 'store']);
-
-
     Route::get('list-users', [ListUserController::class, 'index']);
     Route::get('list-users/number_entries{number_entries}', [ListUserController::class, 'loadEntries']); 
     Route::delete('delete-users/number_entries{number_entries}', [ListUserController::class, 'deleteUser']);
@@ -65,6 +63,8 @@ Route::middleware('admin')->group(function () {
     Route::post('list-products', [ListProductController::class, 'store']);
 
     Route::get('update-orders', [UpdateOrderController::class, 'index']);
+    Route::post('update-status-order{oder_id}', [UpdateOrderController::class, 'updateStatusOrder']);
+
 
     Route::get('update-inventory', [UpdateInventoryController::class, 'index']);
 

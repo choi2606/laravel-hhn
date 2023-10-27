@@ -198,9 +198,7 @@
             </div>
         </header>
         <!-- /#header -->
-        <div id="table-data">
             @yield('content')
-        </div>
         <!-- Footer -->
         <footer class="site-footer">
             <div class="footer-inner bg-white">

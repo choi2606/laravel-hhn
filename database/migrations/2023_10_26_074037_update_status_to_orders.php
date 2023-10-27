@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->unsignedTinyInteger('role')->default(0);
+        Schema::table('orders', function (Blueprint $table) {
+            $table->string('status')->default('đang chờ')->change();
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('role');
+        Schema::table('orders', function (Blueprint $table) {
+            $table->string('status')->default('pending')->change();
         });
     }
 };
