@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Admin\DeleteUserController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Client\LoginUserController;
 use App\Http\Controllers\Client\RegisterUserController;
@@ -63,7 +62,8 @@ Route::middleware('admin')->group(function () {
     Route::post('list-products', [ListProductController::class, 'store']);
 
     Route::get('update-orders', [UpdateOrderController::class, 'index']);
-    Route::post('update-status-order{oder_id}', [UpdateOrderController::class, 'updateStatusOrder']);
+    Route::put('update-status-order{order_id}', [UpdateOrderController::class, 'updateStatusOrder']);
+    Route::get('view-order{order_id}', [UpdateOrderController::class, 'orderDetails']);
 
 
     Route::get('update-inventory', [UpdateInventoryController::class, 'index']);

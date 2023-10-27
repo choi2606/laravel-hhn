@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="{{ asset('owner/assets/css/cs-skin-elastic.css') }}">
     <link rel="stylesheet" href="{{ asset('owner/assets/css/lib/datatable/dataTables.bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('owner/assets/css/style-list-users.css') }}">
+    <link rel="stylesheet" href="{{ asset('owner/assets/css/order.css') }}">
 
 
 
@@ -76,6 +77,7 @@
             height: 160px;
         }
     </style>
+    @yield('css')
 </head>
 
 <body>
@@ -225,10 +227,12 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="{{ asset('owner/assets/js/main.js') }}"></script>
     <script src="{{ asset('owner/assets/js/lib/chosen/chosen.jquery.min.js') }}"></script>
     <script src="{{ asset('owner/assets/js/user.js') }}"></script>
     <script src="{{ asset('owner/assets/js/categories.js') }}"></script>
+    <script src="{{ asset('owner/assets/js/order.js') }}"></script>
 
 
     <!--  Chart js -->
