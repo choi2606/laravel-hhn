@@ -34,6 +34,6 @@ class AddUserController extends Controller
             'phone_number' => $request->phoneNumber
         ]);
         toast('Thêm người dùng thành công!', 'success');
-        return view('admin.add_user');
+        return redirect()->back();
     }
 }

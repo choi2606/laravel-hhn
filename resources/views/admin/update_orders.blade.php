@@ -72,13 +72,13 @@
                                                             </a>
                                                         </span></td>
                                                     <td><span class="count">{{ $order->total_quantity }}</span></td>
-                                                    <td><span class="count">{{ $order->total_price }}</span></td>
+                                                    <td><span class="count">${{ $order->total_price }}</span></td>
                                                     <td>
                                                         <span class="count">
-                                                            {{ $order->total_price - $order->total_money }}
+                                                            ${{ $order->total_price - $order->total_money }}
                                                         </span>
                                                     </td>
-                                                    <td><span class="count">{{ $order->total_money }}</span></td>
+                                                    <td><span class="count">${{ $order->total_money }}</span></td>
                                                     <td><span class="order_date">{{ $order->order_date }}</span></td>
                                                     <td>
                                                         @if ($order->status == 'đang chờ')
@@ -138,39 +138,11 @@
                                                 </tr>
                                             </thead>
                                             <tbody class="tbody-order-detail">
-                                                {{-- @php
-                                                    $count = 1;
-                                                @endphp
-                                                @forelse($orderDetails as $orderDetail)
-                                                    <tr>
-                                                        <td class="serial">{{ $count++ }}.</td>
-                                                        <td><span class="name">{{ $orderDetail->username }}</span></td>
-                                                        <td><span class="total_product">
-                                                            {{ $orderDetail->name }}
-                                                            </span></td>
-                                                        <td><span class="count">{{ $orderDetail->quantity }}</span></td>
-                                                        <td><span class="count">{{ $orderDetail->unit_price }}</span></td>
-                                                    </tr>
-                                                @empty
-                                                    <tr>
-                                                        <td>
-                                                            <p>No Orders Detail</p>
-                                                        </td>
-                                                    </tr>
-                                                @endforelse --}}
 
                                             </tbody>
                                         </table>
                                     </div> <!-- /.table-stats -->
                                 </div>
-
-                                {{-- <div class="col-lg-12 d-flex">
-                                    <button type="button" class="btn btn-secondary btn-form-details"
-                                        onclick="hideProducts(event)">
-                                        ĐÓNG
-                                        <i class="fa fa-times"></i>
-                                    </button>
-                                </div> --}}
                             </div>
                         </div>
                     </div>

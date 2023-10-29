@@ -135,6 +135,8 @@
             </div>
         </div><!-- .animated -->
     </div>
+    @include('sweetalert::alert_category')
+    @include('sweetalert::alert_category', ['cdn' => 'https://cdn.jsdelivr.net/npm/sweetalert2@9'])
     <div class="clearfix"></div>
 @endsection
 @section('js')

@@ -26,7 +26,7 @@ class UpdateOrderController extends Controller
                 DB::raw("COUNT(order_details.order_detail_id) as total_product"),
                 DB::raw("SUM(order_details.quantity) as total_quantity"),
                 DB::raw('SUM(order_details.quantity * products.price) as total_price'),
-                DB::raw('SUM(order_details.quantity * order_details.unit_price) as total_money')
+                DB::raw('SUM(order_details.unit_price) as total_money')
             )->groupBy("orders.order_id", "users.username", "orders.status", "orders.order_date");
     }
 

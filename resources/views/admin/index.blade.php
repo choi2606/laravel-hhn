@@ -191,13 +191,10 @@
                         </div>  
                     </div>
                 </div>
-               
-               
-                
             <!-- /#add-category -->
             </div>
             <!-- .animated -->
         </div>
         <!-- /.content -->
         <div class="clearfix"></div>
-        @endsection
+@endsection

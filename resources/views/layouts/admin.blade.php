@@ -98,7 +98,7 @@
                             </li>
                             <li><i class="fa fa-id-badge"></i><a href="{{ url('list-users') }}" class="list-users"
                                     {{-- onclick="getData(event)" --}}
-                                    >Danh Sách Người Dùng</a>
+                                    >Liệt Kê Người Dùng</a>
                             </li>
                         </ul>
                     </li>
@@ -108,7 +108,7 @@
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="fa fa-puzzle-piece"></i><a href="{{ url('add-products') }}">Thêm sản phẩm</a>
                             </li>
-                            <li><i class="fa fa-id-badge"></i><a href="{{ url('list-products') }}">Danh Sách Sản
+                            <li><i class="fa fa-id-badge"></i><a href="{{ url('list-products') }}">Liệt Kê Sản
                                     Phẩm</a>
                             </li>
                         </ul>
@@ -215,12 +215,11 @@
                 </div>
             </div>
         </footer>
-        @include('sweetalert::alert')
         <!-- /.site-footer -->
     </div>
     <!-- /#right-panel -->
-
-    @include('sweetalert::alert', ['cdn' => 'https://cdn.jsdelivr.net/npm/sweetalert2@9'])
+    @include('sweetalert::alert_admin')
+    @include('sweetalert::alert_admin', ['cdn' => 'https://cdn.jsdelivr.net/npm/sweetalert2@9'])
     <!-- Scripts -->
  
     <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
@@ -233,6 +232,7 @@
     <script src="{{ asset('owner/assets/js/user.js') }}"></script>
     <script src="{{ asset('owner/assets/js/categories.js') }}"></script>
     <script src="{{ asset('owner/assets/js/order.js') }}"></script>
+    <script src="{{ asset('owner/assets/js/product.js') }}"></script>
 
 
     <!--  Chart js -->

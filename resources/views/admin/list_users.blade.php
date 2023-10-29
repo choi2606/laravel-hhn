@@ -1,4 +1,17 @@
 @extends('layouts.admin')
+
+@section('css')
+    <style>
+        .icon-delete-user {
+            font-size: 22px;
+        }
+
+        span.action {
+            line-height: 26px;
+            /* margin-left: 20px; */
+        }
+    </style>
+@endsection
 @section('content')
     <div class="breadcrumbs">
         <div class="breadcrumbs-inner">
@@ -16,7 +29,7 @@
                             <ol class="breadcrumb text-right">
                                 <li><a href="{{ url('/admin') }}">Dashboard</a></li>
                                 <li><a href="#">Quản Lý Người Dùng</a></li>
-                                <li class="active">Danh sách người dùng</li>
+                                <li class="active">Liệt Kê Người Dùng</li>
                             </ol>
                         </div>
                     </div>
@@ -30,7 +43,7 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header">
-                            <strong class="card-title">Dữ Liệu Người Dùng</strong>
+                            <strong class="card-title">Liệt Kê Người Dùng</strong>
                         </div>
                         <div class="card-body">
                             <div id="bootstrap-data-table_wrapper"
@@ -99,7 +112,8 @@
                                                             </div>
                                                         </div>
                                                     </th>
-                                                    <th></th>
+                                                    <th>
+                                                    </th>
                                                 </tr>
                                             </thead>
                                             <tbody class="tbody-user">
@@ -112,8 +126,8 @@
                                         <button type="button" class="btn btn-primary btn-sm" onclick="onCheckAll()">Chọn
                                             tất
                                         </button>
-                                        <a href="{{ url('/delete-users') }}" onclick="onDeleteUsers(event)"
-                                            data-confirm-delete-user="true" class="btn btn-danger btn-sm px-4"> Xóa
+                                        <a href="{{ url('/delete-users') }}" data-confirm-delete="true"
+                                            class="btn btn-danger btn-sm px-4"> Xóa
                                         </a>
                                     </div>
                                 </div>
@@ -134,10 +148,11 @@
                             </div>
                         </div>
                     </div>
+                    {{-- end card --}}
                 </div>
-                {{-- end card --}}
 
                 <!--/.col-->
+
             </div>
         </div><!-- .animated -->
         <div class="modal">
@@ -198,6 +213,8 @@
                 </div>
             </div>
         </div>
+        @include('sweetalert::alert_user')
+        @include('sweetalert::alert_user', ['cdn' => 'https://cdn.jsdelivr.net/npm/sweetalert2@9'])
         <div class="clearfix"></div>
     @endsection
     @section('js')
@@ -217,8 +234,6 @@
                     arrTh.push(element.innerText);
                 });
 
-                console.log(arrTh);
-
                 $(document).on("click", ".pagination a", function(event) {
                     event.preventDefault();
                     var url = new URL(event.target.href);
@@ -227,10 +242,15 @@
                     var pathName = url.pathname.split('/')[1];
                     var valueSearch = url.searchParams.get("valueSearch");
                     var fieldName = url.searchParams.get("fieldName");
+                    console.log(pathName);
                     if (pathName == 'list-users') {
                         loadPageFirst(numberEntries, page);
+                    } else if (pathName == 'update-user') {
+                        getDataOnURLUpdate(numberEntries, page);
                     } else if (pathName == 'search-users') {
                         sendDataSearch(valueSearch, numberEntries, page);
+                    } else if (pathName == 'delete-users') {
+                        sendRequestGetDataOnURLDelete(numberEntries, page);
                     } else if (pathName == 'sort-ascending') {
                         sortAscending(fieldName, numberEntries, page);
                     } else {
@@ -255,10 +275,10 @@
                         fieldName = "phone_number";
                     }
                     if (!isSort) {
-                        sortAscending(fieldName ,numberEntries, page);
+                        sortAscending(fieldName, numberEntries, page);
                         isSort = true;
                     } else {
-                        sortDescending(fieldName ,numberEntries, page);
+                        sortDescending(fieldName, numberEntries, page);
                         isSort = false;
                     }
                 })

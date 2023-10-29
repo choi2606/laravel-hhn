@@ -47,10 +47,12 @@ Route::middleware('admin')->group(function () {
     Route::get('add-user', [AddUserController::class, 'index']);
     Route::post('add-user', [AddUserController::class, 'store']);
     Route::get('list-users', [ListUserController::class, 'index']);
-    Route::get('list-users/number_entries{number_entries}', [ListUserController::class, 'loadEntries']); 
+    Route::get('list-users/number_entries{number_entries}', [ListUserController::class, 'loadEntries']);
     Route::delete('delete-users/number_entries{number_entries}', [ListUserController::class, 'deleteUser']);
+    Route::get('delete-users/number_entries{number_entries}', [ListUserController::class, 'loadEntries']);
     Route::post('list-users', [ListUserController::class, 'store']);
-    Route::put('update-user{user_id}/number_entries{number_entries}', [ListUserController::class, 'updateUser']);
+    Route::put('update-user/number_entries{number_entries}', [ListUserController::class, 'updateUser']);
+    Route::get('update-user/number_entries{number_entries}', [ListUserController::class, 'loadEntries']);
     Route::get('search-users/number_entries{number_entries}', [ListUserController::class, 'searchUsers']);
     Route::get('sort-ascending/number_entries{number_entries}', [ListUserController::class, 'sortAscending']);
     Route::get('sort-descending/number_entries{number_entries}', [ListUserController::class, 'sortDescending']);
@@ -60,6 +62,15 @@ Route::middleware('admin')->group(function () {
     Route::post('add-products', [AddProductController::class, 'store']);
     Route::get('list-products', [ListProductController::class, 'index']);
     Route::post('list-products', [ListProductController::class, 'store']);
+    Route::delete('remove-product', [ListProductController::class, 'removeProduct']);
+    Route::get('remove-product', [ListProductController::class, 'loadDataOnURLDelete']);
+    Route::post('update-product{product_id}', [ListProductController::class, 'updateProduct']);
+    Route::get('search-products', [ListProductController::class, 'searchProducts']);
+    Route::get('sort-ascending-products', [ListProductController::class, 'sortAscendingProducts']);
+    Route::get('sort-descending-products', [ListProductController::class, 'sortDescendingProducts']);
+
+
+
 
     Route::get('update-orders', [UpdateOrderController::class, 'index']);
     Route::put('update-status-order{order_id}', [UpdateOrderController::class, 'updateStatusOrder']);
@@ -79,9 +90,6 @@ Route::middleware('admin')->group(function () {
     Route::put('update_category{category_idSelect}', [CategoryDashboardController::class, 'update_category']);
 
 });
-
-
-
 
 Route::get('/welcome', [Controller::class, 'welcome']);
 

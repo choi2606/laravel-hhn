@@ -1,5 +1,4 @@
 function onChangeEntries(event) {
-    event.preventDefault();
     var numberEntries = event.target.value;
     loadPageFirst(numberEntries);
 }
@@ -10,7 +9,9 @@ function loadPageFirst(numberEntries, page = 1) {
         type: "GET",
         dataType: "json",
         success: function (data) {
-            (numberEntries != -1) ? loadListUserPagination(data, numberEntries, page) : loadListUserFull(data, numberEntries);
+            numberEntries != -1
+                ? loadListUserPagination(data, numberEntries, page)
+                : loadListUserFull(data, numberEntries);
         },
         error: function (jqXHR, textStatus, errorThrown) {},
     });
@@ -39,6 +40,11 @@ function loadListUserFull(data, numberEntries) {
                             <td align="center">
                                 <a href="" onclick="showFormUpdateUser(event,'${user.user_id}','${user.username}','${user.email}','${user.address}','${user.phone_number}')"
                                     class="fa fa-pencil-square-o">
+                                </a>
+                                <a href="delete-users" userID = "${
+                                    user.user_id
+                                }" data-confirm-delete="true"
+                                    class="fa fa-times icon-delete-user">
                                 </a>
                             </td>
                         </tr>`
@@ -69,8 +75,7 @@ function loadListUserPagination(data, numberEntries, page = 1) {
         $(".tbody-user").append(
             `<tr>
                 <td>
-                <input type="checkbox" class="input-checkbox-user"
-                    userID = "${user.user_id}">
+                <input type="checkbox" class="input-checkbox-user" userID = "${user.user_id}">
                 <i class="check-box icheckbox"></i>
                 <input type="hidden" name="storageId" value="">
                 </td>
@@ -81,6 +86,11 @@ function loadListUserPagination(data, numberEntries, page = 1) {
                 <td align="center">
                     <a href="" onclick="showFormUpdateUser(event,'${user.user_id}','${user.username}','${user.email}','${user.address}','${user.phone_number}')"
                         class="fa fa-pencil-square-o">
+                    </a>
+                    <a href="delete-users" userID = "${
+                        user.user_id
+                    }" data-confirm-delete="true"
+                        class="fa fa-times icon-delete-user">
                     </a>
                 </td>
             </tr>`
@@ -141,68 +151,15 @@ function onCheckAll() {
     $('input[type="checkbox"]').prop("checked", !isChecked);
 }
 
-function onDeleteUsers(event) {
-    event.preventDefault();
-    var listUserID = [];
-    var inputCheck = $('input[type="checkbox"]:checked');
-    inputCheck.each(function () {
-        var userID = $(this).attr("userID");
-        listUserID.push(userID);
-    });
-    var url = event.target.href;
-    var page = $('input[name="storagePageNumber"]').val();
-    var numberEntries = $('input[name="storageNumberEntries"]').val();
-    sendRequestDeleteUser(url, listUserID, numberEntries, page);
-}
-
-function sendRequestDeleteUser(url, listUserID, numberEntries, page) {
+function sendRequestGetDataOnURLDelete(numberEntries, page) {
     $.ajax({
-        url: url + `/number_entries${numberEntries}?page=${page}`,
-        type: "DELETE",
-        datatype: "json",
-        headers: {
-            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        url: `delete-users/number_entries${numberEntries}?page=${page}`,
+        type: "GET",
+        dataType: "json",
+        success: function (data) {
+            loadListUserPagination(data, numberEntries, page);
         },
-        data: {
-            data: listUserID,
-        },
-        success: function (response) {
-            loadListUserPagination(response, numberEntries, page);
-            Swal.fire({
-                text: "Xóa thành công!",
-                position: "top-right",
-                icon: "success",
-                timer: 3000,
-                showConfirmButton: false,
-                backdrop: false,
-                showCloseButton: true,
-                customClass: {
-                    container: "swal2-container swal2-top-end",
-                    popup: "swal2-popup swal2-toast swal2-icon-success swal2-show",
-                    title: "swal2-title",
-                    closeButton: "swal2-close",
-                    icon: "swal2-icon swal2-success swal2-icon-show",
-                },
-            });
-        },
-        error: function (xhr, status, error) {
-            Swal.fire({
-                text: "Xóa thất bại!",
-                position: "top-right",
-                icon: "error",
-                timer: 3000,
-                showConfirmButton: false,
-                showCloseButton: true,
-                backdrop: false,
-                customClass: {
-                    container: "swal2-container swal2-top-end",
-                    popup: "swal2-popup swal2-toast swal2-icon-error swal2-show",
-                    title: "swal2-title",
-                    closeButton: "swal2-close",
-                    icon: "swal2-icon swal2-error swal2-icon-show",
-                },
-            });
-        },
+        error: function (jqXHR, textStatus, errorThrown) {},
     });
 }
 
@@ -257,7 +214,7 @@ function sendUpdateData(
     page
 ) {
     $.ajax({
-        url: `update-user${userID}/number_entries${numberEntries}?page=${page}`,
+        url: `update-user/number_entries${numberEntries}?page=${page}`,
         type: "PUT",
         dataType: "json",
         headers: {
@@ -268,9 +225,13 @@ function sendUpdateData(
             email: email,
             address: address,
             phone_number: phone_number,
+            userID: userID,
         },
         success: function (response) {
             loadListUserPagination(response, numberEntries, page);
+            if (numberEntries == -1) {
+                loadListUserFull(response, numberEntries);
+            }
             Swal.fire({
                 text: "Cập nhập thành công!",
                 position: "top-right",
@@ -310,6 +271,18 @@ function sendUpdateData(
     });
 }
 
+function getDataOnURLUpdate(numberEntries, page) {
+    $.ajax({
+        url: `update-user/number_entries${numberEntries}?page=${page}`,
+        type: "GET",
+        dataType: "json",
+        success: function (data) {
+            loadListUserPagination(data, numberEntries, page);
+        },
+        error: function (xhr, status, error) {},
+    });
+}
+
 function onClearSearchAll() {
     $(".input-search-user").val("");
     var numberEntries = $('input[name="storageNumberEntries"]').val();
@@ -319,7 +292,6 @@ function onClearSearchAll() {
 
 function onSearch(event) {
     var value = event.target.value;
-    // var page = $('input[name="storagePageNumber"]').val();
     var numberEntries = $('input[name="storageNumberEntries"]').val();
     if (value === "") {
         loadPageFirst(numberEntries);
@@ -395,7 +367,8 @@ function sortAscending(fieldName, numberEntries, page) {
             if (numberEntries != -1) {
                 loadListUserPagination(data, numberEntries, page);
                 var lastPage = data.last_page;
-                var previousPage = data.prev_page_url + `&fieldName=${fieldName}`;
+                var previousPage =
+                    data.prev_page_url + `&fieldName=${fieldName}`;
                 var nextPage = data.next_page_url + `&fieldName=${fieldName}`;
                 var paginationHtml = "";
 
@@ -449,7 +422,8 @@ function sortDescending(fieldName, numberEntries, page) {
             if (numberEntries != -1) {
                 loadListUserPagination(data, numberEntries, page);
                 var lastPage = data.last_page;
-                var previousPage = data.prev_page_url + `&fieldName=${fieldName}`;
+                var previousPage =
+                    data.prev_page_url + `&fieldName=${fieldName}`;
                 var nextPage = data.next_page_url + `&fieldName=${fieldName}`;
                 var paginationHtml = "";
 
