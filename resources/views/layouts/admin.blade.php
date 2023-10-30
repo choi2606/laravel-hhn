@@ -27,7 +27,8 @@
     <link rel="stylesheet" href="{{ asset('owner/assets/css/cs-skin-elastic.css') }}">
     <link rel="stylesheet" href="{{ asset('owner/assets/css/lib/datatable/dataTables.bootstrap.min.css') }}">
 
-
+    
+    
 
     <style>
         body {
@@ -76,6 +77,7 @@
         }
     </style>
     @yield('css')
+    @yield('headtag')
 </head>
 
 <body>
@@ -118,6 +120,26 @@
                                     Hàng</a></li>
                         </ul>
                     </li>
+
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>Quản Lý Mã Giảm</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li class="">
+                                <i class="fa fa-puzzle-piece"></i>
+                                <a href="{{ url('add-discount') }}">
+                                    Thêm Mã Giảm Giá
+                                </a>
+                            </li>
+                            <li>
+                                <i class="fa fa-id-badge"></i>
+                                <a href="{{ url('list-discount') }}">
+                                    Liệt Kê Mã Giảm Giá
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
 
                     <li class="">
                         <a href="{{ url('list-categories') }}" class="dropdown" aria-expanded="false">

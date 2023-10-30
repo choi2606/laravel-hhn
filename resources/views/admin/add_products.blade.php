@@ -1,6 +1,17 @@
 @extends('layouts.admin')
 @section('css')
     <style>
+        i.fa.fa-dollar.icon-dollar {
+            position: absolute;
+            left: 0;
+            margin-top: 12px;
+            margin-left: 23px;
+            color: rgb(176 173 173);
+        }
+
+        .input-price {
+            padding-left: 20px
+        }
     </style>
 @endsection
 @section('content')
@@ -77,8 +88,9 @@
                                     <div class="row form-group">
                                         <div class="col col-md-3"><label for="text-input"
                                                 class=" form-control-label">Giá</label></div>
-                                        <div class="col-12 col-md-9"><input type="text" id="text-input"
-                                                name="productPrice" placeholder="Nhập giá..." class="form-control">
+                                        <div class="col-12 col-md-9"><i class="fa fa-dollar icon-dollar"></i><input
+                                                type="text" id="text-input" name="productPrice"
+                                                placeholder="Nhập giá" class="form-control input-price">
                                         </div>
                                     </div>
                                     <div class="row form-group">

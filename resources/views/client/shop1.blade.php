@@ -18,10 +18,11 @@
     			<div class="col-md-10 mb-5 text-center">
     				<ul class="product-category">
     					<li><a href="#" class="active">All</a></li>
-    					<li><a href="#">Rau, củ, quả</a></li>
-    					<li><a href="#">Ăn vặt</a></li>
-    					<li><a href="#">Gia dụng</a></li>
-    					<li><a href="#">Thịt</a></li>
+						@forelse ($categories as $category)
+							<li><a href="#">{{$category->name}}</a></li>
+						@empty
+						No Categories
+						@endforelse
     				</ul>
     			</div>
     		</div>

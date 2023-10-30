@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Client\LoginUserController;
 use App\Http\Controllers\Client\RegisterUserController;
+use App\Http\Controllers\Client\ShopClientController;
 use App\Http\Controllers\Admin\AddBlogController;
 use App\Http\Controllers\Admin\AddProductController;
 use App\Http\Controllers\Admin\AddUserController;
@@ -80,10 +82,18 @@ Route::middleware('admin')->group(function () {
     Route::get('update-blogs', [AddBlogController::class, 'index']);
     Route::post('update-blogs', [AddBlogController::class, 'store']);
 
+    Route::get('add-discount', [DiscountController::class, 'index']);
+    Route::post('add-discount', [DiscountController::class, 'store']);
+    Route::get('list-discount', [DiscountController::class, 'listDiscounts']);
+    Route::get('delete-discount{discount_id}', [DiscountController::class, 'deleteDiscount']);
+    
+
+
     Route::get('list-categories', [CategoryDashboardController::class, 'index']);
     Route::post('add-category', [CategoryDashboardController::class, 'add_category']);
     Route::delete('remove-category{category_idSelect}', [CategoryDashboardController::class, 'remove_category']);
     Route::put('update_category{category_idSelect}', [CategoryDashboardController::class, 'update_category']);
+    
 
 });
 
@@ -114,9 +124,7 @@ Route::get('/contact', function () {
     return view('client.contact');
 });
 
-Route::get('/shop1', function () {
-    return view('client.shop1');
-});
+Route::get('shop1', [ShopClientController::class, 'index']);
 Route::get('/product-detail', function () {
     return view('client.product-detail');
 });
