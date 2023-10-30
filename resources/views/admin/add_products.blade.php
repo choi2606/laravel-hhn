@@ -1,10 +1,6 @@
 @extends('layouts.admin')
 @section('css')
     <style>
-        div#categorySelectWrapper {
-            padding: 0px 15px;
-            width: 75%;
-        }
     </style>
 @endsection
 @section('content')
@@ -47,7 +43,8 @@
                                     {{ csrf_field() }}
 
                                     <div class="row form-group">
-                                        <div class="col col-md-3"><label for="select" class=" form-control-label">Chọn danh
+                                        <div class="col col-md-3"><label for="select" class=" form-control-label">Chọn
+                                                danh
                                                 Mục</label></div>
                                         <div class="col-12 col-md-9">
                                             <select name="selectCate" id="select-cate" class="form-control">
@@ -85,13 +82,21 @@
                                         </div>
                                     </div>
                                     <div class="row form-group">
+                                        <div class="col col-md-3"><label for="text-input" class=" form-control-label">Số
+                                                lượng</label></div>
+                                        <div class="col-12 col-md-9"><input type="text" id="text-input"
+                                                name="productQuantity" placeholder="Nhập số lượng..." class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
                                         <div class="col col-md-3">
-                                            <label for="image-input" class=" form-control-label">Tải ảnh</label>
+                                            <label for="image-input" class=" form-control-label">Hình ảnh</label>
                                         </div>
                                         <div class="col-12 col-md-9"><input type="file" id="image-input"
                                                 name="productImage" class="form-control-file" accept="image/*">
                                         </div>
                                     </div>
+
                                     <div class="form-actions form-group">
                                         <button type="submit" class="btn btn-success btn-sm">
                                             <i class="fa fa-dot-circle-o"></i> Thêm
@@ -113,7 +118,5 @@
     <div class="clearfix"></div>
 @endsection
 @section('js')
-    <script>
-       
-    </script>
+    <script></script>
 @endsection

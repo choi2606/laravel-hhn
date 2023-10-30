@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\OrderDetail;
 use Illuminate\Support\Facades\DB;
 
 class UpdateOrderController extends Controller
@@ -26,12 +27,15 @@ class UpdateOrderController extends Controller
                 DB::raw("COUNT(order_details.order_detail_id) as total_product"),
                 DB::raw("SUM(order_details.quantity) as total_quantity"),
                 DB::raw('SUM(order_details.quantity * products.price) as total_price'),
-                DB::raw('SUM(order_details.unit_price) as total_money')
+                DB::raw('SUM(order_details.unit_price * order_details.quantity) as total_money')
             )->groupBy("orders.order_id", "users.username", "orders.status", "orders.order_date");
     }
 
     public function index()
     {
+        $title = 'Xóa Đơn Hàng!';
+        $text = "Bạn có chắc muốn xóa đơn hàng này không?";
+        confirmDelete($title, $text);
         $queryOrder = Order::query();
         $this->joinSelectOrderDetail($queryOrder);
         $orders = $queryOrder->get();
@@ -63,5 +67,15 @@ class UpdateOrderController extends Controller
         return response()->json($orderDetailQuery);
     }
 
-   
+   public function deleteOrder($order_id) {
+        OrderDetail::where("order_id", $order_id)->delete();
+        $rowCount = Order::where('order_id', $order_id)->delete();
+        if ($rowCount > 0) {
+            toast('Xóa đơn hàng thành công!', 'success');
+        } else {
+            toast('Xóa đơn hàng thất bại!', 'error');
+
+        }
+        return redirect()->back();
+   }
 }

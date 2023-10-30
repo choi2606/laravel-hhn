@@ -23,6 +23,7 @@ class AddProductController extends Controller
             'productName' => 'required',
             'productDesc' => 'required',
             'productPrice' => 'required',
+            'productQuantity' => 'required',
             'productImage' => 'required|image|mimes:jpeg,png,jpg,gif|max:4500'
         ]);
 
@@ -41,6 +42,7 @@ class AddProductController extends Controller
             'name' => $request->productName,
             'description' => $request->productDesc,
             'price' => $request->productPrice,
+            'quantity' => intval($request->productQuantity),
             'image_url' => $imagePath,
         ]);
         toast('Thêm sản phẩm thành công!', 'success');

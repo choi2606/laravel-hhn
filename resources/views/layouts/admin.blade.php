@@ -26,8 +26,6 @@
     <link rel="stylesheet" href="{{ asset('owner/assets/css/lib/chosen/chosen.min.css') }}">
     <link rel="stylesheet" href="{{ asset('owner/assets/css/cs-skin-elastic.css') }}">
     <link rel="stylesheet" href="{{ asset('owner/assets/css/lib/datatable/dataTables.bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('owner/assets/css/style-list-users.css') }}">
-    <link rel="stylesheet" href="{{ asset('owner/assets/css/order.css') }}">
 
 
 
@@ -97,8 +95,7 @@
                             <li><i class="fa fa-puzzle-piece"></i><a href="{{ url('add-user') }}">Thêm Người Dùng</a>
                             </li>
                             <li><i class="fa fa-id-badge"></i><a href="{{ url('list-users') }}" class="list-users"
-                                    {{-- onclick="getData(event)" --}}
-                                    >Liệt Kê Người Dùng</a>
+                                    {{-- onclick="getData(event)" --}}>Liệt Kê Người Dùng</a>
                             </li>
                         </ul>
                     </li>
@@ -121,26 +118,9 @@
                                     Hàng</a></li>
                         </ul>
                     </li>
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>Quản Lý Kho Hàng</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            {{-- <li><i class="fa fa-puzzle-piece"></i><a href="{{ url('add-product') }}">Thêm Hàng Hóa</a></li> --}}
-                            <li><i class="fa fa-id-badge"></i><a href="{{ url('update-inventory') }}">Cập Nhập Kho
-                                    Hàng</a></li>
-                        </ul>
-                    </li>
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Quản Lý Blog</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-table"></i><a href="{{ url('add-blogs') }}">Thêm Blog</a></li>
-                            <li><i class="fa fa-table"></i><a href="{{ url('update-blogs') }}">Cập Nhập Blog</a></li>
-                        </ul>
-                    </li>
 
                     <li class="">
-                        <a href="{{ url('list-categories') }}" class="dropdown-toggle" aria-expanded="false">
+                        <a href="{{ url('list-categories') }}" class="dropdown" aria-expanded="false">
                             <i class="menu-icon fa fa-cogs"></i>Danh Mục Sản Phẩm
                         </a>
                     </li>
@@ -200,7 +180,7 @@
             </div>
         </header>
         <!-- /#header -->
-            @yield('content')
+        @yield('content')
         <!-- Footer -->
         <footer class="site-footer">
             <div class="footer-inner bg-white">
@@ -221,7 +201,7 @@
     @include('sweetalert::alert_admin')
     @include('sweetalert::alert_admin', ['cdn' => 'https://cdn.jsdelivr.net/npm/sweetalert2@9'])
     <!-- Scripts -->
- 
+
     <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
@@ -229,10 +209,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="{{ asset('owner/assets/js/main.js') }}"></script>
     <script src="{{ asset('owner/assets/js/lib/chosen/chosen.jquery.min.js') }}"></script>
-    <script src="{{ asset('owner/assets/js/user.js') }}"></script>
-    <script src="{{ asset('owner/assets/js/categories.js') }}"></script>
-    <script src="{{ asset('owner/assets/js/order.js') }}"></script>
-    <script src="{{ asset('owner/assets/js/product.js') }}"></script>
 
 
     <!--  Chart js -->

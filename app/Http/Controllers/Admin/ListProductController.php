@@ -19,6 +19,7 @@ class ListProductController extends Controller
                 'products.name as product_name',
                 'products.description',
                 'products.price',
+                'products.quantity',
                 'products.image_url'
             );
     }
@@ -66,7 +67,8 @@ class ListProductController extends Controller
             'selectCate' => 'required',
             'productName' => 'required',
             'productDesc' => 'required',
-            'productPrice' => 'required'
+            'productPrice' => 'required',
+            'productQuantity' => 'required'
         ]);
 
         $product = Product::find($product_id);
@@ -74,6 +76,7 @@ class ListProductController extends Controller
         $product->name =  $validated['productName'];
         $product->description = $validated['productDesc'];
         $product->price = $validated['productPrice'];
+        $product->quantity = $validated['productQuantity'];
 
         if ($request->hasFile('productImage')) {
             $get_file_image = $request->file('productImage');
@@ -101,7 +104,8 @@ class ListProductController extends Controller
             $query->where('categories.name', "LIKE", "%$request->valueSearch%")
                 ->orWhere("products.name", "LIKE", "%$request->valueSearch%")
                 ->orWhere("products.description", "LIKE", "%$request->valueSearch%")
-                ->orWhere("products.price", "LIKE", "%$request->valueSearch%");
+                ->orWhere("products.price", "LIKE", "%$request->valueSearch%")
+                ->orWhere("products.quantity", "LIKE", "%$request->valueSearch%");
         });
 
         $products = $productQuery->paginate(10);

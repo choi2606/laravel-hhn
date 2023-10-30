@@ -3,7 +3,6 @@
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Client\LoginUserController;
 use App\Http\Controllers\Client\RegisterUserController;
-use App\Http\Controllers\Admin\UpdateInventoryController;
 use App\Http\Controllers\Admin\AddBlogController;
 use App\Http\Controllers\Admin\AddProductController;
 use App\Http\Controllers\Admin\AddUserController;
@@ -70,14 +69,11 @@ Route::middleware('admin')->group(function () {
     Route::get('sort-descending-products', [ListProductController::class, 'sortDescendingProducts']);
 
 
-
-
     Route::get('update-orders', [UpdateOrderController::class, 'index']);
+    Route::delete('delete-order{order_id}', [UpdateOrderController::class, 'deleteOrder']);
+    Route::get('delete-order{order_id}', [UpdateOrderController::class, 'deleteOrder']);
     Route::put('update-status-order{order_id}', [UpdateOrderController::class, 'updateStatusOrder']);
     Route::get('view-order{order_id}', [UpdateOrderController::class, 'orderDetails']);
-
-
-    Route::get('update-inventory', [UpdateInventoryController::class, 'index']);
 
     Route::get('add-blogs', [AddBlogController::class, 'index']);
     Route::post('add-blogs', [AddBlogController::class, 'store']);

@@ -31,6 +31,7 @@
     <link rel="stylesheet" href="{{ asset('client/css/style.css') }}">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+    @yield('css')
 
 </head>
 
@@ -76,6 +77,11 @@
                     <li class="nav-item"><a href="{{ url('about') }}" class="nav-link">giới thiệu</a></li>
                     <li class="nav-item"><a href="{{ url('blog') }}" class="nav-link">diễn đàn</a></li>
                     <li class="nav-item"><a href="{{ url('contact') }}" class="nav-link">địa chỉ</a></li>
+                    <li class="nav-item cta cta-colored"><a href="{{ url('cart') }}" class="nav-link">
+                            <span class="icon-shopping_cart">
+                            </span>
+                            [0]</a>
+                    </li>
                 </ul>
             </div>
 
@@ -92,7 +98,7 @@
                     </div>
                 </div>
 
-                @if(Auth::check())
+                @if (Auth::check())
                     <div class="user-area dropdown dropdown-user float-right">
                         <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false">
@@ -224,9 +230,8 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
     <script src="{{ asset('client/js/google-map.js') }}"></script>
     <script src="{{ asset('client/js/main.js') }}"></script>
+@yield('js');
 
-
-    </script>
 </body>
 
 </html>

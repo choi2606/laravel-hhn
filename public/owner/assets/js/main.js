@@ -1,15 +1,13 @@
 $.noConflict();
-
-jQuery(document).ready(function ($) {
+$(document).ready(function ($) {
     "use strict";
-
     [].slice
         .call(document.querySelectorAll("select.cs-select"))
         .forEach(function (el) {
             new SelectFx(el);
         });
 
-    jQuery(".selectpicker").selectpicker;
+    $(".selectpicker").selectpicker;
 
     $(".search-trigger").on("click", function (event) {
         event.preventDefault();
@@ -26,9 +24,6 @@ jQuery(document).ready(function ($) {
     $(".equal-height").matchHeight({
         property: "max-height",
     });
-
-    // var chartsheight = $('.flotRealtime2').height();
-    // $('.traffic-chart').css('height', chartsheight-122);
 
     // Counter Number
     $(".count").each(function () {
