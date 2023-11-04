@@ -1,16 +1,10 @@
 @extends('layouts.admin')
 @section('css')
     <style>
-        i.fa.fa-dollar.icon-dollar {
+        .addon-vnd {
             position: absolute;
-            left: 0;
-            margin-top: 12px;
-            margin-left: 23px;
-            color: rgb(176 173 173);
-        }
-
-        .input-price {
-            padding-left: 20px
+            right: 0;
+            margin-right: 15px;
         }
     </style>
 @endsection
@@ -88,9 +82,10 @@
                                     <div class="row form-group">
                                         <div class="col col-md-3"><label for="text-input"
                                                 class=" form-control-label">Giá</label></div>
-                                        <div class="col-12 col-md-9"><i class="fa fa-dollar icon-dollar"></i><input
-                                                type="text" id="text-input" name="productPrice"
-                                                placeholder="Nhập giá" class="form-control input-price">
+                                        <div class="col-12 col-md-9">
+                                            <div class="input-group-addon addon-vnd">VNĐ</div><input type="text"
+                                                id="text-input" name="productPrice" placeholder="Nhập giá"
+                                                class="form-control input-price">
                                         </div>
                                     </div>
                                     <div class="row form-group">
@@ -130,5 +125,14 @@
     <div class="clearfix"></div>
 @endsection
 @section('js')
-    <script></script>
+    <script>
+        function onResetValue(event) {
+            $(".selectCate").val("");
+            $('input[name="productName"]').val("");
+            $('textarea[name="productDesc"]').val("");
+            $('input[name="productPrice"]').val("");
+            $('input[name="productQuantity"]').val("");
+            $('input[name="productImage"]').val("");
+        }
+    </script>
 @endsection

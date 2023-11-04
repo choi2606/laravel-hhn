@@ -39,42 +39,24 @@
   });
 
 	$(document).ready(function(){
-
-		var button = document.getElementById("produc_1");
-		button.onclick=function() {
-			alert("Đã thêm vào mục yêu thích!")
-		}
-
-		var button = document.getElementById("produc_2");
-		button.onclick=function() {
-			alert("Đã thêm vào mục yêu thích!")
-		}
-		var button = document.getElementById("produc_3");
-		button.onclick=function() {
-			alert("Đã thêm vào mục yêu thích!")
-		}
-		var button = document.getElementById("produc_4");
-		button.onclick=function() {
-			alert("Đã thêm vào mục yêu thích!")
-		}
-		
+		$('.search-trigger-out').on('click', function(event) {
+			event.preventDefault();
+			event.stopPropagation();
+			$('.search-trigger-out').css('display', 'none');
+			$('.search-form').css('display', 'flex');
+			$('#users-nav').addClass('shipper');
+		});
+	
+		$('.search-close').on('click', function(event) {
+			event.preventDefault();
+			event.stopPropagation();
+			$('.search-trigger-out').css('display', 'block');
+			$('.search-form').css('display', 'none');
+			$('#users-nav').removeClass('shipper');
+		});
 	});
 
-  $('.search-trigger-out').on('click', function(event) {
-		event.preventDefault();
-		event.stopPropagation();
-		$('.search-trigger-out').css('display', 'none');
-		$('.search-form').css('display', 'flex');
-		$('#users-nav').addClass('shipper');
-	});
-
-	$('.search-close').on('click', function(event) {
-		event.preventDefault();
-		event.stopPropagation();
-		$('.search-trigger-out').css('display', 'block');
-		$('.search-form').css('display', 'none');
-		$('#users-nav').removeClass('shipper');
-	});
+  
 
 	var fullHeight = function() {
 
@@ -366,37 +348,6 @@
 		});
 	};
 	goHere();
-
-
-	function makeTimer() {
-
-		var endTime = new Date("21 July 2022 9:56:00 GMT+01:00");			
-		endTime = (Date.parse(endTime) / 1000);
-
-		var now = new Date();
-		now = (Date.parse(now) / 1000);
-
-		var timeLeft = endTime - now;
-
-		var ngày = Math.floor(timeLeft / 86400); 
-		var giờ = Math.floor((timeLeft - (ngày * 86400)) / 3600);
-		var phút = Math.floor((timeLeft - (ngày * 86400) - (giờ * 3600 )) / 60);
-		var giây = Math.floor((timeLeft - (ngày * 86400) - (giờ * 3600) - (phút * 60)));
-
-		if (giờ < "10") { giờ = "0" + giờ; }
-		if (phút < "10") { phút = "0" + phút; }
-		if (giây < "10") { giây = "0" + giây; }
-
-		$("#ngày").html(ngày + "<span>ngày</span>");
-		$("#giờ").html(giờ + "<span>giờ</span>");
-		$("#phút").html(phút + "<span>phút</span>");
-		$("#giây").html(giây + "<span>giây</span>");		
-
-}
-
-setInterval(function() { makeTimer(); }, 1000);
-
-
 
 })(jQuery);
 

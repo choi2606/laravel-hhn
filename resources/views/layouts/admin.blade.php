@@ -18,7 +18,7 @@
     <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
-    <link rel="stylesheet" href="{{ asset('owner/assets/css/style.css') }}"> <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
+    <link rel="stylesheet" href="{{ asset('owner/assets/css/style.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/chartist@0.11.0/dist/chartist.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/jqvmap@1.5.1/dist/jqvmap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/weathericons@2.1.0/css/weather-icons.css" rel="stylesheet" />
@@ -26,56 +26,7 @@
     <link rel="stylesheet" href="{{ asset('owner/assets/css/lib/chosen/chosen.min.css') }}">
     <link rel="stylesheet" href="{{ asset('owner/assets/css/cs-skin-elastic.css') }}">
     <link rel="stylesheet" href="{{ asset('owner/assets/css/lib/datatable/dataTables.bootstrap.min.css') }}">
-
-    
-    
-
-    <style>
-        body {
-            background-color: #f1f2f7;
-        }
-
-        #weatherWidget .currentDesc {
-            color: #ffffff !important;
-        }
-
-        .traffic-chart {
-            min-height: 335px;
-        }
-
-        #flotPie1 {
-            height: 150px;
-        }
-
-        #flotPie1 td {
-            padding: 3px;
-        }
-
-        #flotPie1 table {
-            top: 20px !important;
-            right: -10px !important;
-        }
-
-        .chart-container {
-            display: table;
-            min-width: 270px;
-            text-align: left;
-            padding-top: 10px;
-            padding-bottom: 10px;
-        }
-
-        #flotLine5 {
-            height: 105px;
-        }
-
-        #flotBarChart {
-            height: 150px;
-        }
-
-        #cellPaiChart {
-            height: 160px;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ asset('owner/assets/css/cs-adminlayout.css') }}">
     @yield('css')
     @yield('headtag')
 </head>
@@ -116,7 +67,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>Quản Lý Đơn Hàng</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-id-badge"></i><a href="{{ url('update-orders') }}">Cập Nhập Đơn
+                            <li><i class="fa fa-id-badge"></i><a href="{{ url('update-orders') }}">Cập nhật Đơn
                                     Hàng</a></li>
                         </ul>
                     </li>
@@ -251,6 +202,75 @@
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.js"></script>
     <script src="{{ asset('owner/assets/js/init/fullcalendar-init.js') }}"></script>
     @yield('js')
+    <script>
+        function toastSuccess(message) {
+            Swal.fire({
+                text: message,
+                position: "top-right",
+                icon: "success",
+                timer: 3000,
+                showConfirmButton: false,
+                backdrop: false,
+                showCloseButton: true,
+                customClass: {
+                    container: "swal2-container swal2-top-end",
+                    popup: "swal2-popup swal2-toast swal2-icon-success swal2-show",
+                    title: "swal2-title",
+                    closeButton: "swal2-close",
+                    icon: "swal2-icon swal2-success swal2-icon-show",
+                },
+            });
+        }
+
+        function toastError(message) {
+            Swal.fire({
+                text: message,
+                position: "top-right",
+                icon: "error",
+                timer: 3000,
+                showConfirmButton: false,
+                backdrop: false,
+                showCloseButton: true,
+                customClass: {
+                    container: "swal2-container swal2-top-end",
+                    popup: "swal2-popup swal2-toast swal2-icon-error swal2-show",
+                    title: "swal2-title",
+                    closeButton: "swal2-close",
+                    icon: "swal2-icon swal2-error swal2-icon-show",
+                },
+            });
+        }
+
+        $.put = function(url, data, successCallback, errorCallback, datatype) {
+            return $.ajax({
+                    url: url,
+                    type: 'PUT',
+                    data: data,
+                    dataType: datatype,
+                    headers: {
+                        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+                    }
+
+                })
+                .done(successCallback)
+                .fail(errorCallback)
+        }
+
+        $.post = function(url, data, successCallback, errorCallback, datatype) {
+            return $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: data,
+                    dataType: datatype,
+                    headers: {
+                        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+                    }
+
+                })
+                .done(successCallback)
+                .fail(errorCallback)
+        }
+    </script>
 </body>
 
 </html>

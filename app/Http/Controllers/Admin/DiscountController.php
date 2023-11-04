@@ -55,7 +55,7 @@ class DiscountController extends Controller
         $title = 'Xóa Mã Giảm Giá!';
         $text = "Bạn có chắc muốn xóa không?";
         confirmDelete($title, $text);
-        $discounts = Discount::select('discount_id','description', 'discount_code', DB::raw('DATEDIFF(expire, NOW()) as remainingDays'))->get();
+        $discounts = Discount::select('discount_id','description', 'discount_code', 'expire' ,DB::raw('DATEDIFF(expire, NOW()) as remainingDays'))->get();
         return view('admin.list_discounts', compact('discounts'));
     }
 

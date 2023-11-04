@@ -11,6 +11,12 @@ class Order extends Model
 
     protected $table = 'orders';
     protected $primaryKey = 'order_id';
+
+    protected $fillable = [
+        'user_id',
+        'order_code',
+        'total_amount',
+    ];
     public function users() {
         return $this->belongsTo(User::class, 'user_id', 'user_id');
     }

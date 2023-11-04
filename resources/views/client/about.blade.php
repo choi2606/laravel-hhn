@@ -30,7 +30,7 @@
 	          	<p>Tưng bừng khai trương, tưng bừng giảm giá. Chúng tôi chỉ kiếm lòng tin không kiềm tiền. Hoan nghênh cả nhà lên đơn.</p>
 							<p>Sản phẩm của shop chúng tôi đều là hàng thật đảm bảo chất lượng 100%. Chúng tôi hỗ trợ quý khách kiểm tra hàng hóa bằng bất cứ phương thức nào. Nếu có hàng giả, chúng tôi nguyện bồi hoàn gấp 100 lần cho quý khách. Quý khách hãy yên tâm mua sắm.</p>
               <p>Trên tinh thần khách hàng là thượng đế, chúng tôi nguyện phục vụ khách hàng bằng thái độ phục vụ chân thành nhất.</p>
-							<p><a href="{{url('shop1')}}" class="btn btn-primary">Mua sắm ngay bay giờ</a></p>
+							<p><a href="{{url('shop')}}" class="btn btn-primary">Mua sắm ngay bay giờ</a></p>
 						</div>
 					</div>
 				</div>

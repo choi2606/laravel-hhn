@@ -55,53 +55,25 @@
                                             onchange="(onSelectCate(event))">
                                         <option value="" label="default"></option>
                                         ${response.map((category) => `
-                                             <option value="${category.name}"
-                                             data-categoryid="${category.category_id}">${category.name}
-                                            </option>`).join("")};
+                                                 <option value="${category.name}"
+                                                 data-categoryid="${category.category_id}">${category.name}
+                                                </option>`).join("")};
                                         </select>`);
-                                        
+
                                     jQuery(".standardSelect").chosen({
                                         disable_search_threshold: 10,
                                         no_results_text: "Oops, nothing found!",
                                         width: "100%",
                                     });
-                                    Swal.fire({
-                                        text: 'Xóa thành công!',
-                                        position: 'top-right',
-                                        icon: "success",
-                                        timer: 3000,
-                                        showConfirmButton: false,
-                                        showCloseButton: true,
-                                        backdrop: false,
-                                        customClass: {
-                                            container: 'swal2-container swal2-top-end',
-                                            popup: 'swal2-popup swal2-toast swal2-icon-success swal2-show',
-                                            title: 'swal2-title',
-                                            closeButton: 'swal2-close',
-                                            icon: 'swal2-icon swal2-success swal2-icon-show',
-                                        }
-                                    })
+                                    toastSuccess('Xoá thành công!')
+
 
 
                                 },
                                 error: function(xhr, status, error) {
                                     // Thực hiện các thao tác khác khi xóa thất bại (nếu cần)
-                                    Swal.fire({
-                                        text: 'Xóa thất bại!',
-                                        position: 'top-right',
-                                        icon: "error",
-                                        timer: 3000,
-                                        showConfirmButton: false,
-                                        showCloseButton: true,
-                                        backdrop: false,
-                                        customClass: {
-                                            container: 'swal2-container swal2-top-end',
-                                            popup: 'swal2-popup swal2-toast swal2-icon-error swal2-show',
-                                            title: 'swal2-title',
-                                            closeButton: 'swal2-close',
-                                            icon: 'swal2-icon swal2-error swal2-icon-show',
-                                        }
-                                    })
+                                    toastError('Xóa thất bại!')
+
                                 }
                             });
                         }

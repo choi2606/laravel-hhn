@@ -30,7 +30,7 @@ class ListProductController extends Controller
         confirmDelete($title, $text);
         $queryProduct = Product::query();
         $this->joinSelectProduct($queryProduct);
-        $products = $queryProduct->paginate(10);
+        $products = $queryProduct->orderBy('products.created_at', 'desc')->paginate(10);
 
         if ($request->ajax()) {
             return response()->json($products);
@@ -50,14 +50,14 @@ class ListProductController extends Controller
         Product::where('product_id', $request->productID)->delete();
         $products = Product::query();
         $this->joinSelectProduct($products);
-        $products = $products->paginate(10);
+        $products = $products->orderBy('products.created_at', 'desc')->paginate(10);
         return response()->json($products);
     }
 
     public function loadDataOnURLDelete() {
         $queryProduct = Product::query();
         $this->joinSelectProduct($queryProduct);
-        $products = $queryProduct->paginate(10);
+        $products = $queryProduct->orderBy('products.created_at', 'desc')->paginate(10);
         return response()->json($products);
     }
 
@@ -108,7 +108,7 @@ class ListProductController extends Controller
                 ->orWhere("products.quantity", "LIKE", "%$request->valueSearch%");
         });
 
-        $products = $productQuery->paginate(10);
+        $products = $productQuery->orderBy('products.created_at', 'desc')->paginate(10);
         return response()->json($products, 200);
     }
 

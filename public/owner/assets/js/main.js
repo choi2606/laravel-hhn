@@ -34,14 +34,34 @@ $(document).ready(function ($) {
                     Counter: $(this).text(),
                 },
                 {
-                    duration: 3000,
+                    duration: 1000,
                     easing: "swing",
                     step: function (now) {
                         $(this).text(Math.ceil(now));
+                        // $(this).text(parseFloat(now).toFixed(3));
                     },
                 }
             );
     });
+
+    $(".count-float").each(function () {
+        $(this)
+            .prop("Counter", 0)
+            .animate(
+                {
+                    Counter: $(this).text(),
+                },
+                {
+                    duration: 1000,
+                    easing: "swing",
+                    step: function (now) {
+                        // $(this).text(Math.ceil(now));
+                        $(this).text(now.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."));
+                    },
+                }
+            );
+    });
+
 
     // Menu Trigger
     $("#menuToggle").on("click", function (event) {

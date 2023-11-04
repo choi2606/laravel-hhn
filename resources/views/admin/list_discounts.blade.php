@@ -6,89 +6,8 @@
 @endsection
 
 @section('css')
-    <style>
-        body {
-            background: #dedede;
-        }
+<link rel="stylesheet" href="{{ asset('owner/assets/css/cs-listdiscount.css') }}">
 
-        .mg-tb-20 {
-            margin: 20px 0px;
-        }
-
-        .coupon .kanan {
-            border-left: 1px dashed #ddd;
-            width: 40% !important;
-            position: relative;
-        }
-
-        .coupon .kanan .info::after,
-        .coupon .kanan .info::before {
-            content: '';
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background: #dedede;
-            border-radius: 100%;
-        }
-
-        .coupon .kanan .info::before {
-            top: -10px;
-            left: -10px;
-        }
-
-        .coupon .kanan .info::after {
-            bottom: -10px;
-            left: -10px;
-        }
-
-        .coupon .time {
-            font-size: 1.6rem;
-        }
-
-        aside.left-panel:hover {
-            overflow-x: unset;
-        }
-
-        a:hover,
-        a:focus {
-            text-decoration: none !important;
-        }
-
-        a.dropdown-toggle:hover {
-            text-decoration: none;
-        }
-
-        a:hover {}
-
-        .coupon .kanan .info::after,
-        .coupon .kanan .info::before {
-            background: #f0f8ff;
-        }
-
-        .dashboard {
-            color: #878787;
-        }
-
-        .dashboard:hover {
-            color: #000;
-        }
-
-        .icon-container {
-            width: 85px;
-        }
-
-        .coupon .kanan {
-            width: 30% !important;
-        }
-
-        .card-body.card-block {
-            background-color: aliceblue;
-        }
-
-        .info.m-3.d-flex.align-items-center {
-            text-align: center;
-        }
-    </style>
     <script src="{{ asset('owner/assets/js/qrcode.js') }}"></script>
 @endsection
 @section('content')
@@ -169,21 +88,11 @@
                                                             <div class="w-100">
                                                                 <div class="block">
                                                                     <span class="time font-weight-light">
-                                                                        @if ($discount->remainingDays <= 0)
-                                                                            <span style="color: red"
-                                                                                class="text-uppercase font-weight-normal">hết
-                                                                                hạn</span>
-                                                                        @else
-                                                                            <span
-                                                                                class="text-uppercase font-weight-normal">{{ $discount->remainingDays }}
-                                                                                NGÀY</span>
-                                                                        @endif
+                                                                        <span
+                                                                            class="text-uppercase font-weight-normal">{{ $discount->expire }}
+                                                                            NGÀY</span>
                                                                     </span>
                                                                 </div>
-                                                                {{-- <a href="#" target="_blank"
-                                                                    class="btn btn-sm btn-outline-danger btn-block">
-                                                                    show
-                                                                </a> --}}
                                                                 <a href="delete-discount{{ $discount->discount_id }}"
                                                                     class="btn btn-sm btn-outline-danger btn-block"
                                                                     data-confirm-delete="true">

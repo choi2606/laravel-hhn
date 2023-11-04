@@ -20,7 +20,7 @@ class ListUserController extends Controller
 
     public function loadEntries($number_entries)
     {
-        $usersQuery = User::where('role', '!=', 1);
+        $usersQuery = User::where('role', '!=', 1)->orderBy('created_at', 'desc');
         $users = ($number_entries != -1) ? $usersQuery->paginate($number_entries) : $usersQuery->get();
         return response()->json($users);
     }
@@ -39,9 +39,9 @@ class ListUserController extends Controller
         }
         
         if ($number_entries != -1) {
-            $users = User::where('role', '!=', 1)->paginate($number_entries);
+            $users = User::where('role', '!=', 1)->orderBy('created_at', 'desc')->paginate($number_entries);
         } else {
-            $users = User::where('role', '!=', 1)->get();
+            $users = User::where('role', '!=', 1)->orderBy('created_at', 'desc')->get();
         }
         if ($rowCount > 0) {
             return response()->json($users, 200);
@@ -66,9 +66,13 @@ class ListUserController extends Controller
         $user->phone_number = $validated['phone_number'];
         $user->save();
         if ($number_entries != -1) {
-            $users = User::where('role', '!=', 1)->paginate($number_entries);
+            $users = User::where('role', '!=', 1)
+            ->orderBy('created_at', 'desc')
+            ->paginate($number_entries);
         } else {
-            $users = User::where('role', '!=', 1)->get();
+            $users = User::where('role', '!=', 1)
+            ->orderBy('created_at', 'desc')
+            ->get();
         }
 
         if ($user->wasChanged()) {
@@ -85,7 +89,9 @@ class ListUserController extends Controller
                 ->orWhere("email", "LIKE", "%$request->valueSearch%")
                 ->orWhere("address", "LIKE", "%$request->valueSearch%")
                 ->orWhere("phone_number", "LIKE", "%$request->valueSearch%");
-        })->where('role', '!=', 1);
+        })
+        ->where('role', '!=', 1)
+        ->orderBy('created_at', 'desc');
         $users = ($number_entries != -1) ? $usersQuery->paginate($number_entries) : $usersQuery->get();
         return response()->json($users, 200);
     }

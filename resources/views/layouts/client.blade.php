@@ -69,7 +69,7 @@
                         <a class="nav-link shopping" href="#" id="dropdown04" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">Mua sắm</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown04">
-                            <a class="dropdown-item" href="{{ url('shop1') }}">Mua sắm</a>
+                            <a class="dropdown-item" href="{{ url('shop') }}">Mua sắm</a>
                             <a class="dropdown-item" href="{{ url('cart') }}">Giỏ hàng</a>
                             <a class="dropdown-item" href="{{ url('checkout') }}">Thủ tục thanh toán</a>
                         </div>
@@ -80,7 +80,7 @@
                     <li class="nav-item cta cta-colored"><a href="{{ url('cart') }}" class="nav-link">
                             <span class="icon-shopping_cart">
                             </span>
-                            [0]</a>
+                            [{{ count((array) session('cart')) }}]</a>
                     </li>
                 </ul>
             </div>
@@ -230,8 +230,60 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
     <script src="{{ asset('client/js/google-map.js') }}"></script>
     <script src="{{ asset('client/js/main.js') }}"></script>
-@yield('js');
+    @yield('js');
+    <script>
+        function toastSuccess(message) {
+            Swal.fire({
+                text: message,
+                position: "top-right",
+                icon: "success",
+                timer: 3000,
+                showConfirmButton: false,
+                backdrop: false,
+                showCloseButton: true,
+                customClass: {
+                    container: "swal2-container swal2-top-end",
+                    popup: "swal2-popup swal2-toast swal2-icon-success swal2-show",
+                    title: "swal2-title",
+                    closeButton: "swal2-close",
+                    icon: "swal2-icon swal2-success swal2-icon-show",
+                },
+            });
+        }
 
+        function toastError(message) {
+            Swal.fire({
+                text: message,
+                position: "top-right",
+                icon: "error",
+                timer: 3000,
+                showConfirmButton: false,
+                backdrop: false,
+                showCloseButton: true,
+                customClass: {
+                    container: "swal2-container swal2-top-end",
+                    popup: "swal2-popup swal2-toast swal2-icon-error swal2-show",
+                    title: "swal2-title",
+                    closeButton: "swal2-close",
+                    icon: "swal2-icon swal2-error swal2-icon-show",
+                },
+            });
+        }
+
+        $.put = function(url, data, successCallback, errorCallback, datatype) {
+            return $.ajax({
+                    url: url,
+                    type: 'PUT',
+                    data: data,
+                    dataType: datatype,
+                    headers: {
+                        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+                    }
+                })
+                .done(successCallback)
+                .fail(errorCallback);
+        }
+    </script>
 </body>
 
 </html>

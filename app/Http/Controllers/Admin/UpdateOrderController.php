@@ -10,25 +10,29 @@ use Illuminate\Support\Facades\DB;
 class UpdateOrderController extends Controller
 {
 
-    public function joinOrderDetail($query) {
+    public static function joinOrderDetail($query)
+    {
         $query->leftJoin("users", "orders.user_id", "=", "users.user_id")
             ->leftJoin('order_details', 'order_details.order_id', '=', 'orders.order_id')
             ->leftJoin('products', 'order_details.product_id', '=', 'products.product_id');
     }
 
-    public function joinSelectOrderDetail($query)
+    public static function joinSelectOrderDetail($query)
     {
-            $this->joinOrderDetail($query);
-            $query->select(
-                "orders.order_id",
-                "users.username",
-                "orders.status",
-                "orders.order_date",
-                DB::raw("COUNT(order_details.order_detail_id) as total_product"),
-                DB::raw("SUM(order_details.quantity) as total_quantity"),
-                DB::raw('SUM(order_details.quantity * products.price) as total_price'),
-                DB::raw('SUM(order_details.unit_price * order_details.quantity) as total_money')
-            )->groupBy("orders.order_id", "users.username", "orders.status", "orders.order_date");
+        self::joinOrderDetail($query);
+        $query->select(
+            "orders.order_id",
+            "orders.order_code",
+            "users.username",
+            "orders.status",
+            "orders.total_amount",
+            DB::raw("DATE_FORMAT(orders.created_at, '%d-%m-%Y %H:%i') as order_date"),
+            DB::raw("COUNT(order_details.order_detail_id) as total_product"),
+            DB::raw("SUM(order_details.quantity) as total_quantity"),
+            DB::raw('SUM(order_details.quantity * products.price) as total_price'),
+        )
+            ->orderBy("orders.created_at", "DESC")
+            ->groupBy("orders.order_id", "users.username", "orders.status", "orders.order_code", "orders.created_at", "orders.total_amount");
     }
 
     public function index()
@@ -37,7 +41,7 @@ class UpdateOrderController extends Controller
         $text = "Bạn có chắc muốn xóa đơn hàng này không?";
         confirmDelete($title, $text);
         $queryOrder = Order::query();
-        $this->joinSelectOrderDetail($queryOrder);
+        self::joinSelectOrderDetail($queryOrder);
         $orders = $queryOrder->get();
         return view('admin.update_orders', compact('orders'));
     }
@@ -47,27 +51,27 @@ class UpdateOrderController extends Controller
         $order = Order::find($order_id);
         $order->status = "hoàn thành";
         $order->save();
-        $queryOrder = Order::query();
-        $this->joinSelectOrderDetail($queryOrder);
-        $orders = $queryOrder->get();
-        return response()->json($orders);
+        toast('Cập nhật thành công', 'success');
+        return redirect()->back();
     }
 
     public function orderDetails($order_id)
     {
         $orderDetailQuery = Order::query();
-        $this->joinOrderDetail($orderDetailQuery);
+        self::joinOrderDetail($orderDetailQuery);
         $orderDetailQuery = $orderDetailQuery->select(
             "users.username",
             "products.name",
             "order_details.quantity",
-            "order_details.unit_price")
-        ->groupBy("order_details.quantity", "order_details.unit_price", "products.name", "users.username")
-        ->where('orders.order_id', $order_id)->get();
+            "order_details.unit_price"
+        )
+            ->groupBy("order_details.quantity", "order_details.unit_price", "products.name", "users.username")
+            ->where('orders.order_id', $order_id)->get();
         return response()->json($orderDetailQuery);
     }
 
-   public function deleteOrder($order_id) {
+    public function deleteOrder($order_id)
+    {
         OrderDetail::where("order_id", $order_id)->delete();
         $rowCount = Order::where('order_id', $order_id)->delete();
         if ($rowCount > 0) {
@@ -77,5 +81,5 @@ class UpdateOrderController extends Controller
 
         }
         return redirect()->back();
-   }
+    }
 }

@@ -1,197 +1,6 @@
 @extends('layouts.admin')
 @section('css')
-    <style>
-        .modal .container-modal {
-            padding-top: 150px;
-        }
-
-        .modal.open {
-            display: block;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            background-color: rgba(0, 0, 0, 0.5);
-        }
-
-        .modal .container-modal {
-            padding-top: 100px;
-            width: 1080px;
-            max-width: calc(100% - 32px);
-            min-width: 200px;
-            margin-left: auto;
-            margin-right: auto;
-            position: relative;
-            animation: modal-hide ease .5s;
-        }
-
-        .modal .close-icon {
-            position: absolute;
-            padding: 8px 16px;
-            font-size: 12px;
-            color: rgb(0, 0, 0);
-            right: 0;
-            line-height: 36px;
-            font-weight: 900;
-        }
-
-        .modal .close-icon:hover {
-            color: rgba(0, 0, 0, 0.579);
-        }
-
-        .modal .header-modal {
-            border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
-            background-color: #009688;
-            color: white;
-            text-align: center;
-            height: 70px;
-            line-height: 65px;
-            letter-spacing: 4px;
-            font-size: 30px;
-            font-weight: 100;
-        }
-
-        .modal .header-modal .heading-modal {
-            margin: 10px 0px;
-            letter-spacing: 4px;
-            font-weight: 200;
-        }
-
-        .modal .container-modal .content-modal {
-            height: 318px;
-            background-color: white;
-            padding: 0px 16px;
-        }
-
-        .modal .content-modal .margin {
-
-            display: inline-block;
-        }
-
-        .modal .container-modal .bill {
-            margin-top: 20px;
-        }
-
-        .modal .content-modal input {
-            width: 100%;
-            border: 1px solid #ccc;
-            line-height: 23px;
-            font-size: 15px;
-            margin: 8px 0px 20px;
-        }
-
-        .modal .container-modal .btn-update {
-            width: 100%;
-            display: block;
-            padding: 16px;
-            margin-bottom: 16px;
-            background-color: #009688;
-            text-align: center;
-            color: white;
-            text-decoration: none;
-        }
-
-        .modal .container-modal .btn-close {
-            width: 100%;
-            display: block;
-            padding: 16px;
-            margin-bottom: 16px;
-            background-color: #009688;
-            text-align: center;
-            color: white;
-            text-decoration: none;
-        }
-
-        .modal .container-modal .btn-update:hover {
-            background-color: #bbb5b5;
-            color: #000;
-        }
-
-        .modal .btn-pay a {}
-
-        .modal .btn-pay .icon-tick {
-            font-weight: 700;
-        }
-
-        .modal .container-modal .footer-modal {
-            width: 100%;
-            display: inline-block;
-            position: relative;
-            margin: 15px 0px 32px;
-        }
-
-
-        .modal .footer-modal .support {
-            position: absolute;
-            right: 0;
-            display: inline;
-        }
-
-        .modal .footer-modal>a {
-            text-decoration: none;
-
-        }
-
-        .modal .footer-modal .support a {
-            color: #2196F3;
-            margin-bottom: 15px;
-        }
-
-        /* Animation modal */
-
-        @keyframes modal-hide {
-
-            from {
-                transform: translateY(-150px);
-                opacity: 0;
-            }
-
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-
-        }
-
-
-        span.total_product {
-            justify-content: space-between;
-            padding-right: 40px;
-            align-items: center;
-        }
-
-        .view-products {
-            font-size: 20px;
-        }
-
-        .btn-form-details {
-            width: 100%;
-            display: block;
-            padding: 16px;
-            margin-bottom: 16px;
-            text-align: center;
-            text-decoration: none;
-        }
-
-        .icon-delete-user {
-            font-size: x-large;
-        }
-
-        td.d-flex.active {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        th.status {
-            text-align: left!important;
-        }
-    </style>
+<link rel="stylesheet" href="{{ asset('owner/assets/css/cs-indexadmin.css') }}">
 @endsection
 @section('content')
     <!-- Content -->
@@ -209,7 +18,7 @@
                                 </div>
                                 <div class="stat-content">
                                     <div class="text-left dib">
-                                        <div class="stat-text">$<span class="count">{{ $totalPrices }}</span></div>
+                                        <div class="stat-text"><span class="count-float">{{ $totalRevenue }}</span>đ</div>
                                         <div class="stat-heading">Doanh thu</div>
                                     </div>
                                 </div>
@@ -288,6 +97,7 @@
                                             <tr>
                                                 <th class="serial">#</th>
                                                 <th>ID</th>
+                                                <th>MÃ ĐẶT HÀNG</th>
                                                 <th>TÊN NGƯỜI DÙNG</th>
                                                 <th>SỐ SẢN PHẨM</th>
                                                 <th>SỐ LƯỢNG</th>
@@ -304,6 +114,7 @@
                                                 <tr>
                                                     <td class="serial">{{ $count++ }}.</td>
                                                     <td class="order_id">#{{ $order->order_id }}</td>
+                                                    <td><span class="order_code">{{ $order->order_code }}</span></td>
                                                     <td><span class="name">{{ $order->username }}</span></td>
                                                     <td><span class="total_product d-flex">
                                                             {{ $order->total_product }}
@@ -313,13 +124,11 @@
                                                             </a>
                                                         </span></td>
                                                     <td><span class="count">{{ $order->total_quantity }}</span></td>
-                                                    <td>$<span class="count">{{ $order->total_price }}</span></td>
-                                                    <td>
-                                                        $<span class="count">
-                                                            {{ $order->total_price - $order->total_money }}
-                                                        </span>
+                                                    <td><span class="count-float">{{ $order->total_price }}</span>đ</td>
+                                                    <td><span
+                                                            class="count-float">{{ $order->total_price - $order->total_amount }}</span>đ
                                                     </td>
-                                                    <td>$<span class="count">{{ $order->total_money }}</span></td>
+                                                    <td><span class="count-float">{{ $order->total_amount }}</span>đ</td>
                                                     <td><span class="order_date">{{ $order->order_date }}</span></td>
                                                     <td class="d-flex active">
                                                         @if ($order->status == 'đang chờ')
@@ -330,10 +139,7 @@
                                                         @else
                                                             <span class="badge badge-complete">{{ $order->status }}</span>
                                                         @endif
-                                                        <a href="delete-order{{$order->order_id}}"
-                                                            data-confirm-delete="true"
-                                                            class="fa fa-trash-o icon-delete-user">
-                                                        </a>
+                                                        
                                                     </td>
                                                 </tr>
                                             @empty
@@ -402,106 +208,6 @@
     <div class="clearfix"></div>
 @endsection
 @section('js')
-    <script>
-        $(document).ready(function() {
-            $(".modal").on("click", function() {
-                hideProducts();
-            });
+<script src="{{ asset('owner/assets/js/indexadmin.js') }}"></script>
 
-            $(".js-container-modal").on("click", function(event) {
-                event.stopPropagation();
-            });
-
-        });
-
-        function onUpdateStatus(event) {
-            event.preventDefault();
-            url = event.target.href;
-            sendRequestUpdateStatus(url);
-        }
-
-        function sendRequestUpdateStatus(url) {
-            $.ajax({
-                url: url,
-                type: "PUT",
-                datatype: "json",
-                headers: {
-                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-                },
-                success: function(response) {
-                    $(".tbody-order").empty();
-
-                    $.each(response, function(index, order) {
-                        $(".tbody-order").append(`
-                <tr>
-                    <td class="serial">${index++}.</td>
-                    <td class="order_id">#${order.order_id}</td>
-                    <td><span class="name">${order.username}</span></td>
-                    <td><span class="total_product">${
-                        order.total_product
-                    }</span></td>
-                    <td><span class="count">${order.quantity}</span></td>
-                    <td><span class="count">${order.total_price}</span></td>
-                    <td>
-                        <span class="count">
-                            ${order.total_price - order.total_money}
-                        </span>
-                    </td>
-                    <td><span class="count">${order.total_money}</span></td>
-                    <td><span class="order_date">${order.order_date}</span></td>
-                    <td>
-                        ${
-                            order.status == "đang chờ"
-                                ? `<a href="${
-                                                      window.location.origin /
-                                                      "update-status-order".order.order_id
-                                                  }" 
-                                            class="badge badge-pending" onclick="onUpdateStatus(event)">${
-                                                order.status
-                                            }</a>`
-                                : `<span class="badge badge-complete">${order.status}</span>`
-                        }
-                     </td>
-                  </tr>
-                `);
-                    });
-                },
-                error: function(jqXHR, textStatus, errorThrown) {},
-            });
-        }
-
-        function showProduct(event) {
-            event.preventDefault();
-            $(".modal").addClass("open");
-            url = event.target.href;
-            $.ajax({
-                url: url,
-                type: "GET",
-                datatype: "json",
-                success: function(data) {
-                    $(".tbody-order-detail").empty();
-                    $.each(data, function(index = 1, orderDetail) {
-                        $(".tbody-order-detail").append(
-                            `<tr>
-                    <td class="serial">${index + 1}.</td>
-                    <td><span class="name">${orderDetail.username}</span></td>
-                    <td><span class="total_product">
-                        ${orderDetail.name}
-                        </span></td>
-                    <td><span class="count">${orderDetail.quantity}</span></td>
-                    <td><span class="count">$${
-                        orderDetail.unit_price
-                    }/1</span></td>
-                </tr>`
-                        );
-                    });
-                },
-                error: function(jqXHR, textStatus, errorThrown) {},
-            });
-        }
-
-        function hideProducts(event) {
-            $(".modal").removeClass("open");
-        }
-    </script>
 @endsection

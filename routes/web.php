@@ -1,6 +1,10 @@
 <?php
 
 use App\Http\Controllers\Admin\DiscountController;
+use App\Http\Controllers\Client\CartController;
+use App\Http\Controllers\Client\DashboardClientController;
+use App\Http\Controllers\Client\PaymentDetailsController;
+use App\Http\Controllers\Client\ProductDetailController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Client\LoginUserController;
 use App\Http\Controllers\Client\RegisterUserController;
@@ -74,7 +78,7 @@ Route::middleware('admin')->group(function () {
     Route::get('update-orders', [UpdateOrderController::class, 'index']);
     Route::delete('delete-order{order_id}', [UpdateOrderController::class, 'deleteOrder']);
     Route::get('delete-order{order_id}', [UpdateOrderController::class, 'deleteOrder']);
-    Route::put('update-status-order{order_id}', [UpdateOrderController::class, 'updateStatusOrder']);
+    Route::get('update-status-order{order_id}', [UpdateOrderController::class, 'updateStatusOrder']);
     Route::get('view-order{order_id}', [UpdateOrderController::class, 'orderDetails']);
 
     Route::get('add-blogs', [AddBlogController::class, 'index']);
@@ -101,12 +105,8 @@ Route::get('/welcome', [Controller::class, 'welcome']);
 
 
 //client routes
-Route::get('/', function () {
-    return view('client.index');
-});
-Route::get('/about', function () {
-    return view('client.about');
-});
+Route::get('/', [DashboardClientController::class,'index']);
+Route::get('product-detail{product_id}', [ProductDetailController::class,'index']);
 Route::get('/blog-singles', function () {
     return view('client.blog-singles');
 });
@@ -114,17 +114,23 @@ Route::get('/blog', function () {
     return view('client.blog');
 });
 
-Route::get('/cart', function () {
-    return view('client.cart');
-});
-Route::get('/checkout', function () {
-    return view('client.checkout');
-});
+Route::get('cart', [CartController::class,'index'])->name('cart');
+Route::post('add-cart{id}', [CartController::class,'addProductToCart']);
+Route::get('update-cart', [CartController::class,'updateProductToCart']);
+Route::get('delete-product-cart{id}', [CartController::class,'deleteProductFromCart']);
+Route::post('apply-discount', [CartController::class,'applyDiscount']);
+Route::get('checkout', [PaymentDetailsController::class, 'index'])->name('checkout');
+Route::post('checkout', [PaymentDetailsController::class, 'store']);
+Route::post('check-payment-detail/{payment_method}', [PaymentDetailsController::class, 'addPaymentDetail']);
+Route::get('check-payment-detail/{payment_method}', [PaymentDetailsController::class, 'paymentOnline']);
 Route::get('/contact', function () {
     return view('client.contact');
 });
+Route::get('about', function () {
+   return view('client.about'); 
+});
 
-Route::get('shop1', [ShopClientController::class, 'index']);
+Route::get('shop', [ShopClientController::class, 'index']);
 Route::get('/product-detail', function () {
     return view('client.product-detail');
 });

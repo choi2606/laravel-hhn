@@ -9,7 +9,7 @@ class ShopClientController extends Controller
 {
     public function index() {
         $categories = Category::all();
-        return view('client.shop1', compact('categories'));
+        return view('client.shop', compact('categories'));
     }
 
     public function store() {
