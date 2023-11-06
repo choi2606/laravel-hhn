@@ -1,8 +1,12 @@
 <?php
 
 use App\Http\Controllers\Admin\DiscountController;
+use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\BotmanController;
 use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\Client\DashboardClientController;
+use App\Http\Controllers\Client\HomeClientController;
 use App\Http\Controllers\Client\PaymentDetailsController;
 use App\Http\Controllers\Client\ProductDetailController;
 use App\Http\Controllers\Controller;
@@ -47,7 +51,7 @@ Route::get('admin-logout', [LoginAdminController::class, 'logout']);
 
 Route::middleware('admin')->group(function () {
     //backend admin routes
-    Route::get('admin', [AdminController::class, 'index']);
+    Route::get('admin', [AdminController::class, 'index'])->name('admin.index');
 
     Route::get('add-user', [AddUserController::class, 'index']);
     Route::post('add-user', [AddUserController::class, 'store']);
@@ -63,23 +67,24 @@ Route::middleware('admin')->group(function () {
     Route::get('sort-descending/number_entries{number_entries}', [ListUserController::class, 'sortDescending']);
 
 
-    Route::get('add-products', [AddProductController::class, 'index']);
-    Route::post('add-products', [AddProductController::class, 'store']);
-    Route::get('list-products', [ListProductController::class, 'index']);
-    Route::post('list-products', [ListProductController::class, 'store']);
-    Route::delete('remove-product', [ListProductController::class, 'removeProduct']);
-    Route::get('remove-product', [ListProductController::class, 'loadDataOnURLDelete']);
-    Route::post('update-product{product_id}', [ListProductController::class, 'updateProduct']);
-    Route::get('search-products', [ListProductController::class, 'searchProducts']);
-    Route::get('sort-ascending-products', [ListProductController::class, 'sortAscendingProducts']);
-    Route::get('sort-descending-products', [ListProductController::class, 'sortDescendingProducts']);
+    Route::get('add-products', [ProductController::class, 'index']);
+    Route::post('add-products', [ProductController::class, 'addProduct']);
+    Route::get('list-products', [ProductController::class, 'listProduct']);
+    Route::post('list-products', [ProductController::class, 'store']);
+    Route::delete('remove-product', [ProductController::class, 'removeProduct']);
+    Route::get('remove-product', [ProductController::class, 'loadDataOnURLDelete']);
+    Route::post('update-product{product_id}', [ProductController::class, 'updateProduct']);
+    Route::put('update-status-product{product_id}', [ProductController::class, 'updateStatus']);
+    Route::get('search-products', [ProductController::class, 'searchProducts']);
+    Route::get('sort-ascending-products', [ProductController::class, 'sortAscendingProducts']);
+    Route::get('sort-descending-products', [ProductController::class, 'sortDescendingProducts']);
 
 
-    Route::get('update-orders', [UpdateOrderController::class, 'index']);
-    Route::delete('delete-order{order_id}', [UpdateOrderController::class, 'deleteOrder']);
-    Route::get('delete-order{order_id}', [UpdateOrderController::class, 'deleteOrder']);
-    Route::get('update-status-order{order_id}', [UpdateOrderController::class, 'updateStatusOrder']);
-    Route::get('view-order{order_id}', [UpdateOrderController::class, 'orderDetails']);
+    Route::get('update-orders', [OrderController::class, 'index']);
+    Route::delete('delete-order{order_id}', [OrderController::class, 'deleteOrder']);
+    Route::get('delete-order{order_id}', [OrderController::class, 'deleteOrder']);
+    Route::get('update-status-order{order_id}', [OrderController::class, 'updateStatusOrder']);
+    Route::get('view-order{order_id}', [OrderController::class, 'orderDetails']);
 
     Route::get('add-blogs', [AddBlogController::class, 'index']);
     Route::post('add-blogs', [AddBlogController::class, 'store']);
@@ -105,7 +110,7 @@ Route::get('/welcome', [Controller::class, 'welcome']);
 
 
 //client routes
-Route::get('/', [DashboardClientController::class,'index']);
+Route::get('/', [HomeClientController::class,'index']);
 Route::get('product-detail{product_id}', [ProductDetailController::class,'index']);
 Route::get('/blog-singles', function () {
     return view('client.blog-singles');

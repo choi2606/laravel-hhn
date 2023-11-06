@@ -16,7 +16,7 @@ class AdminController extends Controller
         $text = "Bạn có chắc muốn xóa đơn hàng này không?";
         confirmDelete($title, $text);
         $queryOrder = Order::query();
-        UpdateOrderController::joinSelectOrderDetail($queryOrder);
+        OrderController::joinSelectOrderDetail($queryOrder);
         $orders = $queryOrder->get();
         $totalRevenue = Order::where('status', '=', 'hoàn thành')
             ->sum('total_amount');

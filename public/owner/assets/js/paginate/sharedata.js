@@ -97,7 +97,7 @@ function sort(pathName, searchParamsCallBack, page, fieldName) {
 			if (buildSearchParams(searchParamsCallBack, page) === searchParam(numberEntries, page)) {
 				loadListUserPagination(pathName, data, numberEntries, page);
 			} else if (buildSearchParams(searchParamsCallBack, page) === searchParams(page)) {
-				loadListProductPagination(data, page);
+				loadListProductPagination(pathName, data, page);
 			}
 
 			var lastPage = data.last_page;

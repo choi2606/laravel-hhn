@@ -102,14 +102,16 @@
                     <div class="user-area dropdown dropdown-user float-right">
                         <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false">
-                            <img class="user-avatar rounded-circle" src="{{ asset('client/images/6.jpg') }}"
-                                alt="User Avatar">
+                            {{ Auth::user()->username }}
                         </a>
                         <div class="user-menu dropdown-menu">
-                            <a class="nav-link" href="#"><i class="fa fa-user icon-user"></i>My Profile</a>
-
+                            @if (Auth::user()->role == 1)
+                                <a class="nav-link" href="{{ route('admin.index') }}"><i
+                                        class="fa fa-cogs icon-user"></i>Admin</a>
+                            @endif
+                            <a class="nav-link" href="#"><i class="fa fa-user icon-user"></i>Đơn hàng</a>
                             <a class="nav-link" href="{{ url('logout') }}"><i
-                                    class="fa fa-power-off icon-user"></i>Logout</a>
+                                    class="fa fa-sign-out icon-user"></i>Logout</a>
                         </div>
                     </div>
                 @else
@@ -191,13 +193,6 @@
             </div>
             <div class="row">
                 <div class="col-md-12 text-center">
-
-                    <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        <!-- Copyright &copy;<script>
-                            document.write(new Date().getFullYear());
-                        </script> All rights reserved | This template is made with <i class="icon-heart color-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> -->
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    </p>
                 </div>
             </div>
         </div>
@@ -230,6 +225,7 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
     <script src="{{ asset('client/js/google-map.js') }}"></script>
     <script src="{{ asset('client/js/main.js') }}"></script>
+    <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
     @yield('js');
     <script>
         function toastSuccess(message) {
@@ -282,6 +278,26 @@
                 })
                 .done(successCallback)
                 .fail(errorCallback);
+        }
+
+        $('.user-area').on('focus', function(event) {
+            $(this).addClass('show');
+            $('.user-menu').addClass('show');
+        })
+    </script>
+    <script>
+        var botmanWidget = {
+            introMessage: 'Xin chào, Tôi là Chatbot!',
+            chatServer: 'http://127.0.0.1:8000/api/botman',
+            title: 'Shop best goods',
+            frameEndpoint: 'http://127.0.0.1:8000/botman/chat',
+            bubbleAvatarUrl: '',
+            mainColor: '#456765',
+            aboutText: '',
+            desktopHeight: 400,
+            desktopWidth: 300,
+            placeholderText: 'Send a message...',
+            displayMessageTime: true,
         }
     </script>
 </body>

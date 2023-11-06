@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('css')
-<link rel="stylesheet" href="{{ asset('owner/assets/css/cs-indexadmin.css') }}">
+    <link rel="stylesheet" href="{{ asset('owner/assets/css/cs-indexadmin.css') }}">
 @endsection
 @section('content')
     <!-- Content -->
@@ -139,7 +139,7 @@
                                                         @else
                                                             <span class="badge badge-complete">{{ $order->status }}</span>
                                                         @endif
-                                                        
+
                                                     </td>
                                                 </tr>
                                             @empty
@@ -208,6 +208,5 @@
     <div class="clearfix"></div>
 @endsection
 @section('js')
-<script src="{{ asset('owner/assets/js/indexadmin.js') }}"></script>
-
+    <script src="{{ asset('owner/assets/js/indexadmin.js') }}"></script>
 @endsection

@@ -108,14 +108,13 @@
         <header id="header" class="header">
             <div class="top-left">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="{{ url('admin') }}"
+                    <a class="navbar-brand" href="{{ url('/') }}"
                         style= "
     color: #00c292;
     font-weight: 800;
     font-size: 28px;
     text-transform: uppercase;
-">HHN
-                        ADMIN</a>
+">SHOP BEST GOODS</a>
                     <a class="navbar-brand hidden" href="./"><img src="{{ asset('owner/images/logo2.png') }}"
                             alt="Logo"></a>
                     <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
@@ -142,10 +141,9 @@
                         </a>
 
                         <div class="user-menu dropdown-menu">
-                            <a class="nav-link" href="#"><i class="fa fa-user"></i>My Profile</a>
 
                             <a class="nav-link" href="{{ url('admin-logout') }}"><i
-                                    class="fa fa-power-off"></i>Logout</a>
+                                    class="fa fa-sign-out"></i>Logout</a>
                         </div>
                     </div>
 

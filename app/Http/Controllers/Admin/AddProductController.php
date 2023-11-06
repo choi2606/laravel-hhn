@@ -22,7 +22,8 @@ class AddProductController extends Controller
             'selectCate' => 'required',
             'productName' => 'required',
             'productDesc' => 'required',
-            'productPrice' => 'required',
+            'originalPrice' => 'required',
+            'sellingPrice' => 'required',
             'productQuantity' => 'required',
             'productImage' => 'required|image|mimes:jpeg,png,jpg,gif|max:4500'
         ]);
@@ -41,7 +42,8 @@ class AddProductController extends Controller
             'category_id' => $request->selectCate,
             'name' => $request->productName,
             'description' => $request->productDesc,
-            'price' => $request->productPrice,
+            'original_price' => $request->originalPrice,
+            'selling_price' => $request->sellingPrice,
             'quantity' => intval($request->productQuantity),
             'image_url' => $imagePath,
         ]);

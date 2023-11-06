@@ -7,7 +7,7 @@ use App\Models\Order;
 use App\Models\OrderDetail;
 use Illuminate\Support\Facades\DB;
 
-class UpdateOrderController extends Controller
+class OrderController extends Controller
 {
 
     public static function joinOrderDetail($query)
@@ -26,7 +26,7 @@ class UpdateOrderController extends Controller
             "users.username",
             "orders.status",
             "orders.total_amount",
-            DB::raw("DATE_FORMAT(orders.created_at, '%d-%m-%Y %H:%i') as order_date"),
+            DB::raw("DATE_FORMAT(orders.created_at, '%d-%m-%Y') as order_date"),
             DB::raw("COUNT(order_details.order_detail_id) as total_product"),
             DB::raw("SUM(order_details.quantity) as total_quantity"),
             DB::raw('SUM(order_details.quantity * products.selling_price) as total_price'),

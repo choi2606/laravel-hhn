@@ -80,19 +80,35 @@
                                         </div>
                                     </div>
                                     <div class="row form-group">
-                                        <div class="col col-md-3"><label for="text-input"
-                                                class=" form-control-label">Giá</label></div>
-                                        <div class="col-12 col-md-9">
-                                            <div class="input-group-addon addon-vnd">VNĐ</div><input type="text"
-                                                id="text-input" name="productPrice" placeholder="Nhập giá"
+                                        <div class="col col-md-3"><label for="text-input" class=" form-control-label">Giá
+                                                gốc</label></div>
+                                        <div class="col-12 col-md-3 mr-5">
+                                            <div class="input-group-addon addon-vnd">đ</div><input type="text"
+                                                id="text-input" name="originalPrice" placeholder="Nhập giá gốc.. vd: 10000"
                                                 class="form-control input-price">
                                         </div>
+                                        <div class="col col-md-2 ml-5"><label for="text-input"
+                                                class=" form-control-label">Giá
+                                                bán</label></div>
+                                        <div class="col-12 col-md-3">
+                                            <div class="input-group-addon addon-vnd">đ</div><input type="text"
+                                                id="text-input" name="sellingPrice" placeholder="Nhập giá bán.. vd: 10000"
+                                                class="form-control input-price">
+                                        </div>
+
                                     </div>
                                     <div class="row form-group">
                                         <div class="col col-md-3"><label for="text-input" class=" form-control-label">Số
                                                 lượng</label></div>
                                         <div class="col-12 col-md-9"><input type="text" id="text-input"
                                                 name="productQuantity" placeholder="Nhập số lượng..." class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col col-md-3"><label for="text-input" class=" form-control-label">Trạng
+                                                thái</label></div>
+                                        <div class="col-12 col-md-9"><input type="text" id="text-input"
+                                                name="status" value="Hiện" class="form-control">
                                         </div>
                                     </div>
                                     <div class="row form-group">
@@ -108,7 +124,8 @@
                                         <button type="submit" class="btn btn-success btn-sm">
                                             <i class="fa fa-dot-circle-o"></i> Thêm
                                         </button>
-                                        <button type="reset" class="btn btn-danger btn-sm" onclick="onResetValue(event)">
+                                        <button type="reset" class="btn btn-danger btn-sm"
+                                            onclick="onResetValue(event)">
                                             <i class="fa fa-ban"></i> Làm mới
                                         </button>
                                     </div>

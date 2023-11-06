@@ -30,7 +30,7 @@
                                 },
                                 success: function(data) {
                                     // Thực hiện các thao tác khác sau khi xóa thành công (nếu cần)
-                                    loadListProductPagination(data, page);
+                                    loadListProductPagination(event.target.href,data, page);
                                     toastSuccess('Xoá thành công!')
 
                                 },

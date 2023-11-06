@@ -211,7 +211,6 @@ function onSubmitFormUpdateUser(event) {
 
 	$.put(`update-user${searchParam(numberEntries, page)}`, data)
 		.done(function (data) {
-			console.log(data);
 			loadListUserPagination("update-user", data, numberEntries, page);
 			if (numberEntries == -1) {
 				loadListUserFull(data, numberEntries);
