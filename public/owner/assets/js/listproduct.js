@@ -53,7 +53,10 @@ $(function () {
 				fieldName = "product_name";
 				break;
 			case arrTh[1]:
-				fieldName = "price";
+				fieldName = "original_price";
+				break;
+			case arrTh[2]:
+				fieldName = "selling_price";
 				break;
 			default:
 				break;
@@ -72,12 +75,12 @@ $(function () {
 function loadProductsFirst(page = 1) {
 	$.get(`list-products?page=${page}`)
 		.done(function (data) {
-			loadListProductPagination(data, page);
+			loadListProductPagination(pathName, data, page);
 		})
 		.fail(function () {});
 }
 
-function loadListProductPagination(data, page = 1) {
+function loadListProductPagination(pathName, data, page = 1) {
 	$(".tbody-order")
 		.empty()
 		.append(`<input type="hidden" name="storagePageNumber" value="${page}">`);
@@ -94,13 +97,22 @@ function loadListProductPagination(data, page = 1) {
                     ${product.product_name}
                 </span></td>
             <td><span class="">${product.description}</span></td>
-            <td><span class="">${product.price
+            <td><span class="">${product.original_price
 							.toString()
 							.replace(/\B(?=(\d{3})+(?!\d))/g, ".")}đ</span></td>
+			<td><span class="">${product.selling_price
+				.toString()
+				.replace(/\B(?=(\d{3})+(?!\d))/g, ".")}đ</span></td>
             <td><span class="">${product.quantity}</span></td>
             <td>
                 <img src="./client/images/product/${product.image_url}"
                     width="50" height="50" alt="">
+            </td>
+			<td>${
+				product.status == 1
+					? `<a href="update-status-product${product.product_id}" onclick="onUpdateStatus(event)" class="badge badge-success">Hiện</a>`
+					: `<a href="update-status-product${product.product_id}" onclick="onUpdateStatus(event)" class="badge badge-danger">Ẩn</a>`
+			}
             </td>
             <td align="center">
                 <a href=""
@@ -109,9 +121,11 @@ function loadListProductPagination(data, page = 1) {
                         '${product.category_name}',
                         '${product.product_name}',
                         '${product.description}', 
-                        '${product.price}', 
+                        '${product.original_price}', 
+                        '${product.selling_price}', 
                         '${product.quantity}', 
-                        '${product.image_url}')"
+                        '${product.image_url}',
+                        '${product.status}')"
                     class="fa fa-pencil-square-o">
                 </a>
                 <a href="remove-product" productID = "${
@@ -125,10 +139,20 @@ function loadListProductPagination(data, page = 1) {
 	});
 }
 
+function onUpdateStatus(e) {
+	e.preventDefault();
+	var page = $('input[name="storagePageNumber"]').val();
+	$.put(e.target.href)
+		.done(function (data) {
+			loadListProductPagination(e.target.href, data, page);
+		})
+		.fail(function () {});
+}
+
 function loadListProductOnURLDelete(page) {
 	$.get(`remove-product?page=${page}`)
 		.done(function (data) {
-			loadListProductPagination(data, page);
+			loadListProductPagination("remove-products", data, page);
 		})
 		.fail(function () {});
 }
@@ -139,16 +163,19 @@ function showFormUpdateProduct(
 	category_name,
 	product_name,
 	description,
-	price,
+	original_price,
+	selling_price,
 	quantity,
-	image_url
+	image_url,
+	status
 ) {
 	event.preventDefault();
 	$(".modal").addClass("open");
 	$("input[name=storageId]").val(product_id);
 	$("input[name=productName]").val(product_name);
 	$("textarea[name=productDesc]").val(description);
-	$("input[name=productPrice]").val(price);
+	$("input[name=originalPrice]").val(original_price);
+	$("input[name=sellingPrice]").val(selling_price);
 	$("input[name=productQuantity]").val(quantity);
 	$(".image-product")
 		.empty()
@@ -156,6 +183,10 @@ function showFormUpdateProduct(
 			`<input type="file" id="image-input" name="productImage" class="form-control-file" accept="image/*">
 <img src="./client/images/product/${image_url}" width="50" height="50" alt="">`
 		);
+
+		$("input[name=status]").val(status == 1 ? "hiện" : "ẩn");
+
+
 	var selectCate = $("#select-cate");
 	var findOption = selectCate.find(`option:contains("${category_name}")`);
 	selectCate.val(findOption.val());
@@ -167,19 +198,19 @@ function hideFormUpdateProduct(event) {
 	$(".modal").removeClass("open");
 }
 
-function onSubmitFormUpdateProduct(event) {
+function onSubmitFormUpdateProduct() {
 	var productID = $("input[name=storageId]").val();
 	var eleFormUpdate = $(".form-update-product");
 	eleFormUpdate.attr("action", "update-product" + productID);
 	$(".form-update-product").submit();
 }
 
-function onClearSearchProduct(event) {
+function onClearSearchProduct() {
 	$("input[name=searchProduct]").val("");
 	loadProductsFirst();
 }
 
-function onFocusSearchProduct(event) {
+function onFocusSearchProduct() {
 	$(".close-search").show();
 }
 
@@ -199,7 +230,7 @@ function sendDataSearchProduct(value, page = 1) {
 	};
 	$.get(`search-products?page=${page}`, data)
 		.done(function (data) {
-			loadListProductPagination(data, page);
+			loadListProductPagination("search-products", data, page);
 			var lastPage = data.last_page;
 			var previousPage = data.prev_page_url + `&valueSearch=${value}`;
 			var nextPage = data.next_page_url + `&valueSearch=${value}`;

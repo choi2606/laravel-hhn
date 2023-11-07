@@ -164,14 +164,24 @@
                     <div class="col-md-6 col-lg-3 ftco-animate fadeInUp ftco-animated">
                         <div class="product">
                             <a href="product-detail{{ $product->product_id }}" class="img-prod"><img class="img-fluid"
-                                    src="./client/images/product/{{ $product->image_url }}" alt="Colorlib Template">
+                                    src="./client/images/product/{{ $product->image_url }}" alt="Colorlib Template"
+                                    style="width: 254px; height: 191px;">
+                                @if ($product->selling_price < $product->original_price)
+                                    <span class="status">
+                                        {{ discounted($product) }}%
+                                    </span>
+                                @endif
                                 <div class="overlay"></div>
                             </a>
                             <div class="text py-3 pb-4 px-3 text-center">
                                 <h3><a href="#">{{ $product->name }}</a></h3>
                                 <div class="d-flex">
                                     <div class="pricing">
-                                        <p class="price"><span>{{ number_format($product->price, 0, ',', '.') }}đ</span>
+                                        <p class="price">
+                                            @if ($product->selling_price < $product->original_price)
+                                                <span class="mr-2 price-dc">{{ originalPrice($product) }}đ</span>
+                                            @endif
+                                            <span>{{ sellingPrice($product) }}đ</span>
                                         </p>
                                     </div>
                                 </div>
@@ -299,18 +309,6 @@
                     <a href="#" class="partner"><img src="{{ asset('/client/images/partner.jpg') }}"
                             class="img-fluid" alt="Colorlib Template"></a>
                 </div>
-                <!-- <div class="col-sm ftco-animate">
-                                    <a href="#" class="partner"><img src="images/partner-2.png" class="img-fluid" alt="Colorlib Template"></a>
-                                    </div>
-                                    <div class="col-sm ftco-animate">
-                                    <a href="#" class="partner"><img src="images/partner-3.png" class="img-fluid" alt="Colorlib Template"></a>
-                                    </div>
-                                    <div class="col-sm ftco-animate">
-                                    <a href="#" class="partner"><img src="images/partner-4.png" class="img-fluid" alt="Colorlib Template"></a>
-                                    </div>
-                                    <div class="col-sm ftco-animate">
-                                    <a href="#" class="partner"><img src="images/partner-5.png" class="img-fluid" alt="Colorlib Template"></a>
-                                    </div> -->
             </div>
         </div>
     </section>

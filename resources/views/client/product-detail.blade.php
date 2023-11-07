@@ -1,4 +1,18 @@
 @extends('layouts.client')
+@section('css')
+    <style>
+        .tdc-line {
+            color: #b3b3b3 !important;
+            text-decoration: line-through;
+        }
+
+        .ftco-navbar-light-discount {
+            background: #82ae46 !important;
+            color: #fff !important;
+            font-size: 90% !important;
+        }
+    </style>
+@endsection
 @section('content')
     <div class="hero-wrap hero-bread" style="background-image: url({{ asset('client/images/bg1.jpg') }});">
         <div class="container">
@@ -40,7 +54,18 @@
                                     bán</span></a>
                         </p>
                     </div>
-                    <p class="price"><span>{{ number_format($product->price, 0, ',', '.') }}đ/1</span></p>
+                    @if ($product->selling_price < $product->original_price)
+                        <p class="price position-relative">
+                            <span class="tdc-line">
+                                {{ originalPrice($product) }}đ/1
+                            </span>
+                            <span
+                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill ftco-navbar-light-discount">
+                                - {{ discounted($product) }}%
+                            </span>
+                        </p>
+                    @endif
+                    <p class="price"><span>{{ sellingPrice($product) }}đ/1</span></p>
                     <p>{{ $product->description }}</p>
                     <div class="row mt-4">
                         <div class="w-100"></div>
@@ -89,14 +114,29 @@
                     <div class="col-md-6 col-lg-3 ftco-animate fadeInUp ftco-animated">
                         <div class="product">
                             <a href="product-detail{{ $product->product_id }}" class="img-prod"><img class="img-fluid"
-                                    src="./client/images/product/{{ $product->image_url }}" alt="Colorlib Template">
+                                    src="./client/images/product/{{ $product->image_url }}" alt="Colorlib Template"
+                                    style="width: 254px; height: 191px;">
+                                @if ($product->selling_price < $product->original_price)
+                                    @php
+                                        $discouned = number_format((($product->original_price - $product->selling_price) / $product->original_price) * 100, 0);
+                                        $originalPrice = number_format($product->original_price, 0, ',', '.');
+                                        $sellingPrice = number_format($product->selling_price, 0, ',', '.');
+                                    @endphp
+                                    <span class="status">
+                                        {{ $discouned }}%
+                                    </span>
+                                @endif
                                 <div class="overlay"></div>
                             </a>
                             <div class="text py-3 pb-4 px-3 text-center">
                                 <h3><a href="#">{{ $product->name }}</a></h3>
                                 <div class="d-flex">
                                     <div class="pricing">
-                                        <p class="price"><span>{{ number_format($product->price, 0, ',', '.') }}</span>
+                                        <p class="price">
+                                            @if ($product->selling_price < $product->original_price)
+                                                <span class="mr-2 price-dc">{{ $originalPrice }}đ</span>
+                                            @endif
+                                            <span>{{ $sellingPrice }}đ</span>
                                         </p>
                                     </div>
                                 </div>
@@ -106,7 +146,7 @@
                                             class="add-to-cart d-flex justify-content-center align-items-center text-center">
                                             <span><i class="ion-ios-menu"></i></span>
                                         </a>
-                                        <a href="product-single{{ $product->product_id }}"
+                                        <a href="product-detail{{ $product->product_id }}"
                                             class="buy-now d-flex justify-content-center align-items-center mx-1">
                                             <span><i class="ion-ios-cart"></i></span>
                                         </a>

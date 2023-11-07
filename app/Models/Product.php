@@ -14,9 +14,11 @@ class Product extends Model
         'category_id',
         'name',
         'description',
-        'price',
+        'original_price',
+        'selling_price',
         'image_url',
         'quantity',
+        
     ];
 
     public function orderDetails() {

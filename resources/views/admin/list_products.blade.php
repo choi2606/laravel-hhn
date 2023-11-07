@@ -9,7 +9,7 @@
                 <div class="col-sm-4">
                     <div class="page-header float-left">
                         <div class="page-title">
-                            <h1>Dashboard</h1>
+                            <h1>Bảng Điều Khiển</h1>
                         </div>
                     </div>
                 </div>
@@ -17,7 +17,7 @@
                     <div class="page-header float-right">
                         <div class="page-title">
                             <ol class="breadcrumb text-right">
-                                <li><a href="{{ url('admin') }}">Dashboard</a></li>
+                                <li><a href="{{ url('admin') }}">Bảng Điều Khiển</a></li>
                                 <li><a href="#">Quản Lý Sản Phẩm</a></li>
                                 <li class="active">Liệt Kê Sản Phẩm</li>
                             </ol>
@@ -64,14 +64,24 @@
                                                 <th>MÔ TẢ</th>
                                                 <th>
                                                     <div class="d-flex table-header-product">
-                                                        <span>GIÁ</span>
+                                                        <span>GIÁ GỐC</span>
                                                         <div class="box-icon-arrange">
                                                             <i class="ti-arrows-vertical"></i>
                                                         </div>
                                                     </div>
                                                 </th>
+                                                <th>
+                                                    <div class="d-flex table-header-product">
+                                                        <span>GIÁ BÁN</span>
+                                                        <div class="box-icon-arrange">
+                                                            <i class="ti-arrows-vertical"></i>
+                                                        </div>
+
+                                                    </div>
+                                                </th>
                                                 <th>SỐ LƯỢNG</th>
                                                 <th>HÌNH</th>
+                                                <th>TRẠNG THÁI</th>
                                                 <th>HOẠT ĐỘNG</th>
                                             </tr>
                                         </thead>
@@ -149,14 +159,24 @@
                                                     class=" form-control-label">Mô
                                                     tả sản phẩm</label></div>
                                             <div class="col-12 col-md-9">
-                                                <textarea name="productDesc" id="textarea-input" rows="9" placeholder="Nội dung..." class="form-control"></textarea>
+                                                <textarea style="height: 100px" name="productDesc" id="textarea-input" rows="9" placeholder="Nội dung..." class="form-control"></textarea>
                                             </div>
                                         </div>
                                         <div class="row form-group">
-                                            <div class="col col-md-3"><label for="text-input"
-                                                    class=" form-control-label">Giá</label></div>
-                                            <div class="col-12 col-md-9"><input type="text" id="text-input"
-                                                    name="productPrice" placeholder="Nhập giá..." class="form-control">
+                                            <div class="col col-md-3"><label for="text-input" class=" form-control-label">Giá
+                                                    gốc</label></div>
+                                            <div class="col-12 col-md-3 mr-4">
+                                                <div class="input-group-addon addon-vnd">đ</div><input type="text"
+                                                    id="text-input" name="originalPrice" placeholder="Nhập giá gốc.. vd: 10000"
+                                                    class="form-control input-price">
+                                            </div>
+                                            <div class="col col-md-2 ml-5"><label for="text-input"
+                                                    class=" form-control-label">Giá
+                                                    bán</label></div>
+                                            <div class="col-12 col-md-3">
+                                                <div class="input-group-addon addon-vnd">đ</div><input type="text"
+                                                    id="text-input" name="sellingPrice" placeholder="Nhập giá bán.. vd: 10000"
+                                                    class="form-control input-price">
                                             </div>
                                         </div>
                                         <div class="row form-group">
@@ -165,6 +185,13 @@
                                             <div class="col-12 col-md-9"><input type="text" id="text-input"
                                                     name="productQuantity" placeholder="Nhập số lượng..."
                                                     class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <div class="col col-md-3"><label for="text-input" class=" form-control-label">Trạng
+                                                    thái</label></div>
+                                            <div class="col-12 col-md-9"><input type="text" id="text-input"
+                                                    name="status" value="" class="form-control">
                                             </div>
                                         </div>
                                         <div class="row form-group">
