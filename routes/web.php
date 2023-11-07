@@ -131,6 +131,8 @@ Route::get('about', function () {
 });
 
 Route::get('shop', [ShopClientController::class, 'index']);
+Route::get('categoryProducts/{category_id}', [ShopClientController::class, 'getProductsByCategory'])->name('categoryProducts');
+Route::get('search', [ShopClientController::class,'searchByName'])->name('products.search');
 Route::get('/product-detail', function () {
     return view('client.product-detail');
 });

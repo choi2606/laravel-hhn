@@ -89,11 +89,11 @@
                 <div class="header-left" style="display: -webkit-inline-box;">
                     <button class="search-trigger-out" style="display: block;"><i class="fa fa-search"></i></button>
                     <div class="form-inline" style="display: block;">
-                        <form class="search-form" style="display: none">
-                            <input class="form-control form-control-sm search mr-sm-2 rounded-pill" type="text"
+                        <form method="GET" action="{{ route('products.search') }}" class="search-form" style="display: none">
+                            <input name="name" class="form-control form-control-sm search mr-sm-2 rounded-pill" type="text"
                                 placeholder="Search ..." aria-label="Search">
-                            <button class="search-trigger"><i class="fa fa-search"></i></button>
-                            <button class="search-close" type="submit"><i class="fa fa-close"></i></button>
+                            <button class="search-trigger" type="submit"><i class="fa fa-search"></i></button>
+                            <button class="search-close"><i class="fa fa-close"></i></button>
                         </form>
                     </div>
                 </div>
