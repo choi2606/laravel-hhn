@@ -15,4 +15,8 @@ class Category extends Model
     ];
     protected $primaryKey = 'category_id';
     public $timestamps = false;
+    public function produtcs()
+    {
+        return $this->hasMany(Product::class, 'category_id', 'category_id');
+    }
 }

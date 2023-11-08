@@ -65,7 +65,7 @@
                             </span>
                         </p>
                     @endif
-                    <p class="price"><span>{{ sellingPrice($product) }}đ/1</span></p>
+                    <p class="price"><span>{{ $product->selling_price }}đ/1</span></p>
                     <p>{{ $product->description }}</p>
                     <div class="row mt-4">
                         <div class="w-100"></div>
@@ -136,7 +136,7 @@
                                             @if ($product->selling_price < $product->original_price)
                                                 <span class="mr-2 price-dc">{{ $originalPrice }}đ</span>
                                             @endif
-                                            <span>{{ $sellingPrice }}đ</span>
+                                            <span>{{ $product->selling_price }}đ</span>
                                         </p>
                                     </div>
                                 </div>
