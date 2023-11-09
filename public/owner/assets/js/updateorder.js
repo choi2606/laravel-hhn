@@ -1,12 +1,6 @@
 
 $(document).ready(function() {
-    $(".modal").on("click", function() {
-        hideProducts();
-    });
-
-    $(".js-container-modal").on("click", function(event) {
-        event.stopPropagation();
-    });
+    modal();
 });
 
 

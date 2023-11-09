@@ -232,5 +232,5 @@
 @endsection
 @section('js')
     <script src="{{ asset('owner/assets/js/listproduct.js') }}"></script>
-    <script src="{{ asset('owner/assets/js/paginate/sharedata.js') }}"></script>
+    <script src="{{ asset('owner/assets/js/sharedata.js') }}"></script>
 @endsection

@@ -136,7 +136,7 @@ class ProductController extends Controller
             'status' => 'required'
         ]);
 
-        if($validated['status'] == 'hiện') {
+        if ($validated['status'] == 'hiện') {
             $validated['status'] = 1;
         } else {
             $validated['status'] = 0;

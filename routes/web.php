@@ -56,10 +56,10 @@ Route::middleware('admin')->group(function () {
     Route::get('add-user', [AddUserController::class, 'index']);
     Route::post('add-user', [AddUserController::class, 'store']);
     Route::get('list-users', [ListUserController::class, 'index']);
+    Route::post('list-users', [ListUserController::class, 'store']);
     Route::get('list-users/number_entries{number_entries}', [ListUserController::class, 'loadEntries']);
     Route::delete('delete-users/number_entries{number_entries}', [ListUserController::class, 'deleteUser']);
     Route::get('delete-users/number_entries{number_entries}', [ListUserController::class, 'loadEntries']);
-    Route::post('list-users', [ListUserController::class, 'store']);
     Route::put('update-user/number_entries{number_entries}', [ListUserController::class, 'updateUser']);
     Route::get('update-user/number_entries{number_entries}', [ListUserController::class, 'loadEntries']);
     Route::get('search-users/number_entries{number_entries}', [ListUserController::class, 'searchUsers']);
@@ -95,14 +95,14 @@ Route::middleware('admin')->group(function () {
     Route::post('add-discount', [DiscountController::class, 'store']);
     Route::get('list-discount', [DiscountController::class, 'listDiscounts']);
     Route::get('delete-discount{discount_id}', [DiscountController::class, 'deleteDiscount']);
-    
+
 
 
     Route::get('list-categories', [CategoryDashboardController::class, 'index']);
     Route::post('add-category', [CategoryDashboardController::class, 'add_category']);
     Route::delete('remove-category{category_idSelect}', [CategoryDashboardController::class, 'remove_category']);
     Route::put('update_category{category_idSelect}', [CategoryDashboardController::class, 'update_category']);
-    
+
 
 });
 
@@ -110,8 +110,8 @@ Route::get('/welcome', [Controller::class, 'welcome']);
 
 
 //client routes
-Route::get('/', [HomeClientController::class,'index']);
-Route::get('product-detail{product_id}', [ProductDetailController::class,'index']);
+Route::get('/', [HomeClientController::class, 'index']);
+Route::get('product-detail{product_id}', [ProductDetailController::class, 'index']);
 Route::get('/blog-singles', function () {
     return view('client.blog-singles');
 });
@@ -119,11 +119,11 @@ Route::get('/blog', function () {
     return view('client.blog');
 });
 
-Route::get('cart', [CartController::class,'index'])->name('cart');
-Route::post('add-cart{id}', [CartController::class,'addProductToCart']);
-Route::get('update-cart', [CartController::class,'updateProductToCart']);
-Route::get('delete-product-cart{id}', [CartController::class,'deleteProductFromCart']);
-Route::post('apply-discount', [CartController::class,'applyDiscount']);
+Route::get('cart', [CartController::class, 'index'])->name('cart');
+Route::post('add-cart{id}', [CartController::class, 'addProductToCart']);
+Route::get('update-cart', [CartController::class, 'updateProductToCart']);
+Route::get('delete-product-cart{id}', [CartController::class, 'deleteProductFromCart']);
+Route::post('apply-discount', [CartController::class, 'applyDiscount']);
 Route::get('checkout', [PaymentDetailsController::class, 'index'])->name('checkout');
 Route::post('checkout', [PaymentDetailsController::class, 'store']);
 Route::post('check-payment-detail/{payment_method}', [PaymentDetailsController::class, 'addPaymentDetail']);
@@ -132,7 +132,7 @@ Route::get('/contact', function () {
     return view('client.contact');
 });
 Route::get('about', function () {
-   return view('client.about'); 
+    return view('client.about');
 });
 
 Route::get('shop', [ShopClientController::class, 'index']);

@@ -47,9 +47,10 @@
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="fa fa-puzzle-piece"></i><a href="{{ url('add-user') }}">Thêm Người Dùng</a>
                             </li>
+                           
                             <li><i class="fa fa-id-badge"></i><a href="{{ url('list-users') }}" class="list-users"
-                                    {{-- onclick="getData(event)" --}}>Liệt Kê Người Dùng</a>
-                            </li>
+                                {{-- onclick="getData(event)" --}}>Liệt Kê Người Dùng</a>
+                        </li>
                         </ul>
                     </li>
                     <li class="menu-item-has-children dropdown">

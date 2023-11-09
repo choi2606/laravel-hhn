@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use Illuminate\Support\Facades\DB;
+use Request;
 
 class OrderController extends Controller
 {
@@ -35,15 +36,12 @@ class OrderController extends Controller
             ->groupBy("orders.order_id", "users.username", "orders.status", "orders.order_code", "orders.created_at", "orders.total_amount");
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $title = 'Xóa Đơn Hàng!';
-        $text = "Bạn có chắc muốn xóa đơn hàng này không?";
-        confirmDelete($title, $text);
         $queryOrder = Order::query();
         self::joinSelectOrderDetail($queryOrder);
-        $orders = $queryOrder->get();
-        return view('admin.update_orders', compact('orders'));
+        $orders = $queryOrder->paginate(10);
+        return response()->json($orders);
     }
 
     public function updateStatusOrder($order_id)
@@ -68,18 +66,5 @@ class OrderController extends Controller
             ->groupBy("order_details.quantity", "order_details.unit_price", "products.name", "users.username")
             ->where('orders.order_id', $order_id)->get();
         return response()->json($orderDetailQuery);
-    }
-
-    public function deleteOrder($order_id)
-    {
-        OrderDetail::where("order_id", $order_id)->delete();
-        $rowCount = Order::where('order_id', $order_id)->delete();
-        if ($rowCount > 0) {
-            toast('Xóa đơn hàng thành công!', 'success');
-        } else {
-            toast('Xóa đơn hàng thất bại!', 'error');
-
-        }
-        return redirect()->back();
     }
 }
