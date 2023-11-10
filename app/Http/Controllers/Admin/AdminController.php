@@ -18,7 +18,7 @@ class AdminController extends Controller
         $queryOrder = Order::query();
         OrderController::joinSelectOrderDetail($queryOrder);
         $orders = $queryOrder->get();
-        $totalRevenue = Order::where('status', '=', 'hoàn thành')
+        $totalRevenue = Order::where('status', '=', 'success')
             ->sum('total_amount');
         $totalOrders = Order::count();
         $totalUsers = User::count();

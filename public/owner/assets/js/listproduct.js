@@ -1,6 +1,12 @@
 var pathName = window.location.pathname.split("/")[1];
 $(function () {
-	modal();
+	$(".modal1").on("click", function () {
+		hideFormUpdateUser();
+	});
+
+	$(".js-container-modal1").on("click", function (event) {
+		event.stopPropagation();
+	});
 
 	$(document).on("click", ".pagination a", function (event) {
 		var values = clickPaginate(event);
@@ -23,10 +29,7 @@ $(function () {
 		}
 	});
 	loadProductsFirst();
-
-
 	
-
 	var arrTh = [];
 	var elementsTh = $(".table-header-product > span");
 	elementsTh.each(function (index, element) {

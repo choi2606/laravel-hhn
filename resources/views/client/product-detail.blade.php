@@ -85,10 +85,10 @@
                         </div>
                         <div class="w-100"></div>
                         <div class="col-md-12">
-                            <p style="color: #000;">{{ $product->quantity }} hộp hàng có sẵn</p>
+                            <p style="color: #000;">{{ $product->quantity}} hộp hàng có sẵn</p>
                         </div>
                     </div>
-                    <p><a href="add-cart{{ $product->product_id }}" class="btn btn-black py-3 px-5"
+                    <p><a href="add-cart{{ $product->product_id }}" class="btn btn-black py-3 {{$product->quantity == 0 ? 'disabled':''}}"
                             onclick="onAddCart(event)">
                             Thêm vào giỏ hàng
                         </a></p>

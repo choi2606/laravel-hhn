@@ -13,6 +13,6 @@ class ListUserController extends Controller
     public function index()
     {
         $users = User::orderBy('created_at', 'desc')->get();
-        return view('admin.list_users', compact('users'));
+        return view('admin.user.list_users', compact('users'));
     }
 }

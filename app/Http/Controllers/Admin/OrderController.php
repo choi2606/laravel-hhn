@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use Illuminate\Support\Facades\DB;
-use Request;
+use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
@@ -40,14 +40,14 @@ class OrderController extends Controller
     {
         $queryOrder = Order::query();
         self::joinSelectOrderDetail($queryOrder);
-        $orders = $queryOrder->paginate(10);
-        return response()->json($orders);
+        $orders = $queryOrder->get();
+        return view('admin.order.list_orders', compact('orders'));
     }
 
-    public function updateStatusOrder($order_id)
+    public function updateStatusOrder($order_id, Request $request)
     {
         $order = Order::find($order_id);
-        $order->status = "hoàn thành";
+        $order->status = $request->status;
         $order->save();
         toast('Cập nhật thành công', 'success');
         return redirect()->back();

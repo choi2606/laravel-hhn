@@ -1,6 +1,10 @@
 @extends('layouts.admin')
+@section('title')
+    <title>SBG Admin | Tổng Quan</title>
+@endsection
 @section('css')
     <link rel="stylesheet" href="{{ asset('owner/assets/css/cs-indexadmin.css') }}">
+    <link rel="stylesheet" href="{{ asset('owner/assets/css/cs-updateorder.css') }}">
 @endsection
 @section('content')
     <!-- Content -->
@@ -85,73 +89,68 @@
             <!-- Orders -->
             <div class="orders">
                 <div class="row">
-                    <div class="col-xl-12">
+                    <div class="col-md-12">
                         <div class="card">
-                            <div class="card-body">
-                                <h4 class="box-title">Orders </h4>
+                            <div class="card-header">
+                                <strong class="card-title">Đơn hàng</strong>
                             </div>
-                            <div class="card-body--">
-                                <div class="table-stats order-table ov-h">
-                                    <table class="table ">
-                                        <thead>
+                            <div class="card-body">
+                                <table id="bootstrap-data-table" class="order-table2 table table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Mã Đơn hàng</th>
+                                            <th>Tên người dùng</th>
+                                            <th>Số sản phẩm</th>
+                                            <th>Số lượng</th>
+                                            <th>Thành tiền</th>
+                                            <th>Ngày đặt</th>
+                                            <th>Trạng thái</th>
+                                            <th>Cập Nhập</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @php $count = 1; @endphp
+                                        @forelse($orders as $order)
                                             <tr>
-                                                <th class="serial">#</th>
-                                                <th>ID</th>
-                                                <th>MÃ ĐẶT HÀNG</th>
-                                                <th>TÊN NGƯỜI DÙNG</th>
-                                                <th>SỐ SẢN PHẨM</th>
-                                                <th>SỐ LƯỢNG</th>
-                                                <th>TỔNG TIỀN</th>
-                                                <th>GIẢM GIÁ</th>
-                                                <th>THÀNH TIỀN</th>
-                                                <th>NGÀY ĐẶT HÀNG</th>
-                                                <th class="status">TRẠNG THÁI</th>
+                                                <td>{{ $count++ }}</td>
+                                                <td>{{ $order->order_code }}</td>
+                                                <td>{{ $order->username }}</td>
+                                                <td class="total_product d-flex">{{ $order->total_product }}
+                                                    <a href="{{ url('view-order' . $order->order_id) }}"
+                                                        class="fa fa-eye view-products" onclick="showProduct(event)">
+                                                    </a>
+                                                </td>
+                                                <td>{{ $order->total_quantity }}</td>
+                                                <td>{{ number_format($order->total_amount, 0, ',', '.') }}đ</td>
+                                                <td>{{ $order->order_date }}</td>
+                                                <td>
+                                                    @if ($order->status == 'pending')
+                                                        <span class="badge badge-pending">Đang chờ</span>
+                                                    @elseif($order->status == 'success')
+                                                        <span class="badge badge-complete">Hoàn thành</span>
+                                                    @elseif($order->status == 'delivering')
+                                                        <span class="badge badge-info">Đang giao</span>
+                                                    @else
+                                                        <span class="badge badge-danger">Đã hủy</span>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($order->status != 'success')
+                                                        <a href="update-status-order{{ $order->order_id }}"
+                                                            status="{{ $order->status }}"
+                                                            data-status = "{{ $order->status }}"
+                                                            onclick="showFormUpdateOrder(event)"
+                                                            class="fa fa-pencil-square-o">
+                                                        </a>
+                                                    @endif
+                                                </td>
                                             </tr>
-                                        </thead>
-                                        <tbody class="tbody-order">
-                                            <?php $count = 1; ?>
-                                            @forelse($orders as $order)
-                                                <tr>
-                                                    <td class="serial">{{ $count++ }}.</td>
-                                                    <td class="order_id">#{{ $order->order_id }}</td>
-                                                    <td><span class="order_code">{{ $order->order_code }}</span></td>
-                                                    <td><span class="name">{{ $order->username }}</span></td>
-                                                    <td><span class="total_product d-flex">
-                                                            {{ $order->total_product }}
-                                                            <a href="{{ url('view-order' . $order->order_id) }}"
-                                                                class="fa fa-eye view-products"
-                                                                onclick="showProduct(event)">
-                                                            </a>
-                                                        </span></td>
-                                                    <td><span class="count">{{ $order->total_quantity }}</span></td>
-                                                    <td><span class="count-float">{{ $order->total_price }}</span>đ</td>
-                                                    <td><span
-                                                            class="count-float">{{ $order->total_price - $order->total_amount }}</span>đ
-                                                    </td>
-                                                    <td><span class="count-float">{{ $order->total_amount }}</span>đ</td>
-                                                    <td><span class="order_date">{{ $order->order_date }}</span></td>
-                                                    <td class="d-flex active">
-                                                        @if ($order->status == 'đang chờ')
-                                                            <a href="{{ url('update-status-order' . $order->order_id) }}"
-                                                                class="badge badge-pending" onclick="onUpdateStatus(event)">
-                                                                {{ $order->status }}
-                                                            </a>
-                                                        @else
-                                                            <span class="badge badge-complete">{{ $order->status }}</span>
-                                                        @endif
-
-                                                    </td>
-                                                </tr>
-                                            @empty
-                                                <tr>
-                                                    <td>
-                                                        <p>No Orders</p>
-                                                    </td>
-                                                </tr>
-                                            @endforelse
-                                        </tbody>
-                                    </table>
-                                </div>
+                                        @empty
+                                            No orders
+                                        @endforelse
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -202,6 +201,8 @@
             </div>
         </div>
     </div>
+    @include('admin.order.modal')
+    @include('admin.order.edit')
     @include('sweetalert::alert_order')
     @include('sweetalert::alert_order', ['cdn' => 'https://cdn.jsdelivr.net/npm/sweetalert2@9'])
     <!-- /.content -->
@@ -209,4 +210,21 @@
 @endsection
 @section('js')
     <script src="{{ asset('owner/assets/js/indexadmin.js') }}"></script>
+    <script src="{{ asset('owner/assets/js/lib/data-table/datatables.min.js') }}"></script>
+    <script src="{{ asset('owner/assets/js/lib/data-table/dataTables.bootstrap.min.js') }}"></script>
+    <script src="{{ asset('owner/assets/js/lib/data-table/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('owner/assets/js/lib/data-table/buttons.bootstrap.min.js') }}"></script>
+    <script src="{{ asset('owner/assets/js/lib/data-table/jszip.min.js') }}"></script>
+    <script src="{{ asset('owner/assets/js/lib/data-table/vfs_fonts.js') }}"></script>
+    <script src="{{ asset('owner/assets/js/lib/data-table/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('owner/assets/js/lib/data-table/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('owner/assets/js/lib/data-table/buttons.colVis.min.js') }}"></script>
+    <script src="{{ asset('owner/assets/js/init/datatables-init.js') }}"></script>
+    <script src="{{ asset('owner/assets/js/updateorder.js') }}"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#bootstrap-data-table-export').DataTable();
+        });
+    </script>
 @endsection

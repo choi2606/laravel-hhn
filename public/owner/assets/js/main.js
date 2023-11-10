@@ -38,7 +38,6 @@ $(document).ready(function ($) {
                     easing: "swing",
                     step: function (now) {
                         $(this).text(Math.ceil(now));
-                        // $(this).text(parseFloat(now).toFixed(3));
                     },
                 }
             );
@@ -55,7 +54,6 @@ $(document).ready(function ($) {
                     duration: 1000,
                     easing: "swing",
                     step: function (now) {
-                        // $(this).text(Math.ceil(now));
                         $(this).text(now.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."));
                     },
                 }

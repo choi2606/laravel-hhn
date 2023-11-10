@@ -56,7 +56,6 @@ Route::middleware('admin')->group(function () {
     Route::get('add-user', [AddUserController::class, 'index']);
     Route::post('add-user', [AddUserController::class, 'store']);
     Route::get('list-users', [ListUserController::class, 'index']);
-    Route::post('list-users', [ListUserController::class, 'store']);
     Route::get('list-users/number_entries{number_entries}', [ListUserController::class, 'loadEntries']);
     Route::delete('delete-users/number_entries{number_entries}', [ListUserController::class, 'deleteUser']);
     Route::get('delete-users/number_entries{number_entries}', [ListUserController::class, 'loadEntries']);
@@ -79,11 +78,10 @@ Route::middleware('admin')->group(function () {
     Route::get('sort-ascending-products', [ProductController::class, 'sortAscendingProducts']);
     Route::get('sort-descending-products', [ProductController::class, 'sortDescendingProducts']);
 
-
-    Route::get('update-orders', [OrderController::class, 'index']);
+    Route::get('list-orders', [OrderController::class, 'index']);
     Route::delete('delete-order{order_id}', [OrderController::class, 'deleteOrder']);
     Route::get('delete-order{order_id}', [OrderController::class, 'deleteOrder']);
-    Route::get('update-status-order{order_id}', [OrderController::class, 'updateStatusOrder']);
+    Route::put('update-status-order{order_id}', [OrderController::class, 'updateStatusOrder']);
     Route::get('view-order{order_id}', [OrderController::class, 'orderDetails']);
 
     Route::get('add-blogs', [AddBlogController::class, 'index']);
@@ -94,6 +92,7 @@ Route::middleware('admin')->group(function () {
     Route::get('add-discount', [DiscountController::class, 'index']);
     Route::post('add-discount', [DiscountController::class, 'store']);
     Route::get('list-discount', [DiscountController::class, 'listDiscounts']);
+    Route::put('update-discount{discount_id}', [DiscountController::class, 'updateDiscount']);
     Route::get('delete-discount{discount_id}', [DiscountController::class, 'deleteDiscount']);
 
 

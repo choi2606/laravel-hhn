@@ -127,15 +127,7 @@ function sort(pathName, searchParamsCallBack, page, fieldName) {
 		.fail();
 }
 
-function modal() {
-	$(".modal").on("click", function () {
-		hideFormUpdateUser();
-	});
 
-	$(".js-container-modal").on("click", function (event) {
-		event.stopPropagation();
-	});
-}
 
 function clickPaginate(event) {
 	event.preventDefault();

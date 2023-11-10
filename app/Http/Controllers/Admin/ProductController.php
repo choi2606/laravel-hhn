@@ -12,7 +12,7 @@ class ProductController extends Controller
     public function index()
     {
         $categories = Category::all();
-        return view('admin.add_products', compact('categories'));
+        return view('admin.product.add_products', compact('categories'));
     }
 
 
@@ -63,12 +63,12 @@ class ProductController extends Controller
         toast('Thêm sản phẩm thành công!', 'success');
         // return redirect()->back();
         $categories = Category::all();
-        return view('admin.add_products', compact('categories'));
+        return view('admin.product.add_products', compact('categories'));
     }
 
     public function store()
     {
-        return view('admin.list_products');
+        return view('admin.product.list_products');
 
     }
 
@@ -85,7 +85,7 @@ class ProductController extends Controller
             return response()->json($products);
         }
         $categories = Category::all();
-        return view('admin.list_products', compact('categories', 'products'));
+        return view('admin.product.list_products', compact('categories', 'products'));
     }
 
 
