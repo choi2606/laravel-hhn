@@ -1,32 +1,16 @@
 @extends('layouts.admin')
+@section('title')
+    <title>SBG Admin | Thêm Sản Phẩm</title>
+@endsection
+
 @section('css')
     <link rel="stylesheet" href="{{ asset('owner/assets/css/cs-listproduct.css') }}">
 @endsection
+@section('breadcrumbs')
+    <li><a href="#">Quản lý sản phẩm</a></li>
+    <li class="active">liệt kê sản phẩm</li>
+@endsection
 @section('content')
-    <div class="breadcrumbs">
-        <div class="breadcrumbs-inner">
-            <div class="row m-0">
-                <div class="col-sm-4">
-                    <div class="page-header float-left">
-                        <div class="page-title">
-                            <h1>Bảng Điều Khiển</h1>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-8">
-                    <div class="page-header float-right">
-                        <div class="page-title">
-                            <ol class="breadcrumb text-right">
-                                <li><a href="{{ url('admin') }}">Bảng Điều Khiển</a></li>
-                                <li><a href="#">Quản Lý Sản Phẩm</a></li>
-                                <li class="active">Liệt Kê Sản Phẩm</li>
-                            </ol>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="content">
         <div class="animated fadeIn">
             <div class="orders">
@@ -34,7 +18,7 @@
                     <div class="col-xl-12">
                         <div class="card">
                             <div class="card-body row body-product">
-                                <h4 class="box-title">Liệt Kê Sản Phẩm</h4>
+                                <h4 class="box-title">Sản Phẩm</h4>
                                 <div id="bootstrap-data-table_filter" class="dataTables_filter">
                                     <label class="d-flex">
                                         <i class="close-icon ti-close close-search" style="display: none"
@@ -232,5 +216,5 @@
 @endsection
 @section('js')
     <script src="{{ asset('owner/assets/js/listproduct.js') }}"></script>
-    <script src="{{ asset('owner/assets/js/paginate/sharedata.js') }}"></script>
+    <script src="{{ asset('owner/assets/js/sharedata.js') }}"></script>
 @endsection

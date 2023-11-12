@@ -153,5 +153,6 @@
     <div class="clearfix"></div>
 @endsection
 @section('js')
-<script src="{{ asset('owner/assets/js/updateorder.js') }}"></script>
+    <script src="{{ asset('owner/assets/js/sharedata.js') }}"></script>
+    <script src="{{ asset('owner/assets/js/updateorder.js') }}"></script>
 @endsection

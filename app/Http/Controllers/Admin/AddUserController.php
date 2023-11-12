@@ -11,7 +11,7 @@ class AddUserController extends Controller
 {
     public function index()
     {
-        return view('admin.add_user');
+        return view('admin.user.add_user');
     }
 
 

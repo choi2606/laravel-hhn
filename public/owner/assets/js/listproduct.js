@@ -1,40 +1,35 @@
 var pathName = window.location.pathname.split("/")[1];
 $(function () {
-	$(".modal").on("click", function () {
-		hideFormUpdateProduct();
+	$(".modal1").on("click", function () {
+		hideFormUpdateUser();
 	});
 
-	$(".js-container-modal").on("click", function (event) {
+	$(".js-container-modal1").on("click", function (event) {
 		event.stopPropagation();
 	});
 
 	$(document).on("click", ".pagination a", function (event) {
-		event.preventDefault();
-		var url = new URL(event.target.href);
-		var page = url.searchParams.get("page");
-		pathName = url.pathname.split("/")[1];
-		var valueSearch = url.searchParams.get("valueSearch");
-		var fieldName = url.searchParams.get("fieldName");
+		var values = clickPaginate(event);
 		switch (pathName) {
 			case "remove-product":
-				loadListProductOnURLDelete(page);
+				loadListProductOnURLDelete(values.page);
 				break;
 			case "search-products":
-				sendDataSearchProduct(valueSearch, page);
+				sendDataSearchProduct(values.valueSearch, values.page);
 				break;
 			case "sort-ascending-products":
-				sortAscendingProduct(fieldName, page);
+				sortAscendingProduct(values.fieldName, values.page);
 				break;
 			case "sort-descending-products":
-				sortDescendingProduct(fieldName, page);
+				sortDescendingProduct(values.fieldName, values.page);
 				break;
 			default:
-				loadProductsFirst(page);
+				loadProductsFirst(values.page);
 				break;
 		}
 	});
 	loadProductsFirst();
-
+	
 	var arrTh = [];
 	var elementsTh = $(".table-header-product > span");
 	elementsTh.each(function (index, element) {
@@ -184,8 +179,7 @@ function showFormUpdateProduct(
 <img src="./client/images/product/${image_url}" width="50" height="50" alt="">`
 		);
 
-		$("input[name=status]").val(status == 1 ? "hiện" : "ẩn");
-
+	$("input[name=status]").val(status == 1 ? "hiện" : "ẩn");
 
 	var selectCate = $("#select-cate");
 	var findOption = selectCate.find(`option:contains("${category_name}")`);

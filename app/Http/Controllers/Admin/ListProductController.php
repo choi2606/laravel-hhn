@@ -36,13 +36,13 @@ class ListProductController extends Controller
             return response()->json($products);
         }
         $categories = Category::all();
-        return view('admin.list_products', compact('categories', 'products'));
+        return view('admin.product.list_products', compact('categories', 'products'));
     }
 
 
     public function store()
     {
-        return view('admin.list_products');
+        return view('admin.product.list_products');
     }
 
     public function removeProduct(Request $request)

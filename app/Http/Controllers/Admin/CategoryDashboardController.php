@@ -14,7 +14,7 @@ class CategoryDashboardController extends Controller
         $text = "Bạn có chắc muốn xóa danh mục này không?";
         confirmDelete($title, $text);
         $categories = Category::all();
-        return view('admin.list_categories', compact('categories'));
+        return view('admin.category.list_categories', compact('categories'));
     }
 
     public function add_category(Request $request)

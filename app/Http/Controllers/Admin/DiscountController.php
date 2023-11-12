@@ -14,7 +14,7 @@ class DiscountController extends Controller
      */
     public function index()
     {
-        return view('admin.add_discounts');
+        return view('admin.discount.add_discounts');
     }
 
     /**
@@ -39,26 +39,55 @@ class DiscountController extends Controller
 
         ]);
 
-        toast('Thêm mã giảm giá thành công!','success');
+        toast('Thêm mã giảm giá thành công!', 'success');
         return redirect()->back();
     }
 
-    public function listDiscounts() {
+    public function listDiscounts()
+    {
         $title = 'Xóa Mã Giảm Giá!';
         $text = "Bạn có chắc muốn xóa không?";
         confirmDelete($title, $text);
-        $discounts = Discount::select('discount_id','description', 'discount_code', 'expire' ,DB::raw('DATEDIFF(expire, NOW()) as remainingDays'))->get();
-        return view('admin.list_discounts', compact('discounts'));
+        $discounts = Discount::select('discount_id', 'description', 'discount_code', 'expire', 'type','discount', DB::raw('DATEDIFF(expire, NOW()) as remainingDays'))->get();
+        return view('admin.discount.list_discounts', compact('discounts'));
     }
 
-    public function deleteDiscount($discount_id) {
+    public function deleteDiscount($discount_id)
+    {
         $rowCount = Discount::where('discount_id', $discount_id)->delete();
-        if($rowCount > 0) {
+        if ($rowCount > 0) {
             toast('Xóa thành công!', 'success');
         } else {
             toast('Xóa thất bại!', 'error');
         }
         return redirect()->back();
+    }
+
+    public function updateDiscount($discount_id, Request $request) {
+        $validated = $request->validate([
+            'codeName' => 'required',
+            'selectType' => 'required',
+            'expire' => 'required',
+            'description' => 'required',
+            'discount' => 'required',
+        ]);
+
+        $discount = Discount::find($discount_id);
+        $discount->discount_code = $validated['codeName'];
+        $discount->type = $validated['selectType'];
+        $discount->expire = $validated['expire'];
+        $discount->description = $validated['description'];
+        $discount->discount = $validated['discount'];
+
+        $discount->save();
+
+        if($discount->wasChanged()) {
+            toast('Sửa thành công', 'success');
+        } else {
+            toast('Sửa thất bại!', 'error');
+        }
+        return redirect()->back();
+
     }
 
 }

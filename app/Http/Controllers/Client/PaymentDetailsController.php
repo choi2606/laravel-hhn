@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\PaymentDetail;
+use App\Models\Product;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -99,6 +100,9 @@ class PaymentDetailsController extends Controller
 
         $cart = session()->get('cart');
         foreach ($cart as $key => $value) {
+            $product = Product::find($key);
+            $product->quantity -= $value['quantity'];
+            $product->save();
             OrderDetail::create([
                 'order_id' => $order->order_id,
                 'product_id' => $key,

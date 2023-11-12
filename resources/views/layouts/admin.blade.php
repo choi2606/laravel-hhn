@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    @yield('title')
     <title>HHN Admin</title>
     <meta name="description" content="Ela Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width,
@@ -38,15 +39,15 @@
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="active">
-                        <a href="{{ url('/admin') }}"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
+                        <a href="{{ url('/admin') }}"><i class="menu-icon fa fa-laptop"></i>Tổng Quan </a>
                     </li>
-                    <li class="menu-title">UI elements</li><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>Quản Lý Người Dùng</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="fa fa-puzzle-piece"></i><a href="{{ url('add-user') }}">Thêm Người Dùng</a>
                             </li>
+
                             <li><i class="fa fa-id-badge"></i><a href="{{ url('list-users') }}" class="list-users"
                                     {{-- onclick="getData(event)" --}}>Liệt Kê Người Dùng</a>
                             </li>
@@ -67,7 +68,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>Quản Lý Đơn Hàng</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-id-badge"></i><a href="{{ url('update-orders') }}">Cập nhật Đơn
+                            <li><i class="fa fa-id-badge"></i><a href="{{ url('list-orders') }}">Cập nhật Đơn
                                     Hàng</a></li>
                         </ul>
                     </li>
@@ -114,7 +115,8 @@
     font-weight: 800;
     font-size: 28px;
     text-transform: uppercase;
-">SHOP BEST GOODS</a>
+">SHOP
+                        BEST GOODS</a>
                     <a class="navbar-brand hidden" href="./"><img src="{{ asset('owner/images/logo2.png') }}"
                             alt="Logo"></a>
                     <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
@@ -151,22 +153,34 @@
             </div>
         </header>
         <!-- /#header -->
-        @yield('content')
-        <!-- Footer -->
-        <footer class="site-footer">
-            <div class="footer-inner bg-white">
-                <div class="row">
-                    <div class="col-sm-6">
-                        Mọi thông tin về bản quyền xin liên hệ qua Mail:
-                        <br> &copy; hungtroipk.balabala@gmail.com
-                    </div>
-                    <div class="col-sm-6 text-right">
-                        Designed by <a href="">Colorlib</a>
+        @if (!Route::is('admin.index'))
+            <div class="breadcrumbs">
+                <div class="breadcrumbs-inner">
+                    <div class="row m-0">
+                        <div class="col-sm-4">
+                            <div class="page-header float-left">
+                                <div class="page-title">
+                                    <h1>Bảng Điều Khiển</h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="page-header float-right">
+                                <div class="page-title">
+                                    <ol class="breadcrumb text-right">
+                                        <li><a href="admin">Bảng điều khiển</a></li>
+                                        @yield('breadcrumbs')
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </footer>
-        <!-- /.site-footer -->
+        @endif
+
+        @yield('content')
+        <!-- Footer -->
     </div>
     <!-- /#right-panel -->
     @include('sweetalert::alert_admin')

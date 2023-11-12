@@ -1,31 +1,14 @@
 @extends('layouts.admin')
+@section('title')
+    <title>SBG Admin | Thêm Mã Giảm</title>
+@endsection
 @section('css')
 @endsection
+@section('breadcrumbs')
+    <li><a href="#">Quản lý Mã Giảm</a></li>
+    <li class="active">thêm mã giảm</li>
+@endsection
 @section('content')
-    <div class="breadcrumbs">
-        <div class="breadcrumbs-inner">
-            <div class="row m-0">
-                <div class="col-sm-4">
-                    <div class="page-header float-left">
-                        <div class="page-title">
-                            <h1>Dashboard</h1>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-8">
-                    <div class="page-header float-right">
-                        <div class="page-title">
-                            <ol class="breadcrumb text-right">
-                                <li><a href="{{ url('/admin') }}">Dashboard</a></li>
-                                <li><a href="#">Quản Lý Mã Giảm Giá</a></li>
-                                <li class="active">Thêm Mã Giảm</li>
-                            </ol>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="content">
         <div class="animated fadeIn">
             <div class="orders">

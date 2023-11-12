@@ -12,7 +12,7 @@ class AddProductController extends Controller
     public function index()
     {
         $categories = Category::all();
-        return view('admin.add_products', compact('categories'));
+        return view('admin.product.add_products', compact('categories'));
     }
 
 
@@ -50,6 +50,6 @@ class AddProductController extends Controller
         toast('Thêm sản phẩm thành công!', 'success');
         // return redirect()->back();
         $categories = Category::all();
-        return view('admin.add_products', compact('categories'));
+        return view('admin.product.add_products', compact('categories'));
     }
 }

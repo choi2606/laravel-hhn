@@ -29,7 +29,7 @@ class CartController extends Controller
                 "image" => $product->image_url,
                 "name" => $product->name,
                 "description" => $product->description,
-                "price" => $product->price,
+                "price" => $product->selling_price,
                 "quantity" => $quantity
             ];
             ksort($cart);
