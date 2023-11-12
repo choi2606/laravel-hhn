@@ -98,6 +98,12 @@
                             <i class="menu-icon fa fa-cogs"></i>Danh Mục Sản Phẩm
                         </a>
                     </li>
+
+                    <li class="">
+                        <a href="{{ url('add-blogs') }}" class="dropdown" aria-expanded="false">
+                            <i class="menu-icon fa fa-cogs"></i>Quản lý Blog
+                        </a>
+                    </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>
