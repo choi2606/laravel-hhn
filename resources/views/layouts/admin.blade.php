@@ -38,53 +38,35 @@
         <nav class="navbar navbar-expand-sm navbar-default">
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active">
+                    <li class="index">
                         <a href="{{ url('/admin') }}"><i class="menu-icon fa fa-laptop"></i>Tổng Quan </a>
                     </li>
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>Quản Lý Người Dùng</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-puzzle-piece"></i><a href="{{ url('add-user') }}">Thêm Người Dùng</a>
-                            </li>
 
-                            <li><i class="fa fa-id-badge"></i><a href="{{ url('list-users') }}" class="list-users"
-                                    {{-- onclick="getData(event)" --}}>Liệt Kê Người Dùng</a>
-                            </li>
-                        </ul>
-                    </li>
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>Quản Lý Sản Phẩm</a>
+                            aria-expanded="false"> <i class="menu-icon fa fa-cutlery"></i>Quản Lý Sản Phẩm</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-puzzle-piece"></i><a href="{{ url('add-products') }}">Thêm sản phẩm</a>
+                            <li><i class="fa fa-plus"></i><a href="{{ url('add-products') }}">Thêm sản phẩm</a>
                             </li>
-                            <li><i class="fa fa-id-badge"></i><a href="{{ url('list-products') }}">Liệt Kê Sản
+                            <li><i class="fa fa-list-alt"></i><a href="{{ url('list-products') }}">Liệt Kê Sản
                                     Phẩm</a>
                             </li>
                         </ul>
                     </li>
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>Quản Lý Đơn Hàng</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-id-badge"></i><a href="{{ url('list-orders') }}">Cập nhật Đơn
-                                    Hàng</a></li>
-                        </ul>
-                    </li>
 
+                    
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>Quản Lý Mã Giảm</a>
+                            aria-expanded="false"> <i class="menu-icon fa fa-qrcode"></i>Quản Lý Mã Giảm</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li class="">
-                                <i class="fa fa-puzzle-piece"></i>
+                                <i class="fa fa-plus"></i>
                                 <a href="{{ url('add-discount') }}">
                                     Thêm Mã Giảm Giá
                                 </a>
                             </li>
                             <li>
-                                <i class="fa fa-id-badge"></i>
+                                <i class="fa fa-list-alt"></i>
                                 <a href="{{ url('list-discount') }}">
                                     Liệt Kê Mã Giảm Giá
                                 </a>
@@ -92,12 +74,28 @@
                         </ul>
                     </li>
 
+                    <li class="">
+                        <a href="{{ url('list-orders') }}" class="dropdown-toggle"> 
+                            <i class="menu-icon ti ti-clipboard"></i>Đơn Hàng</a>
+                    </li>
+
+
 
                     <li class="">
                         <a href="{{ url('list-categories') }}" class="dropdown" aria-expanded="false">
-                            <i class="menu-icon fa fa-cogs"></i>Danh Mục Sản Phẩm
+                            <i class="menu-icon fa fa-list-alt"></i>Danh Mục
                         </a>
                     </li>
+
+
+
+                    <li class="">
+                        <a href="{{ url('list-users') }}" class="list-users">
+                            <i class="menu-icon fa fa-user-o"></i>Người Dùng</a>
+                    </li>
+
+
+
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>
@@ -108,24 +106,20 @@
         <!-- Header-->
         <header id="header" class="header">
             <div class="top-left">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="{{ url('/') }}"
-                        style= "
-    color: #00c292;
-    font-weight: 800;
-    font-size: 28px;
-    text-transform: uppercase;
-">SHOP
-                        BEST GOODS</a>
-                    <a class="navbar-brand hidden" href="./"><img src="{{ asset('owner/images/logo2.png') }}"
-                            alt="Logo"></a>
+                <div class="navbar-header d-flex">
+                    <a class="navbar-brand" href="./"><img src="{{ asset('owner/images/logoapp.png') }}"
+                            height="40px" width="40px" style="border-radius: 50%" alt="Logo"></a>
+                    <a class="navbar-brand" href="./"><img src="{{ asset('owner/images/logoadmin.png') }}"
+                            height="40px" width="800px" style="border-radius: 5%" alt="Logo"></a>
+
+                    <a class="navbar-brand hidden" href="./"><img
+                            src="{{ asset('owner/images/logoshop.png') }}" alt="Logo"></a>
                     <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
                 </div>
             </div>
             <div class="top-right">
                 <div class="header-menu">
                     <div class="header-left">
-                        <button class="search-trigger"><i class="fa fa-search"></i></button>
                         <div class="form-inline">
                             <form class="search-form">
                                 <input class="form-control mr-sm-2" type="text" placeholder="Search ..."

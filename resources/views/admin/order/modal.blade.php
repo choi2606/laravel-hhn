@@ -21,7 +21,7 @@
                                         <thead>
                                             <tr>
                                                 <th class="serial">#</th>
-                                                <th>Người Dùng </th>
+                                                <th>Người Mua </th>
                                                 <th>Sản Phẩm</th>
                                                 <th>Số Lượng</th>
                                                 <th>Đơn Giá</th>

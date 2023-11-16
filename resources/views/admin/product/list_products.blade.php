@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('title')
-    <title>SBG Admin | Thêm Sản Phẩm</title>
+    <title>SBG Admin | Liệt Kê Sản Phẩm</title>
 @endsection
 
 @section('css')

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Client;
 
+use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\Controller;
 use App\Models\Discount;
 use App\Models\Product;
 use Illuminate\Http\Request;
-
 class CartController extends Controller
 {
     public function index()
@@ -14,7 +14,8 @@ class CartController extends Controller
         $title = 'Xóa khỏi giỏ hàng!';
         $text = "Bạn có chắc muốn xóa không?";
         confirmDelete($title, $text);
-        return view('client.cart');
+        $discounts = DiscountController::listDiscounts();
+        return view('client.cart', compact('discounts'));
     }
 
     public function addProductToCart($id, Request $request)
@@ -65,7 +66,7 @@ class CartController extends Controller
     {
         $total = $request->get('storageTotal');
         $discount_code = $request->discountName;
-        if($discount_code == '') {
+        if ($discount_code == '') {
             return response()->json(['total' => $total, 'discount' => 0, 'type' => 2]);
         }
         $discount = Discount::where('discount_code', $discount_code)->where('expire', '>=', date('Y-m-d'))->first();
@@ -82,5 +83,9 @@ class CartController extends Controller
             return response()->json(['total' => $total, 'discount' => $discount->discount, 'type' => $discount->type]);
         }
         return response()->json([], 400);
+    }
+
+    public function feeTransport(Request $request){
+        
     }
 }

@@ -576,7 +576,7 @@ span.text-alert-successful {
 /* Global Styles */
 /* Main Styles */
 aside.left-panel {
-  background: #47586a;
+  background: #fff;
   height: 100vh;
   padding: 0;
   vertical-align: top;
@@ -598,7 +598,7 @@ aside.left-panel {
   margin-left: 83px; }
 
 .navbar {
-  background: #47586a;
+  background: #fff;
   border-radius: 0;
   border: none;
   display: inline-block;
@@ -638,7 +638,7 @@ aside.left-panel {
         display: none; }
       .navbar .navbar-nav li > a {
         background: none !important;
-        color: #fff;
+        color: #607d8b;
         display: inline-block;
         font-size: 14px;
         line-height: 26px;
@@ -648,7 +648,7 @@ aside.left-panel {
         .navbar .navbar-nav li > a:hover, .navbar .navbar-nav li > a:hover .menu-icon {
           color: #03a9f3; }
         .navbar .navbar-nav li > a .menu-icon {
-          color: #607d8b;
+          color: #abb4be;
           float: left;
           margin-top: 8px;
           width: 55px;
@@ -683,7 +683,7 @@ aside.left-panel {
           .navbar .navbar-nav li.menu-item-has-children a:hover:before {
             border-color: #03a9f3 #03a9f3 transparent transparent; }
         .navbar .navbar-nav li.menu-item-has-children .sub-menu {
-          background: #47586a;
+          background: #fff;
           border: none;
           -webkit-box-shadow: none;
                   box-shadow: none;
@@ -746,8 +746,7 @@ aside.left-panel {
   line-height: 35px;
   color: #607d8b;
   border-bottom: 1px solid rgba(96, 125, 139, 0.15); }
-.open .sub-menu i {
-  left: 15px !important; }
+
 
 .sub-menu .subtitle {
   display: none; }
@@ -876,7 +875,7 @@ aside.left-panel {
       content: "/\00a0"; }
 
 .right-panel header.header {
-  background: #47586a;
+  background: #fff;
   border-bottom: 1px solid #e8e9ed;
   -webkit-box-shadow: none;
           box-shadow: none;
@@ -896,7 +895,7 @@ aside.left-panel {
   padding-top: 7px; }
 .right-panel .navbar-header {
   width: 100%;
-  background-color: #47586a;
+  background-color: #fff;
   padding: 0 1.25em 0 0; }
   .right-panel .navbar-header > a {
     display: inline-block; }

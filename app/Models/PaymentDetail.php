@@ -14,12 +14,12 @@ class PaymentDetail extends Model
     protected $fillable = [
         'user_id',
         'order_id',
-        'first_name',
-        'last_name',
-        'address',
+        'receive_name',
+        'street',
+        'ward',
+        'district',
         'province',
         'phone_number',
-        'email',
         'method'
     ];
 }

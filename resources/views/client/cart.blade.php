@@ -1,39 +1,19 @@
 @extends('layouts.client')
 @section('css')
-    <style>
-        .ion-ios-close {
-            font-size: xx-large;
-        }
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('client/css/cs-cart.css') }}">
+    <link rel="stylesheet" href="{{ asset('client/css/cs-discount.css') }}">
 
-        .bd-un {
-            border-radius: unset;
-        }
-
-        .table tbody tr td {
-            padding: 10px 10px;
-        }
-
-        a.btn.btn-primary {
-            float: right;
-        }
-
-        a.btn.btn-primary.btn-update-card {
-            margin-top: 20px;
-        }
-
-        .btn-apply-discount {
-            background: #82ae46;
-            border: 1px solid #82ae46;
-            color: #fff;
-        }
-    </style>
+    <script src="{{ asset('owner/assets/js/qrcode.js') }}"></script>
 @endsection
 @section('content')
     <div class="hero-wrap hero-bread" style="background-image: url({{ asset('client/images/bg_1.jpg') }});">
         <div class="container">
             <div class="row no-gutters slider-text align-items-center justify-content-center">
                 <div class="col-md-9 ftco-animate text-center">
-                    <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Giỏ hàng</a></span> <span>tại nhà</span>
+                    <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Giỏ hàng</a></span> <span>tại
+                            nhà</span>
                     </p>
                     <h1 class="mb-0 bread">giỏ hàng của tôi</h1>
                 </div>
@@ -123,6 +103,84 @@
                     @endif
                 </div>
             </div>
+            <div class="orders pt-3">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong class="card-title">Mã Giảm Giá Khả Dụng</strong>
+                            </div>
+                            <div class="card-body card-block">
+                                <div class="container mg-tb-20">
+                                    <div class="row">
+                                        @forelse ($discounts as $discount)
+                                            @if ($discount->remainingDays > 0)
+                                                <div class="col-sm-6">
+                                                    <div
+                                                        class="coupon bg-white rounded mb-3 d-flex justify-content-between">
+                                                        <div class="kiri p-3">
+                                                            <div class="icon-container ">
+                                                                <div id="discount_{{ $discount->discount_id }}"
+                                                                    class="icon-container_box">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <script>
+                                                            var myId = "discount_" + <?= json_encode($discount->discount_id) ?>;
+                                                            var value = <?= json_encode($discount->discount_code) ?>;
+                                                            var qrcode = new QRCode(document.getElementById(myId), {
+                                                                text: value,
+                                                                width: 85,
+                                                                height: 85,
+                                                                colorDark: "#111111",
+                                                                colorLight: "#ffffff",
+                                                                correctLevel: QRCode.CorrectLevel.H
+                                                            });
+                                                        </script>
+                                                        <div class="tengah py-3 d-flex w-100 justify-content-start">
+                                                            <div>
+                                                                @if ($discount->remainingDays > 0)
+                                                                    <span class="badge badge-success">Valid</span>
+                                                                @else
+                                                                    <span class="badge badge-danger">Invalid</span>
+                                                                @endif
+                                                                <h3 class="lead">
+                                                                    {{ $discount->description }}</h3>
+                                                                <p class="text-muted mb-0">MÃ: <span
+                                                                        class="font-weight-bold">
+                                                                        {{ $discount->discount_code }}</span>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="kanan">
+                                                            <div class="info m-3 d-flex align-items-center">
+                                                                <div class="w-100">
+                                                                    <div class="block">
+                                                                        <span class="time font-weight-light">
+                                                                            HSD:
+                                                                            <span class="text-uppercase font-weight-normal">
+                                                                                {{ date_format(DateTime::createFromFormat('Y-m-d', $discount->expire), 'd/m') }}
+                                                                            </span>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endif
+                                        @empty
+                                            No discounts
+                                        @endforelse
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="row justify-content-end">
                 <div class="col-lg-4 mt-5 cart-wrap ftco-animate">
                     <div class="cart-total mb-3">
@@ -148,20 +206,29 @@
                         <form action="#" class="info">
                             <div class="form-group">
                                 <label for="country">Tỉnh/Thành phố</label>
-                                <input type="text" class="form-control text-left px-3" placeholder="">
+                                <select class="form-select form-select-sm mb-3" id="province"
+                                    aria-label=".form-select-sm">
+                                    <option value="" selected>Chọn tỉnh thành</option>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="district">Quận/Huyện</label>
-                                <input type="text" class="form-control text-left px-3" placeholder="">
+                                <select class="form-select form-select-sm mb-3" id="district"
+                                    aria-label=".form-select-sm">
+                                    <option value="" selected>Chọn quận huyện</option>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="district">Phường/Xã</label>
-                                <input type="text" class="form-control text-left px-3" placeholder="">
+                                <select class="form-select form-select-sm" id="ward" aria-label=".form-select-sm">
+                                    <option value="" selected>Chọn phường xã</option>
+                                </select>
                             </div>
 
                         </form>
                     </div>
-                    <p><a href="{{ url('update-product') }}" class="btn btn-primary">Tính toán phí vận chuyển</a></p>
+                    <p><a href="{{ url('fee-transport') }}" class="btn btn-primary btn-feeTransport">Tính toán phí vận
+                            chuyển</a></p>
                 </div>
                 <div class="col-lg-4 mt-5 cart-wrap ftco-animate">
                     <div class="cart-total mb-3">
@@ -171,12 +238,12 @@
                             <span id="total">{{ number_format($total, 0, ',', '.') }}đ</span>
                         </p>
                         <p class="d-flex">
+                            <span>Giảm giá</span>
+                            <span id="discount">0đ</span>
+                        </p>
+                        <p class="d-flex">
                             <span>Phí vận chuyển</span>
                             <span id="fee-ship">0đ</span>
-                        </p>
-                        <p class="d-none" id="discount-view">
-                            <span>Giảm giá</span>
-                            <span id="discount"></span>
                         </p>
                         <hr>
                         <p class="d-flex total-price">
@@ -214,136 +281,10 @@
     @include('sweetalert::alert_cart', ['cdn' => 'https://cdn.jsdelivr.net/npm/sweetalert2@9'])
 @endsection
 @section('js')
-    <script>
-        var listChange = {};
-
-        $(document).ready(function() {
-            $('.btn-update-card').click(function(e) {
-                e.preventDefault();
-                $.ajax({
-                    url: e.target.href,
-                    type: 'GET',
-                    datatype: 'json',
-                    data: {
-                        dataUpdate: listChange
-                    },
-                    success: function(data) {
-                        window.location.reload();
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {}
-                })
-            })
-
-            $('input[name="quantity"]').change(function(event) {
-                var id = $(this).parents('tr').attr('rowId');
-                var quantityNew = $(this).val();
-                updateTotalPrice(id, quantityNew);
-            })
-
-            $('.form-apply-discount').on('submit', function(e) {
-                e.preventDefault();
-                var formData = $(this).serialize();
-                $.ajax({
-                    url: 'apply-discount',
-                    method: 'POST',
-                    dataType: 'json',
-                    data: formData,
-                    success: function(data) {
-                        $('#total-price').empty().append(data.total.toString().replace(
-                            /\B(?=(\d{3})+(?!\d))/g, ".") + 'đ');
-                        $('#discount-view').addClass("d-flex");
-                        $('#discount').empty().append(
-                            `${String(Number(data.discount).toFixed(0)).replace(/\B(?=(\d{3})+(?!\d))/g, ".")}${data.type==1?'%':'đ'}`
-                        );
-                    },
-                    error: function(jqXHR, textStatus, errorTh) {
-                        $('#discount-view').addClass("d-none");
-                        Swal.fire({
-                            text: 'Áp dụng mã thất bại!',
-                            position: 'top-right',
-                            icon: "error",
-                            timer: 3000,
-                            showConfirmButton: false,
-                            showCloseButton: true,
-                            backdrop: false,
-                            customClass: {
-                                container: 'swal2-container swal2-top-end',
-                                popup: 'swal2-popup swal2-toast swal2-icon-error swal2-show',
-                                title: 'swal2-title',
-                                closeButton: 'swal2-close',
-                                icon: 'swal2-icon swal2-error swal2-icon-show',
-                            }
-                        })
-                    }
-                })
-            })
-
-            $('.btn-payment').click(function(e) {
-                e.preventDefault();
-                var total = $('#total').text().split('đ')[0];
-                var feeShip = $('#fee-ship').text().split('đ')[0];
-                var discount = $('#discount').text().split('đ')[0];
-                var totalPrice = $('#total-price').text().split('đ')[0];
-
-                var data = {
-                    _token: `{{ csrf_token() }}`,
-                    total: total,
-                    feeShip: feeShip,
-                    discount: discount,
-                    totalPrice: totalPrice,
-                };
-                $.post(e.target.href, data)
-                    .done(function(response) {
-                        window.location.href = e.target.href;
-                    })
-                    .fail(function(jqXHR, textStatus, error) {
-
-                    });
-            });
-
-        });
-
-        function onPlusQuantity(event) {
-            var id = $(event.target).parents('tr').attr('rowId');
-            // Stop acting like a button
-            event.preventDefault();
-            // Get the field name
-            var quantity = parseInt($('#quantity' + id).val());
-
-            // If is not undefined
-
-            $('#quantity' + id).val(quantity + 1);
-            var quantityNew = $('#quantity' + id).val();
-            updateTotalPrice(id, quantityNew);
-
-            // Increment
-        }
-
-        function onMinusQuantity(event) {
-            event.preventDefault();
-            // Get the field name
-            var id = $(event.target).parents('tr').attr('rowId');
-
-            var quantity = parseInt($('#quantity' + id).val());
-
-            // If is not undefined
-
-            // Increment
-            if (quantity > 0) {
-                $('#quantity' + id).val(quantity - 1);
-            }
-            var quantityNew = $('#quantity' + id).val();
-            updateTotalPrice(id, quantityNew);
-        }
-
-        function updateTotalPrice(id, quantityNew) {
-            listChange[id] = quantityNew;
-            var getPriceString = $('#price_product' + id).text().split('đ')[0];
-            getPriceString = getPriceString.replace('.', '');
-            var price = parseInt(getPriceString);
-            var total_price = price * quantityNew;
-            $('#total_price' + id).text(total_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g,
-                ".") + 'đ');
-        }
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous">
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script src="{{ asset('client/js/cart.js') }}"></script>
+    <script></script>
 @endsection

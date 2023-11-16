@@ -7,8 +7,7 @@
     <link rel="stylesheet" href="{{ asset('owner/assets/css/lib/datatable/dataTables.bootstrap.min.css') }}">
 @endsection
 @section('breadcrumbs')
-    <li><a href="#">Quản lý đơn hàng</a></li>
-    <li class="active">Danh sách đơn hàng</li>
+    <li class="active">đơn hàng</li>
 @endsection
 @section('content')
     <div class="content">
@@ -54,7 +53,7 @@
                                                 @if ($order->status == 'pending')
                                                     <span class="badge badge-pending">Đang chờ</span>
                                                 @elseif($order->status == 'success')
-                                                    <span class="badge badge-complete">Hoàn thành</span>
+                                                    <span class="badge badge-complete">Đã giao</span>
                                                 @elseif($order->status == 'delivering')
                                                     <span class="badge badge-info">Đang giao</span>
                                                 @else

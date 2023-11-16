@@ -71,94 +71,170 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="stat-widget-five">
-                                <div class="stat-icon dib"><i class="ti-user text-primary border-primary"></i></div>
+                                <div class="stat-icon dib"><i class="ti-server text-primary border-primary"></i></div>
                                 <div class="stat-content">
                                     <div class="text-left dib">
-                                        <div class="stat-text"><span class="count">{{ $newUsers }}</span></div>
-                                        <div class="stat-heading">Người dùng mới</div>
+                                        <div class="stat-text"><span class="count">{{ $totalProducts }}</span></div>
+                                        <div class="stat-heading">Tổng sản phẩm</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-
             </div>
-            <div class="clearfix"></div>
-            <!-- Orders -->
-            <div class="orders">
-                <div class="row">
-                    <div class="col-md-12">
+
+            <!--  Traffic  -->
+            <div class="row">
+                    <div class="col-lg-12">
                         <div class="card">
-                            <div class="card-header">
-                                <strong class="card-title">Đơn hàng</strong>
-                            </div>
                             <div class="card-body">
-                                <table id="bootstrap-data-table" class="order-table2 table table-striped table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Mã Đơn hàng</th>
-                                            <th>Tên người dùng</th>
-                                            <th>Số sản phẩm</th>
-                                            <th>Số lượng</th>
-                                            <th>Thành tiền</th>
-                                            <th>Ngày đặt</th>
-                                            <th>Trạng thái</th>
-                                            <th>Cập Nhập</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @php $count = 1; @endphp
-                                        @forelse($orders as $order)
-                                            <tr>
-                                                <td>{{ $count++ }}</td>
-                                                <td>{{ $order->order_code }}</td>
-                                                <td>{{ $order->username }}</td>
-                                                <td class="total_product d-flex">{{ $order->total_product }}
-                                                    <a href="{{ url('view-order' . $order->order_id) }}"
-                                                        class="fa fa-eye view-products" onclick="showProduct(event)">
-                                                    </a>
-                                                </td>
-                                                <td>{{ $order->total_quantity }}</td>
-                                                <td>{{ number_format($order->total_amount, 0, ',', '.') }}đ</td>
-                                                <td>{{ $order->order_date }}</td>
-                                                <td>
-                                                    @if ($order->status == 'pending')
-                                                        <span class="badge badge-pending">Đang chờ</span>
-                                                    @elseif($order->status == 'success')
-                                                        <span class="badge badge-complete">Hoàn thành</span>
-                                                    @elseif($order->status == 'delivering')
-                                                        <span class="badge badge-info">Đang giao</span>
-                                                    @else
-                                                        <span class="badge badge-danger">Đã hủy</span>
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    @if ($order->status != 'success')
-                                                        <a href="update-status-order{{ $order->order_id }}"
-                                                            status="{{ $order->status }}"
-                                                            data-status = "{{ $order->status }}"
-                                                            onclick="showFormUpdateOrder(event)"
-                                                            class="fa fa-pencil-square-o">
-                                                        </a>
-                                                    @endif
-                                                </td>
-                                            </tr>
-                                        @empty
-                                            No orders
-                                        @endforelse
-                                    </tbody>
-                                </table>
+                                <h4 class="box-title">Traffic </h4>
                             </div>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <div class="card-body">
+                                        <!-- <canvas id="TrafficChart"></canvas>   -->
+                                        <div id="traffic-chart" class="traffic-chart"></div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="card-body">
+                                        <div class="progress-box progress-1">
+                                            <h4 class="por-title">Visits</h4>
+                                            <div class="por-txt">96,930 Users (40%)</div>
+                                            <div class="progress mb-2" style="height: 5px;">
+                                                <div class="progress-bar bg-flat-color-1" role="progressbar" style="width: 40%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
+                                        <div class="progress-box progress-2">
+                                            <h4 class="por-title">Bounce Rate</h4>
+                                            <div class="por-txt">3,220 Users (24%)</div>
+                                            <div class="progress mb-2" style="height: 5px;">
+                                                <div class="progress-bar bg-flat-color-2" role="progressbar" style="width: 24%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
+                                        <div class="progress-box progress-2">
+                                            <h4 class="por-title">Unique Visitors</h4>
+                                            <div class="por-txt">29,658 Users (60%)</div>
+                                            <div class="progress mb-2" style="height: 5px;">
+                                                <div class="progress-bar bg-flat-color-3" role="progressbar" style="width: 60%;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
+                                        <div class="progress-box progress-2">
+                                            <h4 class="por-title">Targeted  Visitors</h4>
+                                            <div class="por-txt">99,658 Users (90%)</div>
+                                            <div class="progress mb-2" style="height: 5px;">
+                                                <div class="progress-bar bg-flat-color-4" role="progressbar" style="width: 90%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
+                                    </div> <!-- /.card-body -->
+                                </div>
+                            </div> <!-- /.row -->
+                            <div class="card-body"></div>
+                        </div>
+                    </div><!-- /# column -->
+                </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="chartjs-size-monitor"
+                                style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+                                <div class="chartjs-size-monitor-expand"
+                                    style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+                                    <div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div>
+                                </div>
+                                <div class="chartjs-size-monitor-shrink"
+                                    style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+                                    <div style="position:absolute;width:200%;height:200%;left:0; top:0"></div>
+                                </div>
+                            </div>
+                            <h4 class="mb-3">Bar chart </h4>
+                            <canvas id="barChart" width="668" height="333"
+                                style="display: block; height: 267px; width: 535px;"
+                                class="chartjs-render-monitor"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /# column -->
+        </div>
+        <!--  /Traffic -->
+        <div class="clearfix"></div>
+        <!-- Orders -->
+        <div class="orders">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <strong class="card-title">Đơn hàng</strong>
+                        </div>
+                        <div class="card-body">
+                            <table id="bootstrap-data-table" class="order-table2 table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Mã Đơn hàng</th>
+                                        <th>Tên người dùng</th>
+                                        <th>Số sản phẩm</th>
+                                        <th>Số lượng</th>
+                                        <th>Thành tiền</th>
+                                        <th>Ngày đặt</th>
+                                        <th>Trạng thái</th>
+                                        <th>Cập Nhập</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php $count = 1; @endphp
+                                    @forelse($orders as $order)
+                                        <tr>
+                                            <td>{{ $count++ }}</td>
+                                            <td>{{ $order->order_code }}</td>
+                                            <td>{{ $order->username }}</td>
+                                            <td class="total_product d-flex">{{ $order->total_product }}
+                                                <a href="{{ url('view-order' . $order->order_id) }}"
+                                                    class="fa fa-eye view-products" onclick="showProduct(event)">
+                                                </a>
+                                            </td>
+                                            <td>{{ $order->total_quantity }}</td>
+                                            <td>{{ number_format($order->total_amount, 0, ',', '.') }}đ</td>
+                                            <td>{{ $order->order_date }}</td>
+                                            <td>
+                                                @if ($order->status == 'pending')
+                                                    <span class="badge badge-pending">Đang chờ</span>
+                                                @elseif($order->status == 'success')
+                                                    <span class="badge badge-complete">Hoàn thành</span>
+                                                @elseif($order->status == 'delivering')
+                                                    <span class="badge badge-info">Đang giao</span>
+                                                @else
+                                                    <span class="badge badge-danger">Đã hủy</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($order->status != 'success')
+                                                    <a href="update-status-order{{ $order->order_id }}"
+                                                        status="{{ $order->status }}"
+                                                        data-status = "{{ $order->status }}"
+                                                        onclick="showFormUpdateOrder(event)"
+                                                        class="fa fa-pencil-square-o">
+                                                    </a>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        No orders
+                                    @endforelse
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- /#add-category -->
         </div>
-        <!-- .animated -->
+        <!-- /#add-category -->
+    </div>
+    <!-- .animated -->
     </div>
     <div class="modal">
         <div class="container-modal js-container-modal">
@@ -221,10 +297,12 @@
     <script src="{{ asset('owner/assets/js/lib/data-table/buttons.colVis.min.js') }}"></script>
     <script src="{{ asset('owner/assets/js/init/datatables-init.js') }}"></script>
     <script src="{{ asset('owner/assets/js/updateorder.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.3/dist/Chart.bundle.min.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function() {
             $('#bootstrap-data-table-export').DataTable();
+
         });
     </script>
 @endsection

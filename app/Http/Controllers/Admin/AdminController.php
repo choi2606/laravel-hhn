@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -18,12 +19,13 @@ class AdminController extends Controller
         $queryOrder = Order::query();
         OrderController::joinSelectOrderDetail($queryOrder);
         $orders = $queryOrder->get();
-        $totalRevenue = Order::where('status', '=', 'success')
+        $totalRevenue = Order::where('status', '=', 'delivering')
             ->sum('total_amount');
         $totalOrders = Order::count();
+        $totalProducts = Product::count();
         $totalUsers = User::count();
         $newUsers = User::where('created_at', '>=', date('Y-m-d', strtotime('-1 MONTH')))->count();
-        return view('admin.index', compact('totalUsers', 'totalOrders', 'newUsers', 'orders', 'totalRevenue'));
+        return view('admin.index', compact('totalUsers', 'totalOrders', 'newUsers', 'orders', 'totalRevenue', 'totalProducts'));
     }
 
     /**

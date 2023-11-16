@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller;
 use Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class LoginUserController extends Controller
 {
@@ -30,6 +31,7 @@ class LoginUserController extends Controller
 
     public function logout() {
         Auth::logout();
+        Session::flush();
         return redirect('/');
     }
 

@@ -85,10 +85,11 @@
                         </div>
                         <div class="w-100"></div>
                         <div class="col-md-12">
-                            <p style="color: #000;">{{ $product->quantity}} hộp hàng có sẵn</p>
+                            <p style="color: #000;">{{ $product->quantity }} hộp hàng có sẵn</p>
                         </div>
                     </div>
-                    <p><a href="add-cart{{ $product->product_id }}" class="btn btn-black py-3 {{$product->quantity == 0 ? 'disabled':''}}"
+                    <p><a href="add-cart{{ $product->product_id }}"
+                            class="btn btn-black py-3 btn-add-cart {{ $product->quantity == 0 ? 'disabled' : '' }}"
                             onclick="onAddCart(event)">
                             Thêm vào giỏ hàng
                         </a></p>
@@ -188,21 +189,35 @@
 @section('js')
     <script>
         $(document).ready(function() {
-            var quantitiy = 0;
+            var quantity = 0;
+            var max = $('#quantity').attr('max');
             $('.quantity-right-plus').click(function(e) {
                 // Stop acting like a button
                 e.preventDefault();
                 // Get the field name
                 var quantity = parseInt($('#quantity').val());
-
                 // If is not undefined
-
-                $('#quantity').val(quantity + 1);
-
+                if (quantity < max) {
+                    $('#quantity').val(quantity + 1);
+                }
 
                 // Increment
 
             });
+
+            $('#quantity').change(function(e) {
+                console.log(this.value, max);
+                console.log(this.value >= max);
+
+                if (this.value > max) {
+                    $('.btn-add-cart').addClass('disabled');
+                }
+                if (this.value <= max) {
+                    $('.btn-add-cart').removeClass('disabled');
+
+                }
+            })
+
 
             $('.quantity-left-minus').click(function(e) {
                 // Stop acting like a button
@@ -213,7 +228,7 @@
                 // If is not undefined
 
                 // Increment
-                if (quantity > 0) {
+                if (quantity > 1) {
                     $('#quantity').val(quantity - 1);
                 }
 

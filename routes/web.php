@@ -3,9 +3,7 @@
 use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
-use App\Http\Controllers\BotmanController;
 use App\Http\Controllers\Client\CartController;
-use App\Http\Controllers\Client\DashboardClientController;
 use App\Http\Controllers\Client\HomeClientController;
 use App\Http\Controllers\Client\PaymentDetailsController;
 use App\Http\Controllers\Client\ProductDetailController;
@@ -14,14 +12,11 @@ use App\Http\Controllers\Client\LoginUserController;
 use App\Http\Controllers\Client\RegisterUserController;
 use App\Http\Controllers\Client\ShopClientController;
 use App\Http\Controllers\Admin\AddBlogController;
-use App\Http\Controllers\Admin\AddProductController;
 use App\Http\Controllers\Admin\AddUserController;
 use App\Http\Controllers\Admin\CategoryDashboardController;
 use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\ListProductController;
 use App\Http\Controllers\Admin\ListUserController;
 use App\Http\Controllers\Admin\LoginAdminController;
-use App\Http\Controllers\Admin\UpdateOrderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -91,17 +86,14 @@ Route::middleware('admin')->group(function () {
 
     Route::get('add-discount', [DiscountController::class, 'index']);
     Route::post('add-discount', [DiscountController::class, 'store']);
-    Route::get('list-discount', [DiscountController::class, 'listDiscounts']);
+    Route::get('list-discount', [DiscountController::class, 'discountIndex']);
     Route::put('update-discount{discount_id}', [DiscountController::class, 'updateDiscount']);
     Route::get('delete-discount{discount_id}', [DiscountController::class, 'deleteDiscount']);
-
-
 
     Route::get('list-categories', [CategoryDashboardController::class, 'index']);
     Route::post('add-category', [CategoryDashboardController::class, 'add_category']);
     Route::delete('remove-category{category_idSelect}', [CategoryDashboardController::class, 'remove_category']);
     Route::put('update_category{category_idSelect}', [CategoryDashboardController::class, 'update_category']);
-
 
 });
 
@@ -127,7 +119,7 @@ Route::get('checkout', [PaymentDetailsController::class, 'index'])->name('checko
 Route::post('checkout', [PaymentDetailsController::class, 'store']);
 Route::post('check-payment-detail/{payment_method}', [PaymentDetailsController::class, 'addPaymentDetail']);
 Route::get('check-payment-detail/{payment_method}', [PaymentDetailsController::class, 'paymentOnline']);
-Route::get('/contact', function () {
+Route::get('contact', function () {
     return view('client.contact');
 });
 Route::get('about', function () {
@@ -135,7 +127,24 @@ Route::get('about', function () {
 });
 
 Route::get('shop', [ShopClientController::class, 'index']);
-Route::get('/product-detail', function () {
+Route::get('product-detail', function () {
     return view('client.product-detail');
 });
+
+Route::get('fee-transport', [CartController::class, 'feeTransport']);
+
+Route::get('email', function () {
+    $cart = session()->get('cart');
+    $pay = session()->get('payment');
+    $status = 'pending';
+    $code = "ORDER1234";
+    $method = "Tiền mặt";
+    $orderDate = date_format(now(), 'd/m/Y');
+    return view('emails.orders.welcome', compact('status', 'code', 'cart', 'method', 'pay', 'orderDate'));
+});
+
+Route::get('vietnam', function() {
+    return response()->file(public_path('data\vietnam.json'));
+});
+
 //frontend admin routes
