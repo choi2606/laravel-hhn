@@ -191,8 +191,11 @@ function getFeeTransport(WardCode, provinceID, DistrictID) {
 						"."
 					)}đ`
 				);
-			toastSuccess("Ước tính thành công! Phí: " + fee.total.toString()
-						.replace(/\B(?=(\d{3})+(?!\d))/g, ".") + "đ");
+			toastSuccess(
+				"Ước tính thành công! Phí: " +
+					fee.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") +
+					"đ"
+			);
 		},
 		error: function (err) {
 			toastError(

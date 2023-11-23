@@ -16,12 +16,13 @@ class Order extends Model
         'user_id',
         'order_code',
         'total_amount',
+        'subtotal',
     ];
     public function users() {
         return $this->belongsTo(User::class, 'user_id', 'user_id');
     }
 
-    public function orderDetails() {
+    public function orderDetail() {
         return $this->hasMany(OrderDetail::class, 'order_id', 'order_id');
     }
 }

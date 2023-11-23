@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\Client\HomeClientController;
+use App\Http\Controllers\Client\OrdersController;
 use App\Http\Controllers\Client\PaymentDetailsController;
 use App\Http\Controllers\Client\ProductDetailController;
 use App\Http\Controllers\Controller;
@@ -77,7 +78,7 @@ Route::middleware('admin')->group(function () {
     Route::delete('delete-order{order_id}', [OrderController::class, 'deleteOrder']);
     Route::get('delete-order{order_id}', [OrderController::class, 'deleteOrder']);
     Route::put('update-status-order{order_id}', [OrderController::class, 'updateStatusOrder']);
-    Route::get('view-order{order_id}', [OrderController::class, 'orderDetails']);
+    Route::get('view-order{order_id}', [OrderController::class, 'getOrderDetails']);
 
     Route::get('add-blogs', [AddBlogController::class, 'index']);
     Route::post('add-blogs', [AddBlogController::class, 'store']);
@@ -101,17 +102,18 @@ Route::get('/welcome', [Controller::class, 'welcome']);
 
 
 //client routes
-Route::get('/', [HomeClientController::class, 'index']);
+Route::get('/', [HomeClientController::class, 'index'])->name('index.client');
 Route::get('product-detail{product_id}', [ProductDetailController::class, 'index']);
 Route::get('/blog-singles', function () {
     return view('client.blog-singles');
 });
 Route::get('/blog', function () {
     return view('client.blog');
-});
+})->name('blog');
 
 Route::get('cart', [CartController::class, 'index'])->name('cart');
 Route::post('add-cart{id}', [CartController::class, 'addProductToCart']);
+//Route::get('add-cart{id}', [CartController::class, 'addProductToCart']);
 Route::get('update-cart', [CartController::class, 'updateProductToCart']);
 Route::get('delete-product-cart{id}', [CartController::class, 'deleteProductFromCart']);
 Route::post('apply-discount', [CartController::class, 'applyDiscount']);
@@ -119,14 +121,16 @@ Route::get('checkout', [PaymentDetailsController::class, 'index'])->name('checko
 Route::post('checkout', [PaymentDetailsController::class, 'store']);
 Route::post('check-payment-detail/{payment_method}', [PaymentDetailsController::class, 'addPaymentDetail']);
 Route::get('check-payment-detail/{payment_method}', [PaymentDetailsController::class, 'paymentOnline']);
+Route::get('order', [OrdersController::class, 'index'])->name('client.order');
+Route::get('cancel-status-product{order_id}', [OrdersController::class, 'cancelStatusOrder']);
 Route::get('contact', function () {
     return view('client.contact');
-});
+})->name('contact');
 Route::get('about', function () {
     return view('client.about');
-});
+})->name('about');
 
-Route::get('shop', [ShopClientController::class, 'index']);
+Route::get('shop', [ShopClientController::class, 'index'])->name('shop');
 Route::get('product-detail', function () {
     return view('client.product-detail');
 });

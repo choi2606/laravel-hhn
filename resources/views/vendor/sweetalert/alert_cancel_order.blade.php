@@ -24,10 +24,10 @@
                                     _token: '{{ csrf_token() }}',
                                 },
                                 success: function(data) {
-                                    console.log(data.cartComponents);
+                                    console.log(data.orderComponent);
                                     if(data.code === 200) {
-                                        $('.cart-wrapper').empty().html(data.cartComponents);
-
+                                        $('.order-wrapper').empty().html(data.orderComponent);
+                                        toastSuccess('Hủy đơn hàng thành công!');
                                     }
                                 },
                                 error: function(jqXHR, textStatus, text) {}

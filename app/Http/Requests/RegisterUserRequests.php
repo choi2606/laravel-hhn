@@ -30,7 +30,7 @@ class RegisterUserRequests extends FormRequest
     {
         return [
             'username' => 'string|max:20|required',
-            'email' => 'string| max:255|email| required',
+            'email' => 'string| max:255|email|required|unique:users',
             'password' => 'string|max:255|min:6',
             'confirm-password' => 'string|required_with:password|same:password',
             'address' => 'string| max:255|required',

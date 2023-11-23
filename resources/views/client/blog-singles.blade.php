@@ -1,4 +1,7 @@
 @extends('layouts.client')
+@section('title')
+<title>Chi Tiết Blog</title>
+@endsection
 @section('content')
 <div class="hero-wrap hero-bread" style="background-image: url({{asset('client/images/bg1.jpg')}});">
       <div class="container">

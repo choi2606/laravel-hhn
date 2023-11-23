@@ -1,4 +1,7 @@
 @extends('layouts.client')
+@section('title')
+    <title>Chi Tiết Thanh Toán</title>
+@endsection
 @section('css')
 @endsection
 @section('content')

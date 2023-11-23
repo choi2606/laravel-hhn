@@ -1,14 +1,10 @@
 <!doctype html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
-<!--[if gt IE 8]><!-->
-<html class="no-js" lang=""> <!--<![endif]-->
+<html class="no-js" lang="">
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Ela Admin - HTML5 Admin Template</title>
+    <title>Đăng ký tài khoản</title>
     <meta name="description" content="Ela Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -62,10 +58,16 @@
                         @enderror
                         <div class="form-group">
                             <label>Password</label>
-                            <input type="password" class="form-control" placeholder="Enter Password.." name="password">
+                            <input type="password" class="form-control @error('password') is-invalid @enderror"
+                                placeholder="Enter Password.." name="password">
                         </div>
                         @error('password')
-                            <div class="alert alert-danger">{{ $message }}</div>
+                            <div class="alert alert-warning alert-dismissible">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            </div>
                         @enderror
                         <div class="form-group">
                             <label>Confirm Password</label>
@@ -73,12 +75,11 @@
                                 name="confirm-password">
                         </div>
                         @error('confirm-password')
-                        <div class="alert alert-danger">{{ $message }}</div>
+                            <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                         <div class="form-group">
                             <label>Address</label>
-                            <input type="text" class="form-control" placeholder="Enter Address.."
-                                name="address">
+                            <input type="text" class="form-control" placeholder="Enter Address.." name="address">
                         </div>
                         @error('address')
                             <div class="alert alert-danger">{{ $message }}</div>

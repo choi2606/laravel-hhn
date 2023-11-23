@@ -25,9 +25,10 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Mã Đơn hàng</th>
-                                        <th>Tên người dùng</th>
-                                        <th>Số sản phẩm</th>
-                                        <th>Số lượng</th>
+                                        <th>Người đặt</th>
+                                        <th>Tên sản phẩm</th>
+                                        <th>Tổng cộng</th>
+                                        <th>Tổng phụ</th>
                                         <th>Thành tiền</th>
                                         <th>Ngày đặt</th>
                                         <th>Trạng thái</th>
@@ -36,17 +37,22 @@
                                 </thead>
                                 <tbody>
                                     @php $count = 1; @endphp
-                                    @forelse($orders as $order)
+                                    @forelse($data as $order)
                                         <tr>
                                             <td>{{ $count++ }}</td>
                                             <td>{{ $order->order_code }}</td>
-                                            <td>{{ $order->username }}</td>
-                                            <td class="total_product d-flex">{{ $order->total_product }}
-                                                <a href="{{ url('view-order' . $order->order_id) }}"
-                                                    class="fa fa-eye view-products" onclick="showProduct(event)">
-                                                </a>
+                                            <td>{{ $order->users()->first()->username }}</td>
+                                            <td>
+                                                <ol>
+                                                    @foreach($order->orderDetail()->get() as $subitem)
+                                                    <li>
+                                                        {{$subitem->products()->first()->name}}
+                                                    </li>
+                                                    @endforeach
+                                                </ol>
                                             </td>
-                                            <td>{{ $order->total_quantity }}</td>
+                                            <td>{{ number_format($order->total_amount - $order->subtotal, 0, ",", ".") }}đ</td>
+                                            <td>{{ number_format($order->subtotal, 0, ",", ".") }}đ</td>
                                             <td>{{ number_format($order->total_amount, 0, ",", ".") }}đ</td>
                                             <td>{{ $order->order_date }}</td>
                                             <td>
@@ -83,7 +89,6 @@
 
     <div class="clearfix"></div>
     {{-- modal --}}
-    @include('admin.order.modal')
     @include('admin.order.edit')
 @endsection
 @section('js')

@@ -1,4 +1,7 @@
 @extends('layouts.client')
+@section('title')
+<title>Chi Tiết Sản Phẩm</title>
+@endsection
 @section('css')
     <style>
         .tdc-line {

@@ -176,9 +176,10 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Mã Đơn hàng</th>
-                                        <th>Tên người dùng</th>
-                                        <th>Số sản phẩm</th>
-                                        <th>Số lượng</th>
+                                        <th>Người đặt</th>
+                                        <th>Tên sản phẩm</th>
+                                        <th>Tổng cộng</th>
+                                        <th>Tổng phụ</th>
                                         <th>Thành tiền</th>
                                         <th>Ngày đặt</th>
                                         <th>Trạng thái</th>
@@ -187,24 +188,29 @@
                                 </thead>
                                 <tbody>
                                     @php $count = 1; @endphp
-                                    @forelse($orders as $order)
+                                    @forelse($data as $order)
                                         <tr>
                                             <td>{{ $count++ }}</td>
                                             <td>{{ $order->order_code }}</td>
-                                            <td>{{ $order->username }}</td>
-                                            <td class="total_product d-flex">{{ $order->total_product }}
-                                                <a href="{{ url('view-order' . $order->order_id) }}"
-                                                    class="fa fa-eye view-products" onclick="showProduct(event)">
-                                                </a>
+                                            <td>{{ $order->users()->first()->username }}</td>
+                                            <td>
+                                                <ol>
+                                                    @foreach($order->orderDetail()->get() as $subitem)
+                                                    <li>
+                                                        {{$subitem->products()->first()->name}}
+                                                    </li>
+                                                    @endforeach
+                                                </ol>
                                             </td>
-                                            <td>{{ $order->total_quantity }}</td>
-                                            <td>{{ number_format($order->total_amount, 0, ',', '.') }}đ</td>
+                                            <td>{{ number_format($order->total_amount - $order->subtotal, 0, ",", ".") }}đ</td>
+                                            <td>{{ number_format($order->subtotal, 0, ",", ".") }}đ</td>
+                                            <td>{{ number_format($order->total_amount, 0, ",", ".") }}đ</td>
                                             <td>{{ $order->order_date }}</td>
                                             <td>
                                                 @if ($order->status == 'pending')
                                                     <span class="badge badge-pending">Đang chờ</span>
                                                 @elseif($order->status == 'success')
-                                                    <span class="badge badge-complete">Hoàn thành</span>
+                                                    <span class="badge badge-complete">Đã giao</span>
                                                 @elseif($order->status == 'delivering')
                                                     <span class="badge badge-info">Đang giao</span>
                                                 @else
@@ -212,13 +218,11 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                @if ($order->status != 'success')
-                                                    <a href="update-status-order{{ $order->order_id }}"
-                                                        status="{{ $order->status }}"
-                                                        data-status = "{{ $order->status }}"
-                                                        onclick="showFormUpdateOrder(event)"
-                                                        class="fa fa-pencil-square-o">
-                                                    </a>
+                                                @if($order->status != 'success')
+                                                <a href="update-status-order{{$order->order_id}}" status="{{$order->status}}" data-status = "{{$order->status}}" 
+                                                    onclick="showFormUpdateOrder(event)"
+                                                    class="fa fa-pencil-square-o">
+                                                </a>
                                                 @endif
                                             </td>
                                         </tr>
@@ -236,48 +240,6 @@
     </div>
     <!-- .animated -->
     </div>
-    <div class="modal">
-        <div class="container-modal js-container-modal">
-            <a class="close-modal js-close-container">
-                <i class="close-icon ti-close" onclick="hideProducts()"></i>
-            </a>
-            <div class="content-form">
-                <div class="animated fadeIn">
-                    <div class="row">
-                        <div class="col-lg-12 rs-pd">
-                            <div class="card">
-                                <a class="close-modal js-close-container">
-                                    <i class="close-icon ti-close" onclick="hideProducts()"></i>
-                                </a>
-                                <div class="w-100 card-header text-center font-2xl "><span class="font-weight-bold ">CHI
-                                        TIẾT</span><span class="font-weight-light"> ĐƠN HÀNG</span>
-                                </div>
-
-                                <div class="card-body--">
-                                    <div class="table-stats order-table ov-h">
-                                        <table class="table ">
-                                            <thead>
-                                                <tr>
-                                                    <th class="serial">#</th>
-                                                    <th>Người Dùng </th>
-                                                    <th>Sản Phẩm</th>
-                                                    <th>Số Lượng</th>
-                                                    <th>Đơn Giá</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody class="tbody-order-detail">
-                                            </tbody>
-                                        </table>
-                                    </div> <!-- /.table-stats -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    @include('admin.order.modal')
     @include('admin.order.edit')
     @include('sweetalert::alert_order')
     @include('sweetalert::alert_order', ['cdn' => 'https://cdn.jsdelivr.net/npm/sweetalert2@9'])

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Client;
 
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Controller;
 use App\Jobs\SendEmailOrder;
 use App\Mail\OrderShipped;
@@ -9,6 +10,7 @@ use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\PaymentDetail;
 use App\Models\Product;
+use App\Models\User;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -72,11 +74,11 @@ class PaymentDetailsController extends Controller
         $pay['totalPrice'] = intval(str_replace('.', '', $pay['totalPrice']));
         $pay['street'] = $validated['street'];
         session()->put('payment', $pay);
-
         try {
             $order_id = DB::table("orders")->insertGetId([
                 'user_id' => Auth::user()->user_id,
                 'total_amount' => $pay['totalPrice'],
+                'subtotal' => $pay['totalPrice'] - $pay['total']*1000,
                 'created_at' => DB::raw('CURRENT_TIMESTAMP'),
                 'updated_at' => DB::raw('CURRENT_TIMESTAMP')
             ]);
@@ -148,13 +150,13 @@ class PaymentDetailsController extends Controller
             ];
             // dd($data);
 
-            $send = new SendEmailOrder("hungtroipk.balabala@gmail.com", new OrderShipped($data, 'Đơn Hàng Mới', 'emails.orders.welcome'));
+            $send = new SendEmailOrder(Auth::user()->email, new OrderShipped($data, 'Đơn Hàng Mới', 'emails.orders.welcome'));
             dispatch($send);
-            // Mail::to("hungtroipk.balabala@gmail.com")->send(new OrderShipped($data, 'Đơn Hàng Mới', 'emails.orders.welcome'));
+            // Mail::to("Auth::user()->email")->send(new OrderShipped($data, 'Đơn Hàng Mới', 'emails.orders.welcome'));
             if (isset($payment_method)) {
                 if ($payment_method == 'handMoney') {
                     toast('Đã đặt hàng thành công!', 'success');
-                    return redirect()->back();
+                    return redirect()->route('client.order');
                 } else {
                     return view('client.scan-payment');
                 }

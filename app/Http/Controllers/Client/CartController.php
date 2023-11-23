@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Discount;
 use App\Models\Product;
 use Illuminate\Http\Request;
+
 class CartController extends Controller
 {
     public function index()
@@ -15,14 +16,19 @@ class CartController extends Controller
         $text = "Bạn có chắc muốn xóa không?";
         confirmDelete($title, $text);
         $discounts = DiscountController::listDiscounts();
-        return view('client.cart', compact('discounts'));
+        $discountsValid = $discounts->where('remainingDays', '>', 0);
+        return view('client.cart', compact('discountsValid'));
     }
 
     public function addProductToCart($id, Request $request)
     {
         $product = Product::findOrFail($id);
         $cart = session()->get('cart', []);
-        $quantity = $request->quantity;
+        if ($request->has('quantity')) {
+            $quantity = $request->quantity;
+        } else {
+            $quantity = 1;
+        }
         if (isset($cart[$id])) {
             $cart[$id]['quantity'] += $quantity;
         } else {
@@ -58,8 +64,12 @@ class CartController extends Controller
             unset($cart[$id]);
             session()->put('cart', $cart);
         }
-        toast('Đã xóa khỏi giỏ hàng!', 'success');
-        return redirect()->back();
+        $componentsCart = view('components.cart', ['cart' => session()->get('cart')])->render();
+        return response()->json([
+            "cartComponents" => $componentsCart,
+            "code" => 200,
+        ], 200);
+
     }
 
     public function applyDiscount(Request $request)
@@ -83,9 +93,5 @@ class CartController extends Controller
             return response()->json(['total' => $total, 'discount' => $discount->discount, 'type' => $discount->type]);
         }
         return response()->json([], 400);
-    }
-
-    public function feeTransport(Request $request){
-        
     }
 }

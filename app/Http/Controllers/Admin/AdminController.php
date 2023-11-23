@@ -16,16 +16,14 @@ class AdminController extends Controller
         $title = 'Xóa Đơn Hàng!';
         $text = "Bạn có chắc muốn xóa đơn hàng này không?";
         confirmDelete($title, $text);
-        $queryOrder = Order::query();
-        OrderController::joinSelectOrderDetail($queryOrder);
-        $orders = $queryOrder->get();
+        $data = Order::orderBy('created_at', 'desc')->get();
         $totalRevenue = Order::where('status', '=', 'delivering')
             ->sum('total_amount');
         $totalOrders = Order::count();
         $totalProducts = Product::count();
         $totalUsers = User::count();
         $newUsers = User::where('created_at', '>=', date('Y-m-d', strtotime('-1 MONTH')))->count();
-        return view('admin.index', compact('totalUsers', 'totalOrders', 'newUsers', 'orders', 'totalRevenue', 'totalProducts'));
+        return view('admin.index', compact('totalUsers', 'totalOrders', 'newUsers', 'data', 'totalRevenue', 'totalProducts'));
     }
 
     /**
