@@ -49,9 +49,6 @@
                 <input type="text" class="form-control" placeholder="Email của bạn">
               </div>
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="Công dân">
-              </div>
-              <div class="form-group">
                 <textarea name="" id="" cols="30" rows="7" class="form-control" placeholder="Nội dung"></textarea>
               </div>
               <div class="form-group">

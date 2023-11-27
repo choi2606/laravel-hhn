@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\Client\HomeClientController;
 use App\Http\Controllers\Client\OrdersController;
@@ -49,18 +50,7 @@ Route::middleware('admin')->group(function () {
     //backend admin routes
     Route::get('admin', [AdminController::class, 'index'])->name('admin.index');
 
-    Route::get('add-user', [AddUserController::class, 'index']);
-    Route::post('add-user', [AddUserController::class, 'store']);
-    Route::get('list-users', [ListUserController::class, 'index']);
-    Route::get('list-users/number_entries{number_entries}', [ListUserController::class, 'loadEntries']);
-    Route::delete('delete-users/number_entries{number_entries}', [ListUserController::class, 'deleteUser']);
-    Route::get('delete-users/number_entries{number_entries}', [ListUserController::class, 'loadEntries']);
-    Route::put('update-user/number_entries{number_entries}', [ListUserController::class, 'updateUser']);
-    Route::get('update-user/number_entries{number_entries}', [ListUserController::class, 'loadEntries']);
-    Route::get('search-users/number_entries{number_entries}', [ListUserController::class, 'searchUsers']);
-    Route::get('sort-ascending/number_entries{number_entries}', [ListUserController::class, 'sortAscending']);
-    Route::get('sort-descending/number_entries{number_entries}', [ListUserController::class, 'sortDescending']);
-
+    Route::get('list-users', [UserController::class, 'index']);
 
     Route::get('add-products', [ProductController::class, 'index']);
     Route::post('add-products', [ProductController::class, 'addProduct']);
@@ -80,10 +70,10 @@ Route::middleware('admin')->group(function () {
     Route::put('update-status-order{order_id}', [OrderController::class, 'updateStatusOrder']);
     Route::get('view-order{order_id}', [OrderController::class, 'getOrderDetails']);
 
-    Route::get('add-blogs', [AddBlogController::class, 'index']);
-    Route::post('add-blogs', [AddBlogController::class, 'store']);
-    Route::get('update-blogs', [AddBlogController::class, 'index']);
-    Route::post('update-blogs', [AddBlogController::class, 'store']);
+    // Route::get('add-blogs', [AddBlogController::class, 'index']);
+    // Route::post('add-blogs', [AddBlogController::class, 'store']);
+    // Route::get('update-blogs', [AddBlogController::class, 'index']);
+    // Route::post('update-blogs', [AddBlogController::class, 'store']);
 
     Route::get('add-discount', [DiscountController::class, 'index']);
     Route::post('add-discount', [DiscountController::class, 'store']);
@@ -121,6 +111,7 @@ Route::get('checkout', [PaymentDetailsController::class, 'index'])->name('checko
 Route::post('checkout', [PaymentDetailsController::class, 'store']);
 Route::post('check-payment-detail/{payment_method}', [PaymentDetailsController::class, 'addPaymentDetail']);
 Route::get('check-payment-detail/{payment_method}', [PaymentDetailsController::class, 'paymentOnline']);
+Route::get('home', [PaymentDetailsController::class, 'destroy']);
 Route::get('order', [OrdersController::class, 'index'])->name('client.order');
 Route::get('cancel-status-product{order_id}', [OrdersController::class, 'cancelStatusOrder']);
 Route::get('contact', function () {

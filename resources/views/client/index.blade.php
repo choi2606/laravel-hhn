@@ -54,7 +54,7 @@
                         </div>
                         <div class="media-body">
                             <h3 class="heading">Miễn phí vận chuyển</h3>
-                            <span>Cho đơn hàng trên 150k</span>
+                            <span>Cho đơn hàng trên 1000k</span>
                         </div>
                     </div>
                 </div>

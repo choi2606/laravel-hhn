@@ -16,7 +16,6 @@ class PaymentDetail extends Model
         'order_id',
         'receive_name',
         'street',
-        'ward',
         'district',
         'province',
         'phone_number',

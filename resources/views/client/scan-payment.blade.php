@@ -1,6 +1,6 @@
 @extends('layouts.client')
 @section('title')
-<title>Thanh toán bằng mã QR</title>
+    <title>Thanh toán bằng mã QR</title>
 @endsection
 @section('css')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css">
@@ -50,7 +50,7 @@
                     </span>
                     <span class="ps-3">Tên người nhận: {{ $paymentDetail['receiveName'] }}</span>
                     <span class="ps-3">Địa chỉ giao hàng:
-                        {{ $paymentDetail['street'] . ', ' . $payment['ward'] . ', ' . $payment['district'] . ", ". $payment['province'] }}</span>
+                        {{ $paymentDetail['street'] . ', ' . $payment['ward'] == '' ? ', ' : $payment['ward'] . ', ' . $payment['district'] . ', ' . $payment['province'] }}</span>
                     <span class="ps-3">Số điện thoại: {{ $paymentDetail['phoneNumber'] }}</span>
                 </div>
                 <div class="d-flex align-items-center justify-content-between text mt-5">
@@ -113,30 +113,12 @@
                 </div>
 
                 <div class="col-12 px-md-5 px-4 mt-3">
-                    <a href="/" class="btn btn-primary w-100">Xong</a>
+                    <a href="/home" class="btn btn-primary w-100">Xong</a>
                 </div>
             </div>
         </div>
     </div>
-    <section class="ftco-section ftco-no-pt ftco-no-pb py-5 bg-light">
-        <div class="container py-4">
-            <div class="row d-flex justify-content-center py-5">
-                <div class="col-md-6">
-                    <h2 style="font-size: 22px;" class="mb-0">Đăng ký bản tin của chúng tôi</h2>
-                    <span>Nhận thông tin cập nhật qua e-mail về các cửa hàng mới nhất của chúng tôi và các ưu đãi đặc
-                        biệt</span>
-                </div>
-                <div class="col-md-6 d-flex align-items-center">
-                    <form action="#" class="subscribe-form">
-                        <div class="form-group d-flex">
-                            <input type="text" class="form-control" placeholder="Nhập địa chỉ Email">
-                            <input type="submit" value="Đăng kí" class="submit px-3">
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
+    @include('layouts.signnewfeed')
     @include('sweetalert::alert_checkout')
     @include('sweetalert::alert_checkout', ['cdn' => 'https://cdn.jsdelivr.net/npm/sweetalert2@9'])
 @endsection

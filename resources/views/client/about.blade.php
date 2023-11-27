@@ -37,83 +37,7 @@
 					</div>
 				</div>
 			</div>
-		</section>
-    @include('layouts.signnewfeed')
-		
-		<section class="ftco-section testimony-section">
-      <div class="container">
-        <div class="row justify-content-center mb-5 pb-3">
-          <div class="col-md-7 heading-section ftco-animate text-center">
-          	<span class="subheading">Đánh giá</span>
-            <h2 class="mb-4">Sự hài lòng của khách hàng</h2>
-            <p>Trên tinh thần khách hàng là thượng đế, chúng tôi nguyện phục vụ khách hàng bằng thái độ phục vụ chân thành nhất</p>
-          </div>
-        </div>
-        <div class="row ftco-animate">
-          <div class="col-md-12">
-            <div class="carousel-testimony owl-carousel">
-              <div class="item">
-                <div class="testimony-wrap p-4 pb-5">
-                  <div class="user-img mb-5" style="background-image: url({{asset('client/images/person1.jpg')}})">
-                    <span class="quote d-flex align-items-center justify-content-center">
-                      <i class="icon-quote-left"></i>
-                    </span>
-                  </div>
-                  <div class="text text-center">
-                    <p class="mb-5 pl-4 line">Không gì có thể phá hủy sắt, nhưng rỉ sét của chính nó có thể. Tương tự như vậy, không ai có thể phá hủy một con người.</p>
-                    <p class="name">Tony Hsieh</p>
-                    <span class="position">Giám đốc điều hành</span>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <div class="testimony-wrap p-4 pb-5">
-                  <div class="user-img mb-5" style="background-image: url({{asset('client/images/person2.webp')}})">
-                    <span class="quote d-flex align-items-center justify-content-center">
-                      <i class="icon-quote-left"></i>
-                    </span>
-                  </div>
-                  <div class="text text-center">
-                    <p class="mb-5 pl-4 line">Nó phụ thuộc vào cách khách hàng của bạn trải nghiệm thương hiệu - và thương hiệu đó khiến một người cảm thấy như thế nào.</p>
-                    <p class="name">Alex Allwood</p>
-                    <span class="position">Giám đốc điều hành</span>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <div class="testimony-wrap p-4 pb-5">
-                  <div class="user-img mb-5" style="background-image: url({{asset('client/images/person3.webp')}})">
-                    <span class="quote d-flex align-items-center justify-content-center">
-                      <i class="icon-quote-left"></i>
-                    </span>
-                  </div>
-                  <div class="text text-center">
-                    <p class="mb-5 pl-4 line">Có một cách nhất định để tạo ra một dịch vụ, sự hiếu khách và trải nghiệm khiến mọi người luôn cảm thấy họ là người quan trọng.</p>
-                    <p class="name">Julie Rice</p>
-                    <span class="position">Đồng sáng lập SoulCycle và Giám đốc thương hiệu của WeWork</span>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <div class="testimony-wrap p-4 pb-5">
-                  <div class="user-img mb-5" style="background-image: url({{asset('client/images/person4.jpg')}})">
-                    <span class="quote d-flex align-items-center justify-content-center">
-                      <i class="icon-quote-left"></i>
-                    </span>
-                  </div>
-                  <div class="text text-center">
-                    <p class="mb-5 pl-4 line">Đến gần hơn bao giờ hết với khách hàng của bạn. Gần đến mức bạn nói rõ họ cần gì trước khi họ tự nhận ra điều đó.</p>
-                    <p class="name">Steve Jobs</p>
-                    <span class="position">Đồng sáng lập và cựu Giám đốc điều hành của Apple</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
+		</section>    
     <section class="ftco-section bg-light">
 			<div class="container">
 				<div class="row no-gutters ftco-services">
@@ -124,7 +48,7 @@
               </div>
               <div class="media-body">
                 <h3 class="heading">Miễn phí ship</h3>
-                <span>ĐỐI VỚI ĐƠN ĐẶT HÀNG TRÊN $ 100</span>
+                <span>CHO ĐƠN HÀNG TRÊN 1000k</span>
               </div>
             </div>      
           </div>
@@ -164,4 +88,6 @@
         </div>
 			</div>
 		</section>
+    @include('layouts.signnewfeed')
+
 @endsection

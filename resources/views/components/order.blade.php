@@ -40,15 +40,15 @@
                                     <td class="status total">
                                             @if ($details->status == 'pending')
                                             <span class="badge badge-pending">
-                                                Đang chờ
+                                                Đang chờ xác nhận đơn
                                             </span>
                                             @elseif($details->status == 'delivering')
                                             <span class="badge badge-success">
-                                                Đang giao
+                                                Đang trên đường giao đến bạn
                                             </span>
                                             @else
                                             <span class="badge badge-danger">
-                                                Đã hủy
+                                                Đã hủy đơn hàng
                                             </span>
                                             @endif
                                     </td>

@@ -27,10 +27,6 @@ class PaymentDetailsController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
@@ -42,6 +38,9 @@ class PaymentDetailsController extends Controller
         $province = $request->get('province');
         $district = $request->get('district');
         $ward = $request->get('ward');
+        if ($ward == 'Chọn phường xã') {
+            $ward = '';
+        }
         $pay = session()->get('payment', []);
         $pay['total'] = $total;
         $pay['discount'] = $discount;
@@ -78,7 +77,7 @@ class PaymentDetailsController extends Controller
             $order_id = DB::table("orders")->insertGetId([
                 'user_id' => Auth::user()->user_id,
                 'total_amount' => $pay['totalPrice'],
-                'subtotal' => $pay['totalPrice'] - $pay['total']*1000,
+                'subtotal' => $pay['totalPrice'] - $pay['total'] * 1000,
                 'created_at' => DB::raw('CURRENT_TIMESTAMP'),
                 'updated_at' => DB::raw('CURRENT_TIMESTAMP')
             ]);
@@ -148,7 +147,6 @@ class PaymentDetailsController extends Controller
                 'orderDate' => date_format($order->created_at, 'd/m/Y'),
                 'pay' => $pay
             ];
-            // dd($data);
 
             $send = new SendEmailOrder(Auth::user()->email, new OrderShipped($data, 'Đơn Hàng Mới', 'emails.orders.welcome'));
             dispatch($send);
@@ -156,6 +154,7 @@ class PaymentDetailsController extends Controller
             if (isset($payment_method)) {
                 if ($payment_method == 'handMoney') {
                     toast('Đã đặt hàng thành công!', 'success');
+                    session()->flush();
                     return redirect()->route('client.order');
                 } else {
                     return view('client.scan-payment');
@@ -185,5 +184,9 @@ class PaymentDetailsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-
+    public function destroy()
+    {
+        session()->flush();
+        return redirect()->route('client.order');
+    }
 }

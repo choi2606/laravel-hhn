@@ -1,6 +1,6 @@
 @extends('layouts.client')
 @section('title')
-<title>Chi Tiết Sản Phẩm</title>
+    <title>Chi Tiết Sản Phẩm</title>
 @endsection
 @section('css')
     <style>
@@ -146,16 +146,13 @@
                                 </div>
                                 <div class="bottom-area d-flex px-3">
                                     <div class="m-auto d-flex">
-                                        <a href="#"
+                                        <a href="product-detail{{ $product->product_id }}"
                                             class="add-to-cart d-flex justify-content-center align-items-center text-center">
                                             <span><i class="ion-ios-menu"></i></span>
                                         </a>
-                                        <a href="product-detail{{ $product->product_id }}"
-                                            class="buy-now d-flex justify-content-center align-items-center mx-1">
-                                            <span><i class="ion-ios-cart"></i></span>
-                                        </a>
-                                        <a href="#" class="heart d-flex justify-content-center align-items-center ">
-                                            <span><i class="ion-ios-heart"></i></span>
+                                        <a href="add-cart{{ $product->product_id }}"
+                                            class="buy-now d-flex justify-content-center align-items-center mx-1 ion-ios-cart"
+                                            onclick="onAddCart(event)">
                                         </a>
                                     </div>
                                 </div>
@@ -168,26 +165,7 @@
             </div>
         </div>
     </section>
-
-    <section class="ftco-section ftco-no-pt ftco-no-pb py-5 bg-light">
-        <div class="container py-4">
-            <div class="row d-flex justify-content-center py-5">
-                <div class="col-md-6">
-                    <h2 style="font-size: 22px;" class="mb-0">Đăng ký bản tin của chúng tôi</h2>
-                    <span>Nhận thông tin cập nhật qua e-mail về các cửa hàng mới nhất của chúng tôi và các ưu đãi đặc
-                        biệt</span>
-                </div>
-                <div class="col-md-6 d-flex align-items-center">
-                    <form action="#" class="subscribe-form">
-                        <div class="form-group d-flex">
-                            <input type="text" class="form-control" placeholder="Nhập địa chỉ Email">
-                            <input type="submit" value="Đăng kí" class="submit px-3">
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
+    @include('layouts.signnewfeed')
 @endsection
 @section('js')
     <script>

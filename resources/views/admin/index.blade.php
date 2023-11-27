@@ -86,58 +86,63 @@
 
             <!--  Traffic  -->
             <div class="row">
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="box-title">Traffic </h4>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-8">
-                                    <div class="card-body">
-                                        <!-- <canvas id="TrafficChart"></canvas>   -->
-                                        <div id="traffic-chart" class="traffic-chart"></div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="card-body">
-                                        <div class="progress-box progress-1">
-                                            <h4 class="por-title">Visits</h4>
-                                            <div class="por-txt">96,930 Users (40%)</div>
-                                            <div class="progress mb-2" style="height: 5px;">
-                                                <div class="progress-bar bg-flat-color-1" role="progressbar" style="width: 40%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                        </div>
-                                        <div class="progress-box progress-2">
-                                            <h4 class="por-title">Bounce Rate</h4>
-                                            <div class="por-txt">3,220 Users (24%)</div>
-                                            <div class="progress mb-2" style="height: 5px;">
-                                                <div class="progress-bar bg-flat-color-2" role="progressbar" style="width: 24%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                        </div>
-                                        <div class="progress-box progress-2">
-                                            <h4 class="por-title">Unique Visitors</h4>
-                                            <div class="por-txt">29,658 Users (60%)</div>
-                                            <div class="progress mb-2" style="height: 5px;">
-                                                <div class="progress-bar bg-flat-color-3" role="progressbar" style="width: 60%;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                        </div>
-                                        <div class="progress-box progress-2">
-                                            <h4 class="por-title">Targeted  Visitors</h4>
-                                            <div class="por-txt">99,658 Users (90%)</div>
-                                            <div class="progress mb-2" style="height: 5px;">
-                                                <div class="progress-bar bg-flat-color-4" role="progressbar" style="width: 90%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                        </div>
-                                    </div> <!-- /.card-body -->
-                                </div>
-                            </div> <!-- /.row -->
-                            <div class="card-body"></div>
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="box-title">Traffic </h4>
                         </div>
-                    </div><!-- /# column -->
-                </div>
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <div class="card-body">
+                                    <!-- <canvas id="TrafficChart"></canvas>   -->
+                                    <div id="traffic-chart" class="traffic-chart"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="card-body">
+                                    <div class="progress-box progress-1">
+                                        <h4 class="por-title">Visits</h4>
+                                        <div class="por-txt">96,930 Users (40%)</div>
+                                        <div class="progress mb-2" style="height: 5px;">
+                                            <div class="progress-bar bg-flat-color-1" role="progressbar" style="width: 40%;"
+                                                aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                    <div class="progress-box progress-2">
+                                        <h4 class="por-title">Bounce Rate</h4>
+                                        <div class="por-txt">3,220 Users (24%)</div>
+                                        <div class="progress mb-2" style="height: 5px;">
+                                            <div class="progress-bar bg-flat-color-2" role="progressbar" style="width: 24%;"
+                                                aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                    <div class="progress-box progress-2">
+                                        <h4 class="por-title">Unique Visitors</h4>
+                                        <div class="por-txt">29,658 Users (60%)</div>
+                                        <div class="progress mb-2" style="height: 5px;">
+                                            <div class="progress-bar bg-flat-color-3" role="progressbar" style="width: 60%;"
+                                                aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                    <div class="progress-box progress-2">
+                                        <h4 class="por-title">Targeted Visitors</h4>
+                                        <div class="por-txt">99,658 Users (90%)</div>
+                                        <div class="progress mb-2" style="height: 5px;">
+                                            <div class="progress-bar bg-flat-color-4" role="progressbar"
+                                                style="width: 90%;" aria-valuenow="90" aria-valuemin="0"
+                                                aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                </div> <!-- /.card-body -->
+                            </div>
+                        </div> <!-- /.row -->
+                        <div class="card-body"></div>
+                    </div>
+                </div><!-- /# column -->
+            </div>
 
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
                             <div class="chartjs-size-monitor"
@@ -151,7 +156,7 @@
                                     <div style="position:absolute;width:200%;height:200%;left:0; top:0"></div>
                                 </div>
                             </div>
-                            <h4 class="mb-3">Bar chart </h4>
+                            <h4 class="mb-3">Đơn hàng năm 2023 </h4>
                             <canvas id="barChart" width="668" height="333"
                                 style="display: block; height: 267px; width: 535px;"
                                 class="chartjs-render-monitor"></canvas>
@@ -195,16 +200,17 @@
                                             <td>{{ $order->users()->first()->username }}</td>
                                             <td>
                                                 <ol>
-                                                    @foreach($order->orderDetail()->get() as $subitem)
-                                                    <li>
-                                                        {{$subitem->products()->first()->name}}
-                                                    </li>
+                                                    @foreach ($order->orderDetail()->get() as $subitem)
+                                                        <li>
+                                                            {{ $subitem->products()->first()->name }}
+                                                        </li>
                                                     @endforeach
                                                 </ol>
                                             </td>
-                                            <td>{{ number_format($order->total_amount - $order->subtotal, 0, ",", ".") }}đ</td>
-                                            <td>{{ number_format($order->subtotal, 0, ",", ".") }}đ</td>
-                                            <td>{{ number_format($order->total_amount, 0, ",", ".") }}đ</td>
+                                            <td>{{ number_format($order->total_amount - $order->subtotal, 0, ',', '.') }}đ
+                                            </td>
+                                            <td>{{ number_format($order->subtotal, 0, ',', '.') }}đ</td>
+                                            <td>{{ number_format($order->total_amount, 0, ',', '.') }}đ</td>
                                             <td>{{ $order->order_date }}</td>
                                             <td>
                                                 @if ($order->status == 'pending')
@@ -218,11 +224,13 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                @if($order->status != 'success')
-                                                <a href="update-status-order{{$order->order_id}}" status="{{$order->status}}" data-status = "{{$order->status}}" 
-                                                    onclick="showFormUpdateOrder(event)"
-                                                    class="fa fa-pencil-square-o">
-                                                </a>
+                                                @if ($order->status != 'success')
+                                                    <a href="update-status-order{{ $order->order_id }}"
+                                                        status="{{ $order->status }}"
+                                                        data-status = "{{ $order->status }}"
+                                                        onclick="showFormUpdateOrder(event)"
+                                                        class="fa fa-pencil-square-o">
+                                                    </a>
                                                 @endif
                                             </td>
                                         </tr>
@@ -247,17 +255,8 @@
     <div class="clearfix"></div>
 @endsection
 @section('js')
+    @include('library.data-table.data')
     <script src="{{ asset('owner/assets/js/indexadmin.js') }}"></script>
-    <script src="{{ asset('owner/assets/js/lib/data-table/datatables.min.js') }}"></script>
-    <script src="{{ asset('owner/assets/js/lib/data-table/dataTables.bootstrap.min.js') }}"></script>
-    <script src="{{ asset('owner/assets/js/lib/data-table/dataTables.buttons.min.js') }}"></script>
-    <script src="{{ asset('owner/assets/js/lib/data-table/buttons.bootstrap.min.js') }}"></script>
-    <script src="{{ asset('owner/assets/js/lib/data-table/jszip.min.js') }}"></script>
-    <script src="{{ asset('owner/assets/js/lib/data-table/vfs_fonts.js') }}"></script>
-    <script src="{{ asset('owner/assets/js/lib/data-table/buttons.html5.min.js') }}"></script>
-    <script src="{{ asset('owner/assets/js/lib/data-table/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('owner/assets/js/lib/data-table/buttons.colVis.min.js') }}"></script>
-    <script src="{{ asset('owner/assets/js/init/datatables-init.js') }}"></script>
     <script src="{{ asset('owner/assets/js/updateorder.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.3/dist/Chart.bundle.min.js"></script>
 

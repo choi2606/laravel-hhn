@@ -414,7 +414,7 @@ CREATE TABLE `payment_details`  (
   `order_id` int UNSIGNED NOT NULL,
   `receive_name` varchar(255) NOT NULL,
   `street` varchar(255),
-  `ward` varchar(255),
+  `ward` varchar(255) NULL,
   `district` varchar(255),
   `province` varchar(255),
   `phone_number` varchar(255),

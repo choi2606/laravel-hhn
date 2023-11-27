@@ -54,7 +54,7 @@
                                             <td>{{ number_format($order->total_amount - $order->subtotal, 0, ",", ".") }}đ</td>
                                             <td>{{ number_format($order->subtotal, 0, ",", ".") }}đ</td>
                                             <td>{{ number_format($order->total_amount, 0, ",", ".") }}đ</td>
-                                            <td>{{ $order->order_date }}</td>
+                                            <td>{{ date_format($order->created_at, 'd/m/Y') }}</td>
                                             <td>
                                                 @if ($order->status == 'pending')
                                                     <span class="badge badge-pending">Đang chờ</span>
@@ -92,16 +92,7 @@
     @include('admin.order.edit')
 @endsection
 @section('js')
-    <script src="{{ asset('owner/assets/js/lib/data-table/datatables.min.js') }}"></script>
-    <script src="{{ asset('owner/assets/js/lib/data-table/dataTables.bootstrap.min.js') }}"></script>
-    <script src="{{ asset('owner/assets/js/lib/data-table/dataTables.buttons.min.js') }}"></script>
-    <script src="{{ asset('owner/assets/js/lib/data-table/buttons.bootstrap.min.js') }}"></script>
-    <script src="{{ asset('owner/assets/js/lib/data-table/jszip.min.js') }}"></script>
-    <script src="{{ asset('owner/assets/js/lib/data-table/vfs_fonts.js') }}"></script>
-    <script src="{{ asset('owner/assets/js/lib/data-table/buttons.html5.min.js') }}"></script>
-    <script src="{{ asset('owner/assets/js/lib/data-table/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('owner/assets/js/lib/data-table/buttons.colVis.min.js') }}"></script>
-    <script src="{{ asset('owner/assets/js/init/datatables-init.js') }}"></script>
+    @include('library.data-table.data')
     <script src="{{ asset('owner/assets/js/updateorder.js') }}"></script>
 
     <script type="text/javascript">
