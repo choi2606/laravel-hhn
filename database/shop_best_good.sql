@@ -137,6 +137,7 @@ CREATE TABLE `orders` (
     `order_id` int(10) UNSIGNED NOT NULL,
     `order_code` varchar(255) NOT NULL,
     `user_id` int(10) UNSIGNED NOT NULL,
+    `subtotal` decimal(10, 0) NOT NULL,
     `total_amount` decimal(10, 0) NOT NULL,
     `status` varchar(255) NOT NULL DEFAULT 'pending',
     `created_at` timestamp NULL DEFAULT NULL,

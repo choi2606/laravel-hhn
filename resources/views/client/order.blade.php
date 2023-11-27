@@ -8,17 +8,31 @@
         .cart-list {
             overflow-x: unset;
         }
+
         .table tbody tr td {
             padding: unset;
         }
 
         .img {
             height: 50px !important;
-            width: 50px!important;
+            width: 50px !important;
         }
 
         .mt-1rem {
             margin-top: 1rem;
+        }
+
+        td.totalPrice.total {
+            font-weight: 700;
+        }
+
+        span.badge.badge-pending {
+            background-color: #fb9678;
+            color: white;
+        }
+
+        .ion-ios-close:before {
+            font-size: xx-large;
         }
     </style>
 @endsection

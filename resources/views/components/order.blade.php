@@ -38,15 +38,21 @@
                                     </td>
 
                                     <td class="status total">
-                                        @if ($details->status == 'pending')
-                                            Đang chờ
-                                        @elseif($details->status == 'delivering')
-                                            Đang giao
-                                        @else
-                                            Đã hủy
-                                        @endif
+                                            @if ($details->status == 'pending')
+                                            <span class="badge badge-pending">
+                                                Đang chờ
+                                            </span>
+                                            @elseif($details->status == 'delivering')
+                                            <span class="badge badge-success">
+                                                Đang giao
+                                            </span>
+                                            @else
+                                            <span class="badge badge-danger">
+                                                Đã hủy
+                                            </span>
+                                            @endif
                                     </td>
-                                    
+
                                     <td class="total">
                                         {{ $details->created_at }}
                                     </td>
