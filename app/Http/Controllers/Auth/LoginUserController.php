@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Client;
+namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Auth;
@@ -11,7 +11,7 @@ class LoginUserController extends Controller
 {
     public function index()
     {
-        return view('client.login');
+        return view('auth.login');
     }
 
     public function store(Request $request)

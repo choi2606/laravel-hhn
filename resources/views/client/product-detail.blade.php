@@ -52,10 +52,6 @@
                             <a href="#" class="mr-2" style="color: #000;">100 <span style="color: #bbb;">đánh
                                     giá</span></a>
                         </p>
-                        <p class="text-left">
-                            <a href="#" class="mr-2" style="color: #000;">500 <span style="color: #bbb;">Đã
-                                    bán</span></a>
-                        </p>
                     </div>
                     @if ($product->selling_price < $product->original_price)
                         <p class="price position-relative">
@@ -127,7 +123,7 @@
                                         $sellingPrice = number_format($product->selling_price, 0, ',', '.');
                                     @endphp
                                     <span class="status">
-                                        {{ $discouned }}%
+                                        {{ discounted($product) }}%
                                     </span>
                                 @endif
                                 <div class="overlay"></div>
@@ -138,9 +134,9 @@
                                     <div class="pricing">
                                         <p class="price">
                                             @if ($product->selling_price < $product->original_price)
-                                                <span class="mr-2 price-dc">{{ $originalPrice }}đ</span>
+                                                <span class="mr-2 price-dc">{{ originalPrice($product) }}đ</span>
                                             @endif
-                                            <span>{{ $sellingPrice }}đ</span>
+                                            <span>{{ sellingPrice($product) }}đ</span>
                                         </p>
                                     </div>
                                 </div>

@@ -410,11 +410,10 @@ VALUES
 
 CREATE TABLE `payment_details`  (
   `payment_detail_id` int UNSIGNED NOT NULL,
-  `user_id` int UNSIGNED NOT NULL,
   `order_id` int UNSIGNED NOT NULL,
   `receive_name` varchar(255) NOT NULL,
   `street` varchar(255),
-  `ward` varchar(255) NULL,
+  `ward` varchar(255),
   `district` varchar(255),
   `province` varchar(255),
   `phone_number` varchar(255),
@@ -572,8 +571,7 @@ ADD CONSTRAINT `order_details_product_id_foreign` FOREIGN KEY (`product_id`) REF
 -- Constraints for table `payment_details`
 --
 ALTER TABLE `payment_details`
-ADD CONSTRAINT `payment_details_order_id_foreign` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-ADD CONSTRAINT `payment_details_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+ADD CONSTRAINT `payment_details_order_id_foreign` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */
 ;

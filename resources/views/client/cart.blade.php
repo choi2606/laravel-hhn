@@ -8,6 +8,21 @@
     <link rel="stylesheet" href="{{ asset('client/css/cs-cart.css') }}">
     <link rel="stylesheet" href="{{ asset('client/css/cs-discount.css') }}">
     <script src="{{ asset('owner/assets/js/qrcode.js') }}"></script>
+    <style>
+        .cart-list {
+            min-height: 276px;
+        }
+
+        .shopping_cart {
+            margin: 32px 0 12px 0;
+        }
+
+        .primary-btn.cart-btn {
+            color: #fff;
+            padding: 14px 30px 12px;
+            background: #82ae46;
+        }
+    </style>
 @endsection
 @section('content')
     <div class="hero-wrap hero-bread" style="background-image: url({{ asset('client/images/bg_1.jpg') }});">

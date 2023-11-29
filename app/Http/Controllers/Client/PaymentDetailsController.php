@@ -97,7 +97,6 @@ class PaymentDetailsController extends Controller
                 'province' => $pay['province'],
                 'phone_number' => $validated['phoneNumber'],
                 'ward' => $pay['ward'],
-                'user_id' => Auth::user()->user_id,
                 'order_id' => $order->order_id,
                 'method' => $payment_method,
                 'created_at' => DB::raw('CURRENT_TIMESTAMP'),

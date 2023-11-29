@@ -21,4 +21,8 @@ class PaymentDetail extends Model
         'phone_number',
         'method'
     ];
+
+    public function orders() {
+        return $this->hasOne(Order::class, 'order_id', 'order_id');
+    }
 }

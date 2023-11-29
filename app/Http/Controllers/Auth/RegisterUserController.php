@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Client;
+namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterUserRequests;
@@ -9,7 +9,7 @@ class RegisterUserController extends Controller
 {
     public function index()
     {
-        return view("client.register");
+        return view("auth.register");
     }
 
     /**

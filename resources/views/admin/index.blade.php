@@ -84,63 +84,6 @@
                 </div>
             </div>
 
-            <!--  Traffic  -->
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="box-title">Traffic </h4>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-8">
-                                <div class="card-body">
-                                    <!-- <canvas id="TrafficChart"></canvas>   -->
-                                    <div id="traffic-chart" class="traffic-chart"></div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="card-body">
-                                    <div class="progress-box progress-1">
-                                        <h4 class="por-title">Visits</h4>
-                                        <div class="por-txt">96,930 Users (40%)</div>
-                                        <div class="progress mb-2" style="height: 5px;">
-                                            <div class="progress-bar bg-flat-color-1" role="progressbar" style="width: 40%;"
-                                                aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                    </div>
-                                    <div class="progress-box progress-2">
-                                        <h4 class="por-title">Bounce Rate</h4>
-                                        <div class="por-txt">3,220 Users (24%)</div>
-                                        <div class="progress mb-2" style="height: 5px;">
-                                            <div class="progress-bar bg-flat-color-2" role="progressbar" style="width: 24%;"
-                                                aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                    </div>
-                                    <div class="progress-box progress-2">
-                                        <h4 class="por-title">Unique Visitors</h4>
-                                        <div class="por-txt">29,658 Users (60%)</div>
-                                        <div class="progress mb-2" style="height: 5px;">
-                                            <div class="progress-bar bg-flat-color-3" role="progressbar" style="width: 60%;"
-                                                aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                    </div>
-                                    <div class="progress-box progress-2">
-                                        <h4 class="por-title">Targeted Visitors</h4>
-                                        <div class="por-txt">99,658 Users (90%)</div>
-                                        <div class="progress mb-2" style="height: 5px;">
-                                            <div class="progress-bar bg-flat-color-4" role="progressbar"
-                                                style="width: 90%;" aria-valuenow="90" aria-valuemin="0"
-                                                aria-valuemax="100"></div>
-                                        </div>
-                                    </div>
-                                </div> <!-- /.card-body -->
-                            </div>
-                        </div> <!-- /.row -->
-                        <div class="card-body"></div>
-                    </div>
-                </div><!-- /# column -->
-            </div>
-
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
@@ -168,87 +111,10 @@
         <!--  /Traffic -->
         <div class="clearfix"></div>
         <!-- Orders -->
-        <div class="orders">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <strong class="card-title">Đơn hàng</strong>
-                        </div>
-                        <div class="card-body">
-                            <table id="bootstrap-data-table" class="order-table2 table table-striped table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Mã Đơn hàng</th>
-                                        <th>Người đặt</th>
-                                        <th>Tên sản phẩm</th>
-                                        <th>Tổng cộng</th>
-                                        <th>Tổng phụ</th>
-                                        <th>Thành tiền</th>
-                                        <th>Ngày đặt</th>
-                                        <th>Trạng thái</th>
-                                        <th>Cập Nhập</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @php $count = 1; @endphp
-                                    @forelse($data as $order)
-                                        <tr>
-                                            <td>{{ $count++ }}</td>
-                                            <td>{{ $order->order_code }}</td>
-                                            <td>{{ $order->users()->first()->username }}</td>
-                                            <td>
-                                                <ol>
-                                                    @foreach ($order->orderDetail()->get() as $subitem)
-                                                        <li>
-                                                            {{ $subitem->products()->first()->name }}
-                                                        </li>
-                                                    @endforeach
-                                                </ol>
-                                            </td>
-                                            <td>{{ number_format($order->total_amount - $order->subtotal, 0, ',', '.') }}đ
-                                            </td>
-                                            <td>{{ number_format($order->subtotal, 0, ',', '.') }}đ</td>
-                                            <td>{{ number_format($order->total_amount, 0, ',', '.') }}đ</td>
-                                            <td>{{ $order->order_date }}</td>
-                                            <td>
-                                                @if ($order->status == 'pending')
-                                                    <span class="badge badge-pending">Đang chờ</span>
-                                                @elseif($order->status == 'success')
-                                                    <span class="badge badge-complete">Đã giao</span>
-                                                @elseif($order->status == 'delivering')
-                                                    <span class="badge badge-info">Đang giao</span>
-                                                @else
-                                                    <span class="badge badge-danger">Đã hủy</span>
-                                                @endif
-                                            </td>
-                                            <td>
-                                                @if ($order->status != 'success')
-                                                    <a href="update-status-order{{ $order->order_id }}"
-                                                        status="{{ $order->status }}"
-                                                        data-status = "{{ $order->status }}"
-                                                        onclick="showFormUpdateOrder(event)"
-                                                        class="fa fa-pencil-square-o">
-                                                    </a>
-                                                @endif
-                                            </td>
-                                        </tr>
-                                    @empty
-                                        No orders
-                                    @endforelse
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         <!-- /#add-category -->
     </div>
     <!-- .animated -->
     </div>
-    @include('admin.order.edit')
     @include('sweetalert::alert_order')
     @include('sweetalert::alert_order', ['cdn' => 'https://cdn.jsdelivr.net/npm/sweetalert2@9'])
     <!-- /.content -->
@@ -257,12 +123,103 @@
 @section('js')
     @include('library.data-table.data')
     <script src="{{ asset('owner/assets/js/indexadmin.js') }}"></script>
-    <script src="{{ asset('owner/assets/js/updateorder.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.3/dist/Chart.bundle.min.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function() {
             $('#bootstrap-data-table-export').DataTable();
+
+
+            if ($("#traffic-chart").length) {
+                var chartTotalPrice = {{ $chartTotalPrice }};
+                console.log(chartTotalPrice);
+                var chart = new Chartist.Line(
+                    "#traffic-chart", {
+                        labels: [
+                            "Tháng 1",
+                            "Tháng 2",
+                            "Tháng 3",
+                            "Tháng 4",
+                            "Tháng 5",
+                            "Tháng 6",
+                            "Tháng 7",
+                            "Tháng 8",
+                            "Tháng 9",
+                            "Tháng 10",
+                            "Tháng 11",
+                            "Tháng 12",
+                        ],
+                        series: [
+                            chartTotalPrice,
+                        ],
+                    }, {
+                        low: 0,
+                        showArea: true,
+                        showLine: false,
+                        showPoint: false,
+                        fullWidth: true,
+                        axisX: {
+                            showGrid: true,
+                        },
+                    }
+                );
+
+                chart.on("draw", function(data) {
+                    if (data.type === "line" || data.type === "area") {
+                        data.element.animate({
+                            d: {
+                                begin: 2000 * data.index,
+                                dur: 2000,
+                                from: data.path
+                                    .clone()
+                                    .scale(1, 0)
+                                    .translate(0, data.chartRect.height())
+                                    .stringify(),
+                                to: data.path.clone().stringify(),
+                                easing: Chartist.Svg.Easing.easeOutQuint,
+                            },
+                        });
+                    }
+                });
+            }
+
+            //bar chart
+            var ctx = document.getElementById("barChart");
+            //    ctx.height = 200;
+            var dataCharOrderDeliver = {{ $dataCharOrderDeliver }};
+            var dataCharOrderCancel = {{ $dataCharOrderCancel }};
+            var myChart = new Chart(ctx, {
+                type: "bar",
+                data: {
+                    labels: ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7",
+                        "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"
+                    ],
+                    datasets: [{
+                            label: "Đơn hàng đang giao",
+                            data: dataCharOrderDeliver,
+                            borderColor: "rgba(0, 194, 146, 0.9)",
+                            borderWidth: "0",
+                            backgroundColor: "rgba(0, 194, 146, 0.5)",
+                        },
+                        {
+                            label: "Đơn hàng đã hủy",
+                            data: dataCharOrderCancel,
+                            borderColor: "rgba(0,0,0,0.09)",
+                            borderWidth: "0",
+                            backgroundColor: "rgba(0,0,0,0.07)",
+                        },
+                    ],
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true,
+                            },
+                        }, ],
+                    },
+                },
+            });
 
         });
     </script>

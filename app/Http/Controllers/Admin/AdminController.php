@@ -22,8 +22,16 @@ class AdminController extends Controller
         $totalOrders = Order::count();
         $totalProducts = Product::count();
         $totalUsers = User::count();
-        $newUsers = User::where('created_at', '>=', date('Y-m-d', strtotime('-1 MONTH')))->count();
-        return view('admin.index', compact('totalUsers', 'totalOrders', 'newUsers', 'data', 'totalRevenue', 'totalProducts'));
+        return view('admin.index', [
+            'totalUsers' => $totalUsers,
+            'totalOrders' => $totalOrders,
+            'totalProducts' => $totalProducts,
+            'data' => $data,
+            'totalRevenue' => $totalRevenue,
+            'dataCharOrderDeliver' => self::dataChartOrderDeliver(),
+            'dataCharOrderCancel' => self::dataChartOrderCancel(),
+            'chartTotalPrice' => self::chartTotalPrice(),
+        ]);
     }
 
     /**
@@ -39,4 +47,39 @@ class AdminController extends Controller
      * Display the specified resource.
      */
 
+    public function dataChartOrderDeliver()
+    {
+        $date = getdate();
+        $thisYear = $date['year'];
+        $charOrders = array();
+        for ($i = 1; $i <= 12; $i++) {
+            $charOrders[] = Order::where('status', 'delivering')->whereYear('created_at', $thisYear)->whereMonth('created_at', $i)->count();
+        }
+        return json_encode($charOrders);
+
+    }
+
+    public function dataChartOrderCancel()
+    {
+        $date = getdate();
+        $thisYear = $date['year'];
+        $charOrders = array();
+        for ($i = 1; $i <= 12; $i++) {
+            $charOrders[] = Order::where('status', 'cancel')->whereYear('created_at', $thisYear)->whereMonth('created_at', $i)->count();
+        }
+        return json_encode($charOrders);
+
+    }
+
+    public function chartTotalPrice()
+    {
+        $date = getdate();
+        $thisYear = $date['year'];
+        $totalPrice = array();
+        for ($i = 1; $i <= 12; $i++) {
+            $totalPrice[] = intval(Order::where('status', 'delivering')->whereYear('created_at', $thisYear)->whereMonth('created_at', $i)->sum('total_amount'));
+        }
+        return json_encode($totalPrice);
+
+    }
 }

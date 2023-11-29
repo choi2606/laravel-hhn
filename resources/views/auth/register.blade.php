@@ -31,35 +31,46 @@
     <div class="sufee-login d-flex align-content-center flex-wrap">
         <div class="container">
             <div class="login-content">
-                <div class="login-logo">
-                    <a href="{{ url('/login') }}"
+                <div class="login-logo" style="margin-top: 30px">
+                    <a class="navbar-brand" href="./"><img src="{{ asset('owner/images/logoapp.png') }}"
+                        height="100" width="100" style="border-radius: 50%" alt="Logo"></a>
+                    <a href="{{ url('/register') }}"
                         style = "color: #00c292; font-weight: 800; font-size: 28px; text-transform: uppercase;">
                         <!-- <img class="align-content" src="{{ asset('owner/images/logo.png') }}" alt=""> -->
-                        REGISTER
+                        ĐĂNG KÝ tài khoản
                     </a>
                 </div>
                 <div class="login-form">
                     <form method="post" action="{{ url('register') }}">
                         @csrf
                         <div class="form-group">
-                            <label>User Name</label>
+                            <label>Tên người dùng</label>
                             <input type="text" class="form-control @error('username') is-invalid @enderror"
-                                placeholder="Enter User Name.." name = "username">
+                                 name = "username">
                         </div>
                         @error('username')
                             <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                         <div class="form-group">
-                            <label>Email address</label>
-                            <input type="email" class="form-control" placeholder="Enter Email.." name = "email">
+                            <label>Email</label>
+                            <input type="email" class="form-control" placeholder="" name = "email">
                         </div>
                         @error('email')
                             <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                         <div class="form-group">
-                            <label>Password</label>
-                            <input type="password" class="form-control @error('password') is-invalid @enderror"
-                                placeholder="Enter Password.." name="password">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label>Mật Khẩu</label>
+                                    <input type="password" class="form-control @error('password') is-invalid @enderror"
+                                        placeholder="" name="password">
+                                </div>
+                                <div class="col-sm-6">
+                                    <label>Nhập lại mật khẩu</label>
+                                    <input type="password" class="form-control" placeholder=""
+                                        name="confirm-password">
+                                </div>
+                            </div>
                         </div>
                         @error('password')
                             <div class="alert alert-warning alert-dismissible">
@@ -69,37 +80,27 @@
                                 </span>
                             </div>
                         @enderror
-                        <div class="form-group">
-                            <label>Confirm Password</label>
-                            <input type="password" class="form-control" placeholder="Confirm Password"
-                                name="confirm-password">
-                        </div>
                         @error('confirm-password')
                             <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                         <div class="form-group">
-                            <label>Address</label>
-                            <input type="text" class="form-control" placeholder="Enter Address.." name="address">
+                            <label>Địa chỉ</label>
+                            <input type="text" class="form-control" name="address">
                         </div>
                         @error('address')
                             <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                         <div class="form-group">
-                            <label>Phone Number</label>
-                            <input type="text" class="form-control" placeholder="Enter Phone Number.."
+                            <label>Số điện thoại</label>
+                            <input type="text" class="form-control"
                                 name="phone_number">
                         </div>
                         @error('phone_number')
                             <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox"> Agree the terms and policy
-                            </label>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Register</button>
+                        <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Đăng ký</button>
                         <div class="register-link m-t-15 text-center">
-                            <p>Already have account ? <a href="{{ url('login') }}"> Sign in</a></p>
+                            <p>Đã có tài khoản ? <a href="{{ url('login') }}"> Đăng nhập ngay</a></p>
                         </div>
                     </form>
                 </div>

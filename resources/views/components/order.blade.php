@@ -21,7 +21,8 @@
                                         <ol class="mt-1rem">
                                             @foreach ($details->orderDetail()->get() as $detailId => $subDetails)
                                                 <li>
-                                                    <img src="{{url('client/images/product')}}/{{$subDetails->products()->first()->image_url}}" alt="" width="50">
+                                                    <img src="{{ url('client/images/product') }}/{{ $subDetails->products()->first()->image_url }}"
+                                                        alt="" width="50">
                                                     {{ $subDetails->products()->first()->name . ' (' . $subDetails->quantity . ' x ' . number_format($subDetails->products()->first()->selling_price, 0, ',', '.') . 'đ)' }}
                                                 </li>
                                             @endforeach
@@ -38,28 +39,29 @@
                                     </td>
 
                                     <td class="status total">
-                                            @if ($details->status == 'pending')
+                                        @if ($details->status == 'pending')
                                             <span class="badge badge-pending">
                                                 Đang chờ xác nhận đơn
                                             </span>
-                                            @elseif($details->status == 'delivering')
+                                        @elseif($details->status == 'delivering')
                                             <span class="badge badge-success">
                                                 Đang trên đường giao đến bạn
                                             </span>
-                                            @else
+                                        @else
                                             <span class="badge badge-danger">
                                                 Đã hủy đơn hàng
                                             </span>
-                                            @endif
+                                        @endif
                                     </td>
 
                                     <td class="total">
                                         {{ $details->created_at }}
                                     </td>
-                                    @if($details->status == 'cancel' || $details->status == 'delivering')
+                                    @if ($details->status == 'cancel' || $details->status == 'delivering')
                                     @else
-                                    <td class="productremove"><a href="cancel-status-product{{ $details->order_id }}"
-                                            class="ion-ios-close" data-confirm-delete ="true"></a></td>
+                                        <td class="productremove"><a
+                                                href="cancel-status-product{{ $details->order_id }}"
+                                                class="ion-ios-close" data-confirm-delete ="true"></a></td>
                                     @endif
                                 </tr><!-- END TR-->
                             @endforeach

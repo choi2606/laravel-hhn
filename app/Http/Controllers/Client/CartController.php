@@ -17,7 +17,10 @@ class CartController extends Controller
         confirmDelete($title, $text);
         $discounts = DiscountController::listDiscounts();
         $discountsValid = $discounts->where('remainingDays', '>', 0);
-        return view('client.cart', compact('discountsValid'));
+        return view('client.cart', [
+            'discountsValid' => $discountsValid,
+            'carts' => session()->get('cart'),
+        ]);
     }
 
     public function addProductToCart($id, Request $request)
