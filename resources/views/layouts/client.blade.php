@@ -26,6 +26,10 @@
         h6 {
             color: #000;
         }
+
+        .user-area {
+            text-transform: uppercase;
+        }
     </style>
 </head>
 
@@ -58,7 +62,7 @@
                 <div class="header-left" style="display: -webkit-inline-box;">
                     <div class="form-inline" style="display: block;">
                         <form class="search-form" style="display: block">
-                            <input class="form-control form-control-sm search mr-sm-2 rounded-pill searchProduct"
+                            <input class="form-control form-control-sm search rounded-pill searchProduct"
                                 type="text" placeholder="Bạn cần gì?.." aria-label="Search">
                             <button class="search-trigger" onclick="talk(event)" id="tlks"><i
                                     class="fa fa-microphone"></i></button>
@@ -71,8 +75,7 @@
 
                 @if (Auth::check())
                     <div class="user-area dropdown dropdown-user float-right">
-                        <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
+                        <a href="#" class="dropdown-toggle active" data-toggle="dropdown">
                             {{ Auth::user()->username }}
                         </a>
                         <div class="user-menu dropdown-menu">
@@ -301,7 +304,7 @@
 
         function talk(e) {
             e.preventDefault();
-            
+
             if (isListening) {
                 recognition.stop();
                 document.getElementById("tlks").style.color = 'black';
