@@ -102,6 +102,7 @@ Route::get('/blog', function () {
 })->name('blog');
 
 Route::get('cart', [CartController::class, 'index'])->name('cart');
+Route::get('search-ajax-product', [HomeClientController::class, 'searchAjax']);
 Route::post('add-cart{id}', [CartController::class, 'addProductToCart']);
 //Route::get('add-cart{id}', [CartController::class, 'addProductToCart']);
 Route::get('update-cart', [CartController::class, 'updateProductToCart']);

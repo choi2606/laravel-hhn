@@ -7,7 +7,23 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @include('library.client.head')
     @yield('css')
-
+    <style>
+        div.search-result {
+            position: absolute;
+            top: 55px;
+            display: block;
+            background-color: #fff;
+            box-shadow:
+                rgba(0, 0, 0, 0.07) 0px 1px 1px,
+                rgba(0, 0, 0, 0.07) 0px 2px 2px,
+                rgba(0, 0, 0, 0.07) 0px 4px 4px,
+                rgba(0, 0, 0, 0.07) 0px 8px 8px,
+                rgba(0, 0, 0, 0.07) 0px 16px 16px;
+            border-top: none;
+            border-radius: 0px 0px 10px 5px;
+            width: 30%;
+        }
+    </style>
 </head>
 
 <body class="goto-here">
@@ -39,13 +55,15 @@
                 <div class="header-left" style="display: -webkit-inline-box;">
                     <div class="form-inline" style="display: block;">
                         <form class="search-form" style="display: block">
-                            <input class="form-control form-control-sm search mr-sm-2 rounded-pill" type="text"
-                                placeholder="Bạn cần gì?.." aria-label="Search">
+                            <input class="form-control form-control-sm search mr-sm-2 rounded-pill searchProduct"
+                                type="text" placeholder="Bạn cần gì?.." aria-label="Search">
                             <button class="search-trigger"><i class="fa fa-search"></i></button>
                         </form>
                     </div>
                 </div>
 
+                <div class="search-result col-lg-9 pr-5">
+                </div>
                 @if (Auth::check())
                     <div class="user-area dropdown dropdown-user float-right">
                         <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true"
@@ -72,7 +90,7 @@
     <!-- END nav -->
 
     @yield('content')
-   <footer class="ftco-footer ftco-section">
+    <footer class="ftco-footer ftco-section">
         <div class="container">
             <div class="row">
                 <div class="mouse">
@@ -239,6 +257,38 @@
             placeholderText: 'Send a message...',
             displayMessageTime: true,
         }
+
+        // function searchAjax() {
+        $('.searchProduct').on('keyup', function(e) {
+            var data = {
+                value: e.target.value,
+            }
+            if (e.target.value == '') {
+                $('.search-result').empty();
+            } else {
+                $.get('search-ajax-product', data)
+                    .done(function(data) {
+                        $('.search-result').empty();
+                        $.each(data, function(index, item) {
+                            $('.search-result').append(
+                                `<div class="media mb-2">
+                                        <a href="product-detail${item.product_id}" class="pull-left">
+                                            <img src="./client/images/product/${item.image_url}" width="50" alt="" class="media-object">
+                                        </a>
+                                        <div class="media-body ml-2">
+                                            <h6 class="media-heading">${item.name}</h6>
+                                        </div>
+                                    </div>
+                                </div>`
+                            );
+
+                        })
+                    })
+                    .fail(function(data) {})
+            }
+
+        })
+        // }
     </script>
 </body>
 
