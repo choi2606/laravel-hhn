@@ -57,13 +57,15 @@
                         <form class="search-form" style="display: block">
                             <input class="form-control form-control-sm search mr-sm-2 rounded-pill searchProduct"
                                 type="text" placeholder="Bạn cần gì?.." aria-label="Search">
-                            <button class="search-trigger"><i class="fa fa-search"></i></button>
+                            <button class="search-trigger" onclick="talk(event)" id="tlks"><i
+                                    class="fa fa-microphone"></i></button>
                         </form>
                     </div>
                 </div>
 
                 <div class="search-result col-lg-9 pr-5">
                 </div>
+
                 @if (Auth::check())
                     <div class="user-area dropdown dropdown-user float-right">
                         <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true"
@@ -258,20 +260,15 @@
             displayMessageTime: true,
         }
 
-        // function searchAjax() {
-        $('.searchProduct').on('keyup', function(e) {
-            var data = {
-                value: e.target.value,
-            }
-            if (e.target.value == '') {
-                $('.search-result').empty();
-            } else {
-                $.get('search-ajax-product', data)
-                    .done(function(data) {
-                        $('.search-result').empty();
-                        $.each(data, function(index, item) {
-                            $('.search-result').append(
-                                `<div class="media mb-2">
+        let searchTimeout;
+
+        function getProductResult(data) {
+            $.get('search-ajax-product', data)
+                .done(function(data) {
+                    $('.search-result').empty();
+                    $.each(data, function(index, item) {
+                        $('.search-result').append(
+                            `<div class="media mb-2">
                                         <a href="product-detail${item.product_id}" class="pull-left">
                                             <img src="./client/images/product/${item.image_url}" width="50" alt="" class="media-object">
                                         </a>
@@ -280,15 +277,81 @@
                                         </div>
                                     </div>
                                 </div>`
-                            );
+                        );
 
-                        })
                     })
-                    .fail(function(data) {})
+                })
+                .fail(function(data) {})
+        }
+
+        function startSearchTimer(data) {
+            // Xóa timeout hiện tại (nếu có)
+            clearTimeout(searchTimeout);
+
+            // Thiết lập timeout mới để gọi hàm getProductResult sau 0.5 giây
+            searchTimeout = setTimeout(() => {
+                getProductResult(data);
+            }, 500);
+        }
+
+        $('.searchProduct').on('keyup', function(e) {
+            var data = {
+                value: e.target.value,
+            }
+            if (data.value === "") {
+                $('.search-result').empty();
+            } else {
+                startSearchTimer(data);
             }
 
         })
-        // }
+
+        let isListening = false; // Biến flag để theo dõi trạng thái lắng nghe
+
+        function talk(e) {
+            e.preventDefault();
+
+            if (isListening) {
+                recognition.stop();
+                document.getElementById("tlks").style.color = 'black';
+                isListening = false;
+                return;
+            }
+
+            $('.searchProduct').val("");
+            $('.searchProduct').attr('placeholder', 'Đang lắng nghe...');
+            document.getElementById("tlks").style.color = "red";
+            window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            const recognition = new window.SpeechRecognition();
+            recognition.lang = "vi-VN";
+            recognition.interimResults = true;
+
+            recognition.addEventListener("result", event => {
+                var text = Array.from(event.results)
+                    .map(result => result[0])
+                    .map(result => result.transcript)
+                    .join("");
+                document.getElementsByClassName("searchProduct")[0].value = text;
+                console.log({
+                    text
+                });
+
+                var data = {
+                    value: text,
+                };
+                getProductResult(data);
+
+            });
+
+            recognition.addEventListener("end", () => {
+                recognition.stop();
+                document.getElementById("tlks").style.color = 'black';
+                isListening = false;
+            });
+
+            recognition.start();
+            isListening = true;
+        }
     </script>
 </body>
 
