@@ -21,6 +21,8 @@ class HomeClientController extends Controller
         }else{
             $search=Product::where('name','LIKE','%'.$request->value.'%')->orWhere('selling_price', 'LIKE', "%{$request->value}%")->limit(6)->get();
         }
-        return response()->json($search, 200);
+        $result = view('components.searchajax', ["data" => $search])->render();
+
+        return response()->json(['result' => $result], 200);
     }
 }

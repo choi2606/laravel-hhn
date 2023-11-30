@@ -1,11 +1,11 @@
 @foreach ($data as $item)
-   <div class="media">
-      <a href="{{route('home.show',$item->id)}}" class="pull-left">
-         <img src="{{url("public/uploads")}}/{{$item->image}}" width="50" alt="" class="media-object">
-      </a>
-      <div class="media-body">
-         <h5 class="media-heading">{{$item->name}}</h5>
-         <p>{{$item->category()->first()->name}}</p>
-      </div>
-   </div>
+    <div class="media">
+        <a href="product-detail{{ $item->product_id }}" class="pull-left">
+            <img src="./client/images/product/{{ $item->image_url }}" width="50" alt="" class="media-object">
+        </a>
+        <div class="media-body ml-2">
+            <h6 class="media-heading">{{ $item->name }}</h6>
+            <p>{{ $item->category()->first()->name }}</p>
+        </div>
+    </div>
 @endforeach
