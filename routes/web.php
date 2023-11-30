@@ -23,6 +23,7 @@ use App\Http\Controllers\Admin\ListUserController;
 use App\Http\Controllers\Admin\LoginAdminController;
 use App\Http\Controllers\Admin\UpdateOrderController;
 use App\Http\Controllers\Client\BlogClientController;
+use App\Http\Controllers\Client\BlogCommentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -87,8 +88,8 @@ Route::middleware('admin')->group(function () {
 
     Route::get('add-blogs', [AddBlogController::class, 'index']);
     Route::post('add-blogs', [AddBlogController::class, 'store']);
-    Route::post('update-blog{blog_id}', [AddBlogController::class, 'updateBlog']);
-    Route::post('remove-blog{blog_id}', [AddBlogController::class, 'deleteBlog']);
+    Route::post('update-blog', [AddBlogController::class, 'updateBlog']);
+    Route::get('remove-blog{blog_id}', [AddBlogController::class, 'deleteBlog'])->name('delete-blog');
 
     Route::get('add-discount', [DiscountController::class, 'index']);
     Route::post('add-discount', [DiscountController::class, 'store']);
@@ -113,7 +114,8 @@ Route::get('/welcome', [Controller::class, 'welcome']);
 Route::get('/', [HomeClientController::class, 'index']);
 Route::get('product-detail{product_id}', [ProductDetailController::class, 'index']);
 Route::get('/blog', [BlogClientController::class,'index']);
-Route::get('/blog-singles{blog_id}', [BlogClientController::class,'blog_single']);
+Route::get('/blog-singles/{blog_id}', [BlogClientController::class,'blog_single']);
+Route::post('/blog-singles/comment', [BlogCommentController::class,'store']);
 
 Route::get('cart', [CartController::class, 'index'])->name('cart');
 Route::post('add-cart{id}', [CartController::class, 'addProductToCart']);
