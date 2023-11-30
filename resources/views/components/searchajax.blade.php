@@ -1,4 +1,5 @@
 @foreach ($data as $item)
+    @if($item->status == 1)
     <div class="media">
         <a href="product-detail{{ $item->product_id }}" class="pull-left">
             <img src="./client/images/product/{{ $item->image_url }}" width="50" alt="" class="media-object">
@@ -8,4 +9,6 @@
             <p>{{ $item->category()->first()->name }}</p>
         </div>
     </div>
+    @else
+    @endif
 @endforeach
