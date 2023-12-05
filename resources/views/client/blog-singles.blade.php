@@ -21,6 +21,45 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 ftco-animlúce">
+                    @if (Auth::user()->role == 1)
+                        <div class="clearfix d-block">
+                            <a href="#" data-target = "#updateFormModal" data-toggle="modal"
+                                class="fa fa-pencil-square-o icon-update update_button ms-auto text-warning float-right">Cập
+                                nhật blog</a>
+                        </div>
+                        <div class="modal fade" id="updateFormModal" tabindex="-1" role="dialog"
+                            aria-labelledby="modalLabel" aria-hidden="true">
+                            <div class="card modal-dialog modal-lg modal-content" role="document">
+                                <div class="modal-header">
+                                    <strong class="card-title">Cập Nhật Diễn Đàn</strong>
+                                </div>
+                                <div class="modal-body card-block">
+                                    <form method="post" action="/update-blog" enctype="multipart/form-data">
+                                        @csrf
+                                        <input type="hidden" id="updateInput" name="blogID" value={{ $blog->blog_id }}
+                                            required>
+                                        <div class="form-group">
+                                            <label for="titleInput">Tiêu đề</label>
+                                            <input type="text" name="blogTitleUpdate" class="form-control"
+                                                placeholder="Viết tiêu đề vào đây." value="{{ $blog->title }}" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="contentInput">Nội dung</label>
+                                            <textarea style="white-space: pre-line" type="text" name="blogContentUpdate" class="form-control" rows='9'
+                                                required>{{ $blog->text }}</textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="file" id="imageUpdateInput" name="blogImageUpdate"
+                                                accept="image/png, image/gif, image/jpeg">
+                                        </div>
+                                        <div class="form-actions form-group">
+                                            <button type="submit" class="btn btn-success btn-sm px-4">Sửa</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
                     <h2 class="mb-3">{{ $blog->title }}</h2>
                     <p style="white-space: pre-line; font-size: 20px" id="blog_text">{{ $blog->text }}</p>
                     <div class="row">
@@ -49,7 +88,7 @@
 
                     <div class="comment-form-wrap pt-5">
                         <h3 class="mb-5">Bình luận</h3>
-                        
+
                         <form method="post" action="comment" class="p-3 bg-light">
                             @csrf
                             <div class="row">
@@ -92,8 +131,8 @@
                                                             <i class="fa fa-user" style="width: 18px"></i>
                                                         </span>
                                                     </div>
-                                                    <input type="text" class="form-control form-control-sm" name="userName"
-                                                        placeholder="Tên*" required>
+                                                    <input type="text" class="form-control form-control-sm"
+                                                        name="userName" placeholder="Tên*" required>
                                                 </div>
                                                 <div class="input-group mt-2">
                                                     <div class="input-group-prepend">
@@ -101,8 +140,8 @@
                                                             <i class="fa fa-at" style="width: 18px"></i>
                                                         </span>
                                                     </div>
-                                                    <input type="email" class="form-control form-control-sm" name="userEmail"
-                                                        placeholder="Email*" required>
+                                                    <input type="email" class="form-control form-control-sm"
+                                                        name="userEmail" placeholder="Email*" required>
                                                 </div>
                                             @endguest
                                         </div>
@@ -128,7 +167,7 @@
                                     <div class="comment-body">
                                         <h5>{{ $comment->username }}{{ $comment->unreg_username }}</h5>
                                         <div class="meta">
-                                            {{ $comment->created_at ? \Carbon\Carbon::parse($comment->created_at)->format('d/m/Y \l\ú\c h:i A') : "Unknow" }}
+                                            {{ $comment->created_at ? \Carbon\Carbon::parse($comment->created_at)->format('d/m/Y \l\ú\c h:i A') : 'Unknow' }}
                                         </div>
                                         <p style="font-size: 18px">{{ $comment->text }}</p>
                                         <hr>
@@ -220,13 +259,13 @@
                 </div> <!-- .col-md-8 -->
                 <div class="col-lg-4 sidebar ftco-animlúce">
                     <!-- <div class="sidebar-box">
-                                                                  <form action="#" class="search-form">
-                                                                    <div class="form-group">
-                                                                      <span class="icon ion-ios-search"></span>
-                                                                      <input type="text" class="form-control " placeholder="Search...">
-                                                                    </div>
-                                                                  </form>
-                                                                </div> -->
+                                                                                                  <form action="#" class="search-form">
+                                                                                                    <div class="form-group">
+                                                                                                      <span class="icon ion-ios-search"></span>
+                                                                                                      <input type="text" class="form-control " placeholder="Search...">
+                                                                                                    </div>
+                                                                                                  </form>
+                                                                                                </div> -->
                     <div class="sidebar-box ftco-animlúce">
                         <h3 class="heading">Loại sản phẩm</h3>
                         <ul class="clúcegories">
