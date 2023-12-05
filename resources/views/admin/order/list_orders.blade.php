@@ -7,8 +7,7 @@
     <link rel="stylesheet" href="{{ asset('owner/assets/css/lib/datatable/dataTables.bootstrap.min.css') }}">
 @endsection
 @section('breadcrumbs')
-    <li><a href="#">Quản lý đơn hàng</a></li>
-    <li class="active">Danh sách đơn hàng</li>
+    <li class="active">đơn hàng</li>
 @endsection
 @section('content')
     <div class="content">
@@ -26,9 +25,10 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Mã Đơn hàng</th>
-                                        <th>Tên người dùng</th>
-                                        <th>Số sản phẩm</th>
-                                        <th>Số lượng</th>
+                                        <th>Người đặt</th>
+                                        <th>Tên sản phẩm</th>
+                                        <th>Tổng cộng</th>
+                                        <th>Tổng phụ</th>
                                         <th>Thành tiền</th>
                                         <th>Ngày đặt</th>
                                         <th>Trạng thái</th>
@@ -37,24 +37,29 @@
                                 </thead>
                                 <tbody>
                                     @php $count = 1; @endphp
-                                    @forelse($orders as $order)
+                                    @forelse($data as $order)
                                         <tr>
                                             <td>{{ $count++ }}</td>
                                             <td>{{ $order->order_code }}</td>
-                                            <td>{{ $order->username }}</td>
-                                            <td class="total_product d-flex">{{ $order->total_product }}
-                                                <a href="{{ url('view-order' . $order->order_id) }}"
-                                                    class="fa fa-eye view-products" onclick="showProduct(event)">
-                                                </a>
+                                            <td>{{ $order->users()->first()->username }}</td>
+                                            <td>
+                                                <ol>
+                                                    @foreach($order->orderDetail()->get() as $subitem)
+                                                    <li>
+                                                        {{$subitem->products()->first()->name}}
+                                                    </li>
+                                                    @endforeach
+                                                </ol>
                                             </td>
-                                            <td>{{ $order->total_quantity }}</td>
+                                            <td>{{ number_format($order->total_amount - $order->subtotal, 0, ",", ".") }}đ</td>
+                                            <td>{{ number_format($order->subtotal, 0, ",", ".") }}đ</td>
                                             <td>{{ number_format($order->total_amount, 0, ",", ".") }}đ</td>
-                                            <td>{{ $order->order_date }}</td>
+                                            <td>{{ date_format($order->created_at, 'd/m/Y') }}</td>
                                             <td>
                                                 @if ($order->status == 'pending')
                                                     <span class="badge badge-pending">Đang chờ</span>
                                                 @elseif($order->status == 'success')
-                                                    <span class="badge badge-complete">Hoàn thành</span>
+                                                    <span class="badge badge-complete">Đã giao</span>
                                                 @elseif($order->status == 'delivering')
                                                     <span class="badge badge-info">Đang giao</span>
                                                 @else
@@ -84,20 +89,10 @@
 
     <div class="clearfix"></div>
     {{-- modal --}}
-    @include('admin.order.modal')
     @include('admin.order.edit')
 @endsection
 @section('js')
-    <script src="{{ asset('owner/assets/js/lib/data-table/datatables.min.js') }}"></script>
-    <script src="{{ asset('owner/assets/js/lib/data-table/dataTables.bootstrap.min.js') }}"></script>
-    <script src="{{ asset('owner/assets/js/lib/data-table/dataTables.buttons.min.js') }}"></script>
-    <script src="{{ asset('owner/assets/js/lib/data-table/buttons.bootstrap.min.js') }}"></script>
-    <script src="{{ asset('owner/assets/js/lib/data-table/jszip.min.js') }}"></script>
-    <script src="{{ asset('owner/assets/js/lib/data-table/vfs_fonts.js') }}"></script>
-    <script src="{{ asset('owner/assets/js/lib/data-table/buttons.html5.min.js') }}"></script>
-    <script src="{{ asset('owner/assets/js/lib/data-table/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('owner/assets/js/lib/data-table/buttons.colVis.min.js') }}"></script>
-    <script src="{{ asset('owner/assets/js/init/datatables-init.js') }}"></script>
+    @include('library.data-table.data')
     <script src="{{ asset('owner/assets/js/updateorder.js') }}"></script>
 
     <script type="text/javascript">

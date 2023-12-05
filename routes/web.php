@@ -3,25 +3,22 @@
 use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
-use App\Http\Controllers\BotmanController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Auth\RegisterUserController;
 use App\Http\Controllers\Client\CartController;
-use App\Http\Controllers\Client\DashboardClientController;
 use App\Http\Controllers\Client\HomeClientController;
+use App\Http\Controllers\Client\OrdersController;
 use App\Http\Controllers\Client\PaymentDetailsController;
 use App\Http\Controllers\Client\ProductDetailController;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Client\LoginUserController;
-use App\Http\Controllers\Client\RegisterUserController;
+use App\Http\Controllers\Auth\LoginUserController;
 use App\Http\Controllers\Client\ShopClientController;
 use App\Http\Controllers\Admin\AddBlogController;
-use App\Http\Controllers\Admin\AddProductController;
 use App\Http\Controllers\Admin\AddUserController;
 use App\Http\Controllers\Admin\CategoryDashboardController;
 use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\ListProductController;
 use App\Http\Controllers\Admin\ListUserController;
 use App\Http\Controllers\Admin\LoginAdminController;
-use App\Http\Controllers\Admin\UpdateOrderController;
 use App\Http\Controllers\Client\BlogClientController;
 use App\Http\Controllers\Client\BlogCommentController;
 use Illuminate\Support\Facades\Route;
@@ -55,18 +52,7 @@ Route::middleware('admin')->group(function () {
     //backend admin routes
     Route::get('admin', [AdminController::class, 'index'])->name('admin.index');
 
-    Route::get('add-user', [AddUserController::class, 'index']);
-    Route::post('add-user', [AddUserController::class, 'store']);
-    Route::get('list-users', [ListUserController::class, 'index']);
-    Route::get('list-users/number_entries{number_entries}', [ListUserController::class, 'loadEntries']);
-    Route::delete('delete-users/number_entries{number_entries}', [ListUserController::class, 'deleteUser']);
-    Route::get('delete-users/number_entries{number_entries}', [ListUserController::class, 'loadEntries']);
-    Route::put('update-user/number_entries{number_entries}', [ListUserController::class, 'updateUser']);
-    Route::get('update-user/number_entries{number_entries}', [ListUserController::class, 'loadEntries']);
-    Route::get('search-users/number_entries{number_entries}', [ListUserController::class, 'searchUsers']);
-    Route::get('sort-ascending/number_entries{number_entries}', [ListUserController::class, 'sortAscending']);
-    Route::get('sort-descending/number_entries{number_entries}', [ListUserController::class, 'sortDescending']);
-
+    Route::get('list-users', [UserController::class, 'index']);
 
     Route::get('add-products', [ProductController::class, 'index']);
     Route::post('add-products', [ProductController::class, 'addProduct']);
@@ -84,7 +70,7 @@ Route::middleware('admin')->group(function () {
     Route::delete('delete-order{order_id}', [OrderController::class, 'deleteOrder']);
     Route::get('delete-order{order_id}', [OrderController::class, 'deleteOrder']);
     Route::put('update-status-order{order_id}', [OrderController::class, 'updateStatusOrder']);
-    Route::get('view-order{order_id}', [OrderController::class, 'orderDetails']);
+    Route::get('view-order{order_id}', [OrderController::class, 'getOrderDetails']);
 
     Route::get('add-blogs', [AddBlogController::class, 'index']);
     Route::post('add-blogs', [AddBlogController::class, 'store']);
@@ -93,17 +79,14 @@ Route::middleware('admin')->group(function () {
 
     Route::get('add-discount', [DiscountController::class, 'index']);
     Route::post('add-discount', [DiscountController::class, 'store']);
-    Route::get('list-discount', [DiscountController::class, 'listDiscounts']);
+    Route::get('list-discount', [DiscountController::class, 'discountIndex']);
     Route::put('update-discount{discount_id}', [DiscountController::class, 'updateDiscount']);
     Route::get('delete-discount{discount_id}', [DiscountController::class, 'deleteDiscount']);
-
-
 
     Route::get('list-categories', [CategoryDashboardController::class, 'index']);
     Route::post('add-category', [CategoryDashboardController::class, 'add_category']);
     Route::delete('remove-category{category_idSelect}', [CategoryDashboardController::class, 'remove_category']);
     Route::put('update_category{category_idSelect}', [CategoryDashboardController::class, 'update_category']);
-
 
 });
 
@@ -111,14 +94,16 @@ Route::get('/welcome', [Controller::class, 'welcome']);
 
 
 //client routes
-Route::get('/', [HomeClientController::class, 'index']);
+Route::get('/', [HomeClientController::class, 'index'])->name('index.client');
 Route::get('product-detail{product_id}', [ProductDetailController::class, 'index']);
 Route::get('/blog', [BlogClientController::class,'index']);
 Route::get('/blog-singles/{blog_id}', [BlogClientController::class,'blog_single']);
 Route::post('/blog-singles/comment', [BlogCommentController::class,'store']);
 
 Route::get('cart', [CartController::class, 'index'])->name('cart');
+Route::get('search-ajax-product', [HomeClientController::class, 'searchAjax']);
 Route::post('add-cart{id}', [CartController::class, 'addProductToCart']);
+//Route::get('add-cart{id}', [CartController::class, 'addProductToCart']);
 Route::get('update-cart', [CartController::class, 'updateProductToCart']);
 Route::get('delete-product-cart{id}', [CartController::class, 'deleteProductFromCart']);
 Route::post('apply-discount', [CartController::class, 'applyDiscount']);
@@ -126,15 +111,35 @@ Route::get('checkout', [PaymentDetailsController::class, 'index'])->name('checko
 Route::post('checkout', [PaymentDetailsController::class, 'store']);
 Route::post('check-payment-detail/{payment_method}', [PaymentDetailsController::class, 'addPaymentDetail']);
 Route::get('check-payment-detail/{payment_method}', [PaymentDetailsController::class, 'paymentOnline']);
-Route::get('/contact', function () {
+Route::get('home', [PaymentDetailsController::class, 'destroy']);
+Route::get('order', [OrdersController::class, 'index'])->name('client.order');
+Route::get('cancel-status-product{order_id}', [OrdersController::class, 'cancelStatusOrder']);
+Route::get('contact', function () {
     return view('client.contact');
-});
+})->name('contact');
 Route::get('about', function () {
     return view('client.about');
-});
+})->name('about');
 
-Route::get('shop', [ShopClientController::class, 'index']);
-Route::get('/product-detail', function () {
+Route::get('shop', [ShopClientController::class, 'index'])->name('shop');
+Route::get('product-detail', function () {
     return view('client.product-detail');
 });
+
+Route::get('fee-transport', [CartController::class, 'feeTransport']);
+
+Route::get('email', function () {
+    $cart = session()->get('cart');
+    $pay = session()->get('payment');
+    $status = 'pending';
+    $code = "ORDER1234";
+    $method = "Tiền mặt";
+    $orderDate = date_format(now(), 'd/m/Y');
+    return view('emails.orders.welcome', compact('status', 'code', 'cart', 'method', 'pay', 'orderDate'));
+});
+
+Route::get('vietnam', function() {
+    return response()->file(public_path('data\vietnam.json'));
+});
+
 //frontend admin routes

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Client;
 
+use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\Controller;
 use App\Models\Discount;
 use App\Models\Product;
@@ -14,14 +15,23 @@ class CartController extends Controller
         $title = 'Xóa khỏi giỏ hàng!';
         $text = "Bạn có chắc muốn xóa không?";
         confirmDelete($title, $text);
-        return view('client.cart');
+        $discounts = DiscountController::listDiscounts();
+        $discountsValid = $discounts->where('remainingDays', '>', 0);
+        return view('client.cart', [
+            'discountsValid' => $discountsValid,
+            'carts' => session()->get('cart'),
+        ]);
     }
 
     public function addProductToCart($id, Request $request)
     {
         $product = Product::findOrFail($id);
         $cart = session()->get('cart', []);
-        $quantity = $request->quantity;
+        if ($request->has('quantity')) {
+            $quantity = $request->quantity;
+        } else {
+            $quantity = 1;
+        }
         if (isset($cart[$id])) {
             $cart[$id]['quantity'] += $quantity;
         } else {
@@ -57,15 +67,19 @@ class CartController extends Controller
             unset($cart[$id]);
             session()->put('cart', $cart);
         }
-        toast('Đã xóa khỏi giỏ hàng!', 'success');
-        return redirect()->back();
+        $componentsCart = view('components.cart', ['cart' => session()->get('cart')])->render();
+        return response()->json([
+            "cartComponents" => $componentsCart,
+            "code" => 200,
+        ], 200);
+
     }
 
     public function applyDiscount(Request $request)
     {
         $total = $request->get('storageTotal');
         $discount_code = $request->discountName;
-        if($discount_code == '') {
+        if ($discount_code == '') {
             return response()->json(['total' => $total, 'discount' => 0, 'type' => 2]);
         }
         $discount = Discount::where('discount_code', $discount_code)->where('expire', '>=', date('Y-m-d'))->first();

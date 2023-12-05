@@ -42,3 +42,29 @@ body {
 #cellPaiChart {
     height: 160px;
 }
+
+.open .sub-menu i {
+    left: unset;
+}
+
+.navbar .navbar-nav li>a .menu-icon {
+    color: #abb4be;
+}
+
+
+.right-panel .navbar-brand {
+    width: unset;
+}
+
+
+.menutoggle {
+    width: 20px;
+}
+
+.right-panel header.header {
+    border-bottom: 1px solid #e8e9ed;
+}
+
+/* .navbar {
+    margin-top: 15px;
+} */

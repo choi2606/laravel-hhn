@@ -14,12 +14,15 @@ class PaymentDetail extends Model
     protected $fillable = [
         'user_id',
         'order_id',
-        'first_name',
-        'last_name',
-        'address',
+        'receive_name',
+        'street',
+        'district',
         'province',
         'phone_number',
-        'email',
         'method'
     ];
+
+    public function orders() {
+        return $this->hasOne(Order::class, 'order_id', 'order_id');
+    }
 }

@@ -21,6 +21,10 @@ class Product extends Model
         
     ];
 
+    public function category() {
+        return self::hasOne(Category::class, 'category_id', 'category_id');
+    }
+
     public function orderDetails() {
         return $this->hasMany(OrderDetail::class, 'product_id', 'product_id');
     }

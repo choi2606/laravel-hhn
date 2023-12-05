@@ -2,32 +2,9 @@
 <html class="no-js" lang="">
 
 <head>
-    <meta charset="utf-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     @yield('title')
-    <title>HHN Admin</title>
-    <meta name="description" content="Ela Admin - HTML5 Admin Template">
-    <meta name="viewport" content="width=device-width,
-    initial-scale=1">
-    <link rel="apple-touch-icon" href="https://i.imgur.com/QRAUqs9.png">
-    <link rel="shortcut icon" href="https://i.imgur.com/QRAUqs9.png">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.0/normalize.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
-    <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
-    <link rel="stylesheet" href="{{ asset('owner/assets/css/style.css') }}">
-    <link href="https://cdn.jsdelivr.net/npm/chartist@0.11.0/dist/chartist.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/jqvmap@1.5.1/dist/jqvmap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/weathericons@2.1.0/css/weather-icons.css" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="{{ asset('owner/assets/css/lib/chosen/chosen.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('owner/assets/css/cs-skin-elastic.css') }}">
-    <link rel="stylesheet" href="{{ asset('owner/assets/css/lib/datatable/dataTables.bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('owner/assets/css/cs-adminlayout.css') }}">
+    @include('library.admin.head')
     @yield('css')
     @yield('headtag')
 </head>
@@ -38,53 +15,35 @@
         <nav class="navbar navbar-expand-sm navbar-default">
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active">
+                    <li class="index">
                         <a href="{{ url('/admin') }}"><i class="menu-icon fa fa-laptop"></i>Tổng Quan </a>
                     </li>
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>Quản Lý Người Dùng</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-puzzle-piece"></i><a href="{{ url('add-user') }}">Thêm Người Dùng</a>
-                            </li>
 
-                            <li><i class="fa fa-id-badge"></i><a href="{{ url('list-users') }}" class="list-users"
-                                    {{-- onclick="getData(event)" --}}>Liệt Kê Người Dùng</a>
-                            </li>
-                        </ul>
-                    </li>
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>Quản Lý Sản Phẩm</a>
+                            aria-expanded="false"> <i class="menu-icon fa fa-cutlery"></i>Quản Lý Sản Phẩm</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-puzzle-piece"></i><a href="{{ url('add-products') }}">Thêm sản phẩm</a>
+                            <li><i class="fa fa-plus"></i><a href="{{ url('add-products') }}">Thêm sản phẩm</a>
                             </li>
-                            <li><i class="fa fa-id-badge"></i><a href="{{ url('list-products') }}">Liệt Kê Sản
+                            <li><i class="fa fa-list-alt"></i><a href="{{ url('list-products') }}">Liệt Kê Sản
                                     Phẩm</a>
                             </li>
                         </ul>
                     </li>
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>Quản Lý Đơn Hàng</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-id-badge"></i><a href="{{ url('list-orders') }}">Cập nhật Đơn
-                                    Hàng</a></li>
-                        </ul>
-                    </li>
 
+                    
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>Quản Lý Mã Giảm</a>
+                            aria-expanded="false"> <i class="menu-icon fa fa-qrcode"></i>Quản Lý Mã Giảm</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li class="">
-                                <i class="fa fa-puzzle-piece"></i>
+                                <i class="fa fa-plus"></i>
                                 <a href="{{ url('add-discount') }}">
                                     Thêm Mã Giảm Giá
                                 </a>
                             </li>
                             <li>
-                                <i class="fa fa-id-badge"></i>
+                                <i class="fa fa-list-alt"></i>
                                 <a href="{{ url('list-discount') }}">
                                     Liệt Kê Mã Giảm Giá
                                 </a>
@@ -92,12 +51,28 @@
                         </ul>
                     </li>
 
+                    <li class="">
+                        <a href="{{ url('list-orders') }}" class="dropdown-toggle"> 
+                            <i class="menu-icon ti ti-clipboard"></i>Đơn Hàng</a>
+                    </li>
+
+
 
                     <li class="">
                         <a href="{{ url('list-categories') }}" class="dropdown" aria-expanded="false">
-                            <i class="menu-icon fa fa-cogs"></i>Danh Mục Sản Phẩm
+                            <i class="menu-icon fa fa-list-alt"></i>Danh Mục
                         </a>
                     </li>
+
+
+
+                    <li class="">
+                        <a href="{{ url('list-users') }}" class="list-users">
+                            <i class="menu-icon fa fa-user-o"></i>Người Dùng</a>
+                    </li>
+
+
+
 
                     <li class="">
                         <a href="{{ url('add-blogs') }}" class="dropdown" aria-expanded="false">
@@ -114,24 +89,20 @@
         <!-- Header-->
         <header id="header" class="header">
             <div class="top-left">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="{{ url('/') }}"
-                        style= "
-    color: #00c292;
-    font-weight: 800;
-    font-size: 28px;
-    text-transform: uppercase;
-">SHOP
-                        BEST GOODS</a>
-                    <a class="navbar-brand hidden" href="./"><img src="{{ asset('owner/images/logo2.png') }}"
-                            alt="Logo"></a>
+                <div class="navbar-header d-flex">
+                    <a class="navbar-brand" href="./"><img src="{{ asset('owner/images/logoapp.png') }}"
+                            height="40px" width="40px" style="border-radius: 50%" alt="Logo"></a>
+                    <a class="navbar-brand" href="./"><img src="{{ asset('owner/images/logoadmin.png') }}"
+                            height="40px" width="800px" style="border-radius: 5%" alt="Logo"></a>
+
+                    <a class="navbar-brand hidden" href="./"><img
+                            src="{{ asset('owner/images/logoshop.png') }}" alt="Logo"></a>
                     <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
                 </div>
             </div>
             <div class="top-right">
                 <div class="header-menu">
                     <div class="header-left">
-                        <button class="search-trigger"><i class="fa fa-search"></i></button>
                         <div class="form-inline">
                             <form class="search-form">
                                 <input class="form-control mr-sm-2" type="text" placeholder="Search ..."
@@ -192,33 +163,7 @@
     @include('sweetalert::alert_admin')
     @include('sweetalert::alert_admin', ['cdn' => 'https://cdn.jsdelivr.net/npm/sweetalert2@9'])
     <!-- Scripts -->
-
-    <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="{{ asset('owner/assets/js/main.js') }}"></script>
-    <script src="{{ asset('owner/assets/js/lib/chosen/chosen.jquery.min.js') }}"></script>
-
-
-    <!--  Chart js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.3/dist/Chart.bundle.min.js"></script>
-
-    <!--Chartist Chart-->
-    <script src="https://cdn.jsdelivr.net/npm/chartist@0.11.0/dist/chartist.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartist-plugin-legend@0.6.2/chartist-plugin-legend.min.js"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/jquery.flot@0.8.3/jquery.flot.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/flot-pie@1.0.0/src/jquery.flot.pie.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/flot-spline@0.0.1/js/jquery.flot.spline.min.js"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/simpleweather@3.1.0/jquery.simpleWeather.min.js"></script>
-    <script src="{{ asset('owner/assets/js/init/weather-init.js') }}"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/moment.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.js"></script>
-    <script src="{{ asset('owner/assets/js/init/fullcalendar-init.js') }}"></script>
+    @include('library.admin.script')
     @yield('js')
     <script>
         function toastSuccess(message) {

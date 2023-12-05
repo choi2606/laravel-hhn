@@ -1,4 +1,7 @@
 @extends('layouts.client')
+@section('title')
+    <title>Chi Tiết Thanh Toán</title>
+@endsection
 @section('css')
 @endsection
 @section('content')
@@ -13,7 +16,16 @@
             </div>
         </div>
     </div>
-
+    @php
+        $pay = session()->get('payment');
+        $total = $pay['total'];
+        $feeShip = $pay['feeShip'];
+        $discount = $pay['discount'] == '' ? '0' : $pay['discount'];
+        $totalPrice = $pay['totalPrice'];
+        $province = $pay['province'];
+        $district = $pay['district'];
+        $ward = $pay['ward'];
+    @endphp
     <section class="ftco-section">
         <div class="container">
             <div class="row justify-content-center">
@@ -24,79 +36,50 @@
                         <div class="row align-items-end">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="firstname">Tên đệm</label>
-                                    <input type="text" class="form-control" placeholder="" name="firstName">
+                                    <label for="firstname">Tên người nhận</label>
+                                    <input type="text" class="form-control" placeholder="" name="receiveName">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="lastname">Họ</label>
-                                    <input type="text" class="form-control" placeholder="" name="lastName">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="streetaddress">Địa chỉ</label>
-                                    <input type="text" class="form-control" placeholder="Số nhà và tên đường"
-                                        name="address">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="towncity">Tỉnh / Thành phố</label>
-                                    <input type="text" class="form-control" placeholder="" name="province">
+                                    <label for="lastname">Số nhà/Đường</label>
+                                    <input type="text" class="form-control" placeholder="" name="street">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="phone">Số điện thoại</label>
-                                    <input type="text" class="form-control" placeholder="" name="phone_number">
+                                    <input type="text" class="form-control" placeholder="" name="phoneNumber">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="emailaddress">Địa chỉ Email</label>
-                                    <input type="text" class="form-control" placeholder="" name="email">
+                                    <label for="towncity">Tỉnh/Thành phố</label>
+                                    <input type="text" class="form-control" disabled placeholder="" name="province"
+                                        value="{{ $province }}">
                                 </div>
                             </div>
-                        </div>
-                    </form><!-- END -->
-                    {{-- @if (count((array) session('cart')) > 0)
-                        <div class="col-md-12">
-                            <div class="cart-detail p-3 p-md-4">
-                                <h3 class="billing-heading mb-4">Phương thức thanh toán</h3>
+                            <div class="col-md-6">
                                 <div class="form-group">
-                                    <div class="col-md-12">
-                                        <div class="radio">
-                                            <label><input type="radio" name="optradio" class="mr-2" value="bankAccount"
-                                                    re=""> Tài khoản ngân
-                                                hàng </label>
-                                        </div>
-                                    </div>
+                                    <label for="towncity">Quận/Huyện</label>
+                                    <input type="text" class="form-control" disabled placeholder="" name="district"
+                                        value="{{ $district }}">
                                 </div>
-                                <div class="form-group">
-                                    <div class="col-md-12">
-                                        <div class="radio">
-                                            <label><input type="radio" name="optradio" class="mr-2" value="handMoney">
-                                                Thanh
-                                                toán khi
-                                                nhận hàng </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <p><button class="btn btn-primary py-3 px-4 btn-order" id="btn_1">Đặt hàng</button>
-                                </p>
                             </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="streetaddress">Phường/Xã</label>
+                                    <input type="text" class="form-control" disabled placeholder="" name="ward"
+                                        value="{{ $ward }}">
+                                </div>
+                            </div>
+
+
+
                         </div>
-                        @endif --}}
+                    </form>
                 </div>
-                @php
-                    $pay = session()->get('payment');
-                    $total = $pay['total'];
-                    $feeShip = $pay['feeShip'];
-                    $discount = $pay['discount'] == '' ? '0' : $pay['discount'];
-                    $totalPrice = $pay['totalPrice'];
-                @endphp
+
                 <div class="col-xl-5">
                     <div class="row mt-5 pt-3">
                         <div class="col-md-12 d-flex mb-5">
@@ -155,26 +138,7 @@
         </div>
         </div>
     </section> <!-- .section -->
-
-    <section class="ftco-section ftco-no-pt ftco-no-pb py-5 bg-light">
-        <div class="container py-4">
-            <div class="row d-flex justify-content-center py-5">
-                <div class="col-md-6">
-                    <h2 style="font-size: 22px;" class="mb-0">Đăng ký bản tin của chúng tôi</h2>
-                    <span>Nhận thông tin cập nhật qua e-mail về các cửa hàng mới nhất của chúng tôi và các ưu đãi đặc
-                        biệt</span>
-                </div>
-                <div class="col-md-6 d-flex align-items-center">
-                    <form action="#" class="subscribe-form">
-                        <div class="form-group d-flex">
-                            <input type="text" class="form-control" placeholder="Nhập địa chỉ Email">
-                            <input type="submit" value="Đăng kí" class="submit px-3">
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
+    @include ('layouts.signnewfeed')
     @include('sweetalert::alert_checkout')
     @include('sweetalert::alert_checkout', ['cdn' => 'https://cdn.jsdelivr.net/npm/sweetalert2@9'])
 @endsection

@@ -43,12 +43,17 @@ class DiscountController extends Controller
         return redirect()->back();
     }
 
-    public function listDiscounts()
+    public static function listDiscounts()
+    {
+        return Discount::select('discount_id', 'description', 'discount_code', 'expire', 'type', 'discount', DB::raw('DATEDIFF(expire, NOW()) as remainingDays'))->get();
+    }
+
+    public function discountIndex()
     {
         $title = 'Xóa Mã Giảm Giá!';
         $text = "Bạn có chắc muốn xóa không?";
         confirmDelete($title, $text);
-        $discounts = Discount::select('discount_id', 'description', 'discount_code', 'expire', 'type','discount', DB::raw('DATEDIFF(expire, NOW()) as remainingDays'))->get();
+        $discounts = $this->listDiscounts();
         return view('admin.discount.list_discounts', compact('discounts'));
     }
 
@@ -63,7 +68,8 @@ class DiscountController extends Controller
         return redirect()->back();
     }
 
-    public function updateDiscount($discount_id, Request $request) {
+    public function updateDiscount($discount_id, Request $request)
+    {
         $validated = $request->validate([
             'codeName' => 'required',
             'selectType' => 'required',
@@ -81,7 +87,7 @@ class DiscountController extends Controller
 
         $discount->save();
 
-        if($discount->wasChanged()) {
+        if ($discount->wasChanged()) {
             toast('Sửa thành công', 'success');
         } else {
             toast('Sửa thất bại!', 'error');

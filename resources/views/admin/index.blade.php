@@ -71,160 +71,156 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="stat-widget-five">
-                                <div class="stat-icon dib"><i class="ti-user text-primary border-primary"></i></div>
+                                <div class="stat-icon dib"><i class="ti-server text-primary border-primary"></i></div>
                                 <div class="stat-content">
                                     <div class="text-left dib">
-                                        <div class="stat-text"><span class="count">{{ $newUsers }}</span></div>
-                                        <div class="stat-heading">Người dùng mới</div>
+                                        <div class="stat-text"><span class="count">{{ $totalProducts }}</span></div>
+                                        <div class="stat-heading">Tổng sản phẩm</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-
             </div>
-            <div class="clearfix"></div>
-            <!-- Orders -->
-            <div class="orders">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <strong class="card-title">Đơn hàng</strong>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="chartjs-size-monitor"
+                                style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+                                <div class="chartjs-size-monitor-expand"
+                                    style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+                                    <div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div>
+                                </div>
+                                <div class="chartjs-size-monitor-shrink"
+                                    style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+                                    <div style="position:absolute;width:200%;height:200%;left:0; top:0"></div>
+                                </div>
                             </div>
-                            <div class="card-body">
-                                <table id="bootstrap-data-table" class="order-table2 table table-striped table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Mã Đơn hàng</th>
-                                            <th>Tên người dùng</th>
-                                            <th>Số sản phẩm</th>
-                                            <th>Số lượng</th>
-                                            <th>Thành tiền</th>
-                                            <th>Ngày đặt</th>
-                                            <th>Trạng thái</th>
-                                            <th>Cập Nhập</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @php $count = 1; @endphp
-                                        @forelse($orders as $order)
-                                            <tr>
-                                                <td>{{ $count++ }}</td>
-                                                <td>{{ $order->order_code }}</td>
-                                                <td>{{ $order->username }}</td>
-                                                <td class="total_product d-flex">{{ $order->total_product }}
-                                                    <a href="{{ url('view-order' . $order->order_id) }}"
-                                                        class="fa fa-eye view-products" onclick="showProduct(event)">
-                                                    </a>
-                                                </td>
-                                                <td>{{ $order->total_quantity }}</td>
-                                                <td>{{ number_format($order->total_amount, 0, ',', '.') }}đ</td>
-                                                <td>{{ $order->order_date }}</td>
-                                                <td>
-                                                    @if ($order->status == 'pending')
-                                                        <span class="badge badge-pending">Đang chờ</span>
-                                                    @elseif($order->status == 'success')
-                                                        <span class="badge badge-complete">Hoàn thành</span>
-                                                    @elseif($order->status == 'delivering')
-                                                        <span class="badge badge-info">Đang giao</span>
-                                                    @else
-                                                        <span class="badge badge-danger">Đã hủy</span>
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    @if ($order->status != 'success')
-                                                        <a href="update-status-order{{ $order->order_id }}"
-                                                            status="{{ $order->status }}"
-                                                            data-status = "{{ $order->status }}"
-                                                            onclick="showFormUpdateOrder(event)"
-                                                            class="fa fa-pencil-square-o">
-                                                        </a>
-                                                    @endif
-                                                </td>
-                                            </tr>
-                                        @empty
-                                            No orders
-                                        @endforelse
-                                    </tbody>
-                                </table>
-                            </div>
+                            <h4 class="mb-3">Đơn hàng năm 2023 </h4>
+                            <canvas id="barChart" width="668" height="333"
+                                style="display: block; height: 267px; width: 535px;"
+                                class="chartjs-render-monitor"></canvas>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- /#add-category -->
+            </div><!-- /# column -->
         </div>
-        <!-- .animated -->
+        <!--  /Traffic -->
+        <div class="clearfix"></div>
+        <!-- Orders -->
+        <!-- /#add-category -->
     </div>
-    <div class="modal">
-        <div class="container-modal js-container-modal">
-            <a class="close-modal js-close-container">
-                <i class="close-icon ti-close" onclick="hideProducts()"></i>
-            </a>
-            <div class="content-form">
-                <div class="animated fadeIn">
-                    <div class="row">
-                        <div class="col-lg-12 rs-pd">
-                            <div class="card">
-                                <a class="close-modal js-close-container">
-                                    <i class="close-icon ti-close" onclick="hideProducts()"></i>
-                                </a>
-                                <div class="w-100 card-header text-center font-2xl "><span class="font-weight-bold ">CHI
-                                        TIẾT</span><span class="font-weight-light"> ĐƠN HÀNG</span>
-                                </div>
-
-                                <div class="card-body--">
-                                    <div class="table-stats order-table ov-h">
-                                        <table class="table ">
-                                            <thead>
-                                                <tr>
-                                                    <th class="serial">#</th>
-                                                    <th>Người Dùng </th>
-                                                    <th>Sản Phẩm</th>
-                                                    <th>Số Lượng</th>
-                                                    <th>Đơn Giá</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody class="tbody-order-detail">
-                                            </tbody>
-                                        </table>
-                                    </div> <!-- /.table-stats -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <!-- .animated -->
     </div>
-    @include('admin.order.modal')
-    @include('admin.order.edit')
     @include('sweetalert::alert_order')
     @include('sweetalert::alert_order', ['cdn' => 'https://cdn.jsdelivr.net/npm/sweetalert2@9'])
     <!-- /.content -->
     <div class="clearfix"></div>
 @endsection
 @section('js')
+    @include('library.data-table.data')
     <script src="{{ asset('owner/assets/js/indexadmin.js') }}"></script>
-    <script src="{{ asset('owner/assets/js/lib/data-table/datatables.min.js') }}"></script>
-    <script src="{{ asset('owner/assets/js/lib/data-table/dataTables.bootstrap.min.js') }}"></script>
-    <script src="{{ asset('owner/assets/js/lib/data-table/dataTables.buttons.min.js') }}"></script>
-    <script src="{{ asset('owner/assets/js/lib/data-table/buttons.bootstrap.min.js') }}"></script>
-    <script src="{{ asset('owner/assets/js/lib/data-table/jszip.min.js') }}"></script>
-    <script src="{{ asset('owner/assets/js/lib/data-table/vfs_fonts.js') }}"></script>
-    <script src="{{ asset('owner/assets/js/lib/data-table/buttons.html5.min.js') }}"></script>
-    <script src="{{ asset('owner/assets/js/lib/data-table/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('owner/assets/js/lib/data-table/buttons.colVis.min.js') }}"></script>
-    <script src="{{ asset('owner/assets/js/init/datatables-init.js') }}"></script>
-    <script src="{{ asset('owner/assets/js/updateorder.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.3/dist/Chart.bundle.min.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function() {
             $('#bootstrap-data-table-export').DataTable();
+
+
+            if ($("#traffic-chart").length) {
+                var chartTotalPrice = {{ $chartTotalPrice }};
+                console.log(chartTotalPrice);
+                var chart = new Chartist.Line(
+                    "#traffic-chart", {
+                        labels: [
+                            "Tháng 1",
+                            "Tháng 2",
+                            "Tháng 3",
+                            "Tháng 4",
+                            "Tháng 5",
+                            "Tháng 6",
+                            "Tháng 7",
+                            "Tháng 8",
+                            "Tháng 9",
+                            "Tháng 10",
+                            "Tháng 11",
+                            "Tháng 12",
+                        ],
+                        series: [
+                            chartTotalPrice,
+                        ],
+                    }, {
+                        low: 0,
+                        showArea: true,
+                        showLine: false,
+                        showPoint: false,
+                        fullWidth: true,
+                        axisX: {
+                            showGrid: true,
+                        },
+                    }
+                );
+
+                chart.on("draw", function(data) {
+                    if (data.type === "line" || data.type === "area") {
+                        data.element.animate({
+                            d: {
+                                begin: 2000 * data.index,
+                                dur: 2000,
+                                from: data.path
+                                    .clone()
+                                    .scale(1, 0)
+                                    .translate(0, data.chartRect.height())
+                                    .stringify(),
+                                to: data.path.clone().stringify(),
+                                easing: Chartist.Svg.Easing.easeOutQuint,
+                            },
+                        });
+                    }
+                });
+            }
+
+            //bar chart
+            var ctx = document.getElementById("barChart");
+            //    ctx.height = 200;
+            var dataCharOrderDeliver = {{ $dataCharOrderDeliver }};
+            var dataCharOrderCancel = {{ $dataCharOrderCancel }};
+            var myChart = new Chart(ctx, {
+                type: "bar",
+                data: {
+                    labels: ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7",
+                        "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"
+                    ],
+                    datasets: [{
+                            label: "Đơn hàng đang giao",
+                            data: dataCharOrderDeliver,
+                            borderColor: "rgba(0, 194, 146, 0.9)",
+                            borderWidth: "0",
+                            backgroundColor: "rgba(0, 194, 146, 0.5)",
+                        },
+                        {
+                            label: "Đơn hàng đã hủy",
+                            data: dataCharOrderCancel,
+                            borderColor: "rgba(0,0,0,0.09)",
+                            borderWidth: "0",
+                            backgroundColor: "rgba(0,0,0,0.07)",
+                        },
+                    ],
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true,
+                            },
+                        }, ],
+                    },
+                },
+            });
+
         });
     </script>
 @endsection

@@ -1,15 +1,6 @@
 @if (Session::has('alert.config') || Session::has('alert.delete'))
-    @if (config('sweetalert.animation.enable'))
-        <link rel="stylesheet" href="{{ config('sweetalert.animatecss') }}">
-    @endif
-
-    @if (config('sweetalert.theme') != 'default')
-        <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-{{ config('sweetalert.theme') }}" rel="stylesheet">
-    @endif
-
-    @if (config('sweetalert.alwaysLoadJS') === false && config('sweetalert.neverLoadJS') === false)
-        <script src="{{ $cdn ?? asset('vendor/sweetalert/sweetalert.all.js') }}"></script>
-    @endif
+    @include('vendor.sweetalert.alert')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         @if (Session::has('alert.delete'))
             document.addEventListener('click', function(event) {
@@ -17,14 +8,21 @@
                     event.preventDefault();
                     Swal.fire({!! Session::pull('alert.delete') !!}).then(function(result) {
                         if (result.isConfirmed) {
-                            var form = document.createElement('form');
-                            form.action = event.target.href;
-                            form.method = 'DELETEs';
-                            form.innerHTML = `
-                    @csrf
-                `;
-                            document.body.appendChild(form);
-                            form.submit();
+                            $.ajax({
+                                url: event.target.href,
+                                type: 'GET',
+                                data: {
+                                    _token: '{{ csrf_token() }}',
+                                },
+                                success: function(data) {
+                                    console.log(data.cartComponents);
+                                    if (data.code === 200) {
+                                        $('.cart-wrapper').empty().html(data.cartComponents);
+
+                                    }
+                                },
+                                error: function(jqXHR, textStatus, text) {}
+                            })
                         }
                     });
                 }

@@ -1,15 +1,6 @@
 @if (Session::has('alert.config') || Session::has('alert.delete'))
-    @if (config('sweetalert.animation.enable'))
-        <link rel="stylesheet" href="{{ config('sweetalert.animatecss') }}">
-    @endif
+    @include('vendor.sweetalert.alert')
 
-    @if (config('sweetalert.theme') != 'default')
-        <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-{{ config('sweetalert.theme') }}" rel="stylesheet">
-    @endif
-
-    @if (config('sweetalert.alwaysLoadJS') === false && config('sweetalert.neverLoadJS') === false)
-        <script src="{{ $cdn ?? asset('vendor/sweetalert/sweetalert.all.js') }}"></script>
-    @endif
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         @if (Session::has('alert.delete'))
@@ -29,13 +20,11 @@
                                     productID: productID,
                                 },
                                 success: function(data) {
-                                    // Thực hiện các thao tác khác sau khi xóa thành công (nếu cần)
-                                    loadListProductPagination(event.target.href,data, page);
+                                    loadListProductPagination(event.target.href, data, page);
                                     toastSuccess('Xoá thành công!')
 
                                 },
                                 error: function(xhr, status, error) {
-                                    // Thực hiện các thao tác khác khi xóa thất bại (nếu cần)
                                     toastError('Xóa thất bại!')
 
                                 }

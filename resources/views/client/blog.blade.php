@@ -8,6 +8,9 @@
         }
     </style>
 @endsection
+@section('title')
+    <title>Diễn Đàn</title>
+@endsection
 @section('content')
     <div class="hero-wrap hero-bread" style="background-image: url({{ asset('client/images/bg1.jpg') }});">
         <div class="container">
@@ -234,13 +237,11 @@
                         </div>
                     </div>
 
-                    <div class="sidebar-box ftco-animate">
-                        <h3 class="heading">Đoạn trích</h3>
-                        <p>"Cửa hàng Shop best goods của chúng tôi la của hàng bách hóa với đa dạng hàng hóa đáp ứng tất cả
-                            nhu cầu của khách hàng. Shop best goods mong muốn đem lại sự thỏa mãn khi mua sắm của khách hàng
-                            và đặt khẩu hiệu "Khách hàng là thượng đế" lên hàng đầu"</p>
-                    </div>
-                </div>
+            <div class="sidebar-box ftco-animlúce">
+              <h3 class="heading">Đoạn trích</h3>
+              <p>"Cửa hàng Shop best goods của chúng tôi la của hàng bách hóa với đa dạng hàng hóa đáp ứng tất cả nhu cầu của khách hàng. Shop best goods mong muốn đem lại sự thỏa mãn khi mua sắm của khách hàng và đặt khẩu hiệu "Khách hàng là thượng đế" lên hàng đầu"</p>
+            </div>
+          </div>
 
             </div>
         </div>
