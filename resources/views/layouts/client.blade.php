@@ -61,11 +61,11 @@
             <div class="user-grap" id="users-nav">
                 <div class="header-left" style="display: -webkit-inline-box;">
                     <div class="form-inline" style="display: block;">
-                        <form class="search-form" style="display: none">
-                            <input class="form-control form-control-sm search mr-sm-2 rounded-pill" type="text"
-                                placeholder="Search ..." aria-label="Search">
-                            <button class="search-trigger"><i class="fa fa-search"></i></button>
-                            <button class="search-close" type="submit"><i class="fa fa-close"></i></button>
+                        <form class="search-form" style="display: block">
+                            <input class="form-control form-control-sm search rounded-pill searchProduct"
+                                type="text" placeholder="Bạn cần gì?.." aria-label="Search">
+                            <button class="search-trigger" onclick="talk(event)" id="tlks"><i
+                                    class="fa fa-microphone"></i></button>
                         </form>
                     </div>
                 </div>

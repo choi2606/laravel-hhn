@@ -136,7 +136,7 @@
                                             @if ($product->selling_price < $product->original_price)
                                                 <span class="mr-2 price-dc">{{ originalPrice($product) }}đ</span>
                                             @endif
-                                            <span>{{ $sellingPrice }}đ</span>
+                                            <span>{{ sellingPrice($product) }}đ</span>
                                         </p>
                                     </div>
                                 </div>
