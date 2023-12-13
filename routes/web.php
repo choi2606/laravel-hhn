@@ -122,8 +122,8 @@ Route::get('about', function () {
     return view('client.about');
 })->name('about');
 
-Route::get('shop', [ShopClientController::class, 'index'])->name('shop');
-Route::get('product-detail', function () {
+Route::get('shop', [ShopClientController::class, 'index']);
+Route::get('/product-detail', function () {
     return view('client.product-detail');
 });
 
