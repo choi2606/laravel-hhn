@@ -19,6 +19,8 @@ use App\Http\Controllers\Admin\CategoryDashboardController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ListUserController;
 use App\Http\Controllers\Admin\LoginAdminController;
+use App\Http\Controllers\Client\BlogClientController;
+use App\Http\Controllers\Client\BlogCommentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -70,10 +72,10 @@ Route::middleware('admin')->group(function () {
     Route::put('update-status-order{order_id}', [OrderController::class, 'updateStatusOrder']);
     Route::get('view-order{order_id}', [OrderController::class, 'getOrderDetails']);
 
-    // Route::get('add-blogs', [AddBlogController::class, 'index']);
-    // Route::post('add-blogs', [AddBlogController::class, 'store']);
-    // Route::get('update-blogs', [AddBlogController::class, 'index']);
-    // Route::post('update-blogs', [AddBlogController::class, 'store']);
+    Route::get('add-blogs', [AddBlogController::class, 'index']);
+    Route::post('add-blogs', [AddBlogController::class, 'store']);
+    Route::post('update-blog', [AddBlogController::class, 'updateBlog']);
+    Route::get('remove-blog{blog_id}', [AddBlogController::class, 'deleteBlog'])->name('delete-blog');
 
     Route::get('add-discount', [DiscountController::class, 'index']);
     Route::post('add-discount', [DiscountController::class, 'store']);
@@ -94,12 +96,9 @@ Route::get('/welcome', [Controller::class, 'welcome']);
 //client routes
 Route::get('/', [HomeClientController::class, 'index'])->name('index.client');
 Route::get('product-detail{product_id}', [ProductDetailController::class, 'index']);
-Route::get('/blog-singles', function () {
-    return view('client.blog-singles');
-});
-Route::get('/blog', function () {
-    return view('client.blog');
-})->name('blog');
+Route::get('/blog', [BlogClientController::class,'index']);
+Route::get('/blog-singles/{blog_id}', [BlogClientController::class,'blog_single']);
+Route::post('/blog-singles/comment', [BlogCommentController::class,'store']);
 
 Route::get('cart', [CartController::class, 'index'])->name('cart');
 Route::get('search-ajax-product', [HomeClientController::class, 'searchAjax']);
