@@ -33,8 +33,6 @@ class RegisterUserRequests extends FormRequest
             'email' => 'string| max:255|email|required|unique:users',
             'password' => 'string|max:255|min:6',
             'confirm-password' => 'string|required_with:password|same:password',
-            'address' => 'string| max:255|required',
-            'phone_number' => 'string|max:20|required',
         ];
     }
 }

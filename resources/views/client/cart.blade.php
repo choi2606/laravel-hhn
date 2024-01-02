@@ -96,7 +96,7 @@
                                                                     <span class="time font-weight-light">
                                                                         HSD:
                                                                         <span class="text-uppercase font-weight-normal">
-                                                                            {{ date_format(DateTime::createFromFormat('Y-m-d', $discount->expire), 'd/m') }}
+                                                                            {{ date_format(DateTime::createFromFormat('Y-m-d', $discount->expire), 'm/d') }}
                                                                         </span>
                                                                     </span>
                                                                 </div>

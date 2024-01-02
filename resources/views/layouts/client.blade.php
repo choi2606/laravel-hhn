@@ -326,9 +326,6 @@
                     .map(result => result.transcript)
                     .join("");
                 document.getElementsByClassName("searchProduct")[0].value = text;
-                // console.log({
-                //     text
-                // });
 
                 var data = {
                     value: text,

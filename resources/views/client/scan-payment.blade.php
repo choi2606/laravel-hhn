@@ -87,7 +87,8 @@
                     var bankAccount = <?= json_encode($paymentDetail['bankAccount']) ?>;
                     var amount = <?= json_encode($payment['totalPrice']) ?>;
                     var orderCode = <?= json_encode($paymentDetail['orderCode']) ?>;
-                    console.log((amount).toString(), bankId, bankAccount);
+                    // console.log((amount).toString(), bankId, bankAccount);
+                    // console.log(<?= json_encode($paymentDetail) ?>);
                     const value = qrCodeVQ
                         .setBeneficiaryOrganization(bankId, bankAccount)
                         .setTransactionAmount((amount).toString())

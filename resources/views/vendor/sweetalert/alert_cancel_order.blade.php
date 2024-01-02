@@ -9,21 +9,14 @@
                     event.preventDefault();
                     Swal.fire({!! Session::pull('alert.delete') !!}).then(function(result) {
                         if (result.isConfirmed) {
-                            $.ajax({
-                                url: event.target.href,
-                                type: 'GET',
-                                data: {
-                                    _token: '{{ csrf_token() }}',
-                                },
-                                success: function(data) {
-                                    console.log(data.orderComponent);
-                                    if(data.code === 200) {
-                                        $('.order-wrapper').empty().html(data.orderComponent);
-                                        toastSuccess('Hủy đơn hàng thành công!');
-                                    }
-                                },
-                                error: function(jqXHR, textStatus, text) {}
-                            })
+                            var form = document.createElement('form');
+                            form.action = event.target.href;
+                            form.method = 'DELETEs';
+                            form.innerHTML = `
+                    @csrf
+                `;
+                            document.body.appendChild(form);
+                            form.submit();
                         }
                     });
                 }

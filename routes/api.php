@@ -21,3 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::match(['get', 'post'], '/botman', [BotmanController::class,'handle']);
+
+Route::get('env', function() {
+    return response()->json(['env'=>env('BANKID')]);
+});

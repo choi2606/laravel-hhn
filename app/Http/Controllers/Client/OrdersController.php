@@ -27,9 +27,8 @@ class OrdersController extends Controller
         $order = Order::find($order_id);
         $order->status = "cancel";
         $order->save();
-        $orders = Order::orderBy('created_at', 'desc')->get();
-        $orderComponent = view('components.order', ['orders' => $orders])->render();
-        return response()->json(["orderComponent" => $orderComponent, "code" => 200], 200);
+        toast("Đã hủy thành công!", "success");
+        return redirect()->back();
     }
 
 }

@@ -167,9 +167,6 @@ class PaymentDetailsController extends Controller
             toast('Đã xảy ra lỗi khi xử lý dữ liệu!', 'error');
             return redirect()->back();
         }
-
-
-
     }
 
     /**

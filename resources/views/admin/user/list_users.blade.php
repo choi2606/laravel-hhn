@@ -27,8 +27,6 @@
                                         <th>#</th>
                                         <th>Tên người dùng</th>
                                         <th>Email</th>
-                                        <th>Địa chỉ</th>
-                                        <th>Số điện thoại</th>
                                         <th>Vai trò</th>
                                     </tr>
                                 </thead>
@@ -39,8 +37,6 @@
                                             <td>{{ $count++ }}</td>
                                             <td>{{ $user->username }}</td>
                                             <td>{{ $user->email }}</td>
-                                            <td>{{ $user->address }}</td>
-                                            <td>{{ $user->phone_number }}</td>
                                             <td>{{ $user->role == 1 ? 'Quản lý' : 'Khách hàng' }}</td>
                                         </tr>
                                     @empty

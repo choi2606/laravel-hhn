@@ -36,25 +36,36 @@
 					<div class="col-md-6 col-lg-3 ftco-animate">
 						<div class="product">
 							<a href="product-detail{{ $product->product_id }}" class="img-prod">
-								<img class="img-fluid" src="{{ URL::asset('client/images/product/' . $product->image_url) }}" alt="Colorlib Template">
-								<span class="status">30%</span>
+								<img class="img-fluid" src="{{ URL::asset('client/images/product/' . $product->image_url) }}" alt="Colorlib Template" style="width: 254px; height: 191px;">
+								@if ($product->selling_price < $product->original_price)
+                                    <span class="status">
+                                        {{ discounted($product) }}%
+                                    </span>
+                                @endif
 								<div class="overlay"></div>
 							</a>
 							<div class="text py-3 pb-4 px-3 text-center">
 								<h3><a href="#">{{ $product->name }}</a></h3>
 								<div class="d-flex">
 									<div class="pricing">
-										<p class="price"><span class="mr-2 price-dc">{{ number_format($product->price, 0, ',', '.') }}đ</span><span class="price-sale">$70.00</span></p>
+										<p class="price">
+                                            @if ($product->selling_price < $product->original_price)
+                                                <span class="mr-2 price-dc">{{ originalPrice($product) }}đ</span>
+                                            @endif
+                                            <span>{{ sellingPrice($product) }}đ</span>
+                                        </p>
 									</div>
 								</div>
 								<div class="bottom-area d-flex px-3">
 									<div class="m-auto d-flex">
-										<a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-											<span><i class="ion-ios-menu"></i></span>
-										</a>
-										<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
-											<span><i class="ion-ios-cart"></i></span>
-										</a>
+										<a href="product-detail{{ $product->product_id }}"
+                                            class="add-to-cart d-flex justify-content-center align-items-center text-center">
+                                            <span><i class="ion-ios-menu"></i></span>
+                                        </a>
+                                        <a href="add-cart{{ $product->product_id }}"
+                                            class="buy-now d-flex justify-content-center align-items-center mx-1 ion-ios-cart"
+                                            onclick="onAddCart(event)">
+                                        </a>
 									</div>
 								</div>
 							</div>

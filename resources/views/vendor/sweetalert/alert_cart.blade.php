@@ -8,21 +8,14 @@
                     event.preventDefault();
                     Swal.fire({!! Session::pull('alert.delete') !!}).then(function(result) {
                         if (result.isConfirmed) {
-                            $.ajax({
-                                url: event.target.href,
-                                type: 'GET',
-                                data: {
-                                    _token: '{{ csrf_token() }}',
-                                },
-                                success: function(data) {
-                                    console.log(data.cartComponents);
-                                    if (data.code === 200) {
-                                        $('.cart-wrapper').empty().html(data.cartComponents);
-
-                                    }
-                                },
-                                error: function(jqXHR, textStatus, text) {}
-                            })
+                            var form = document.createElement('form');
+                            form.action = event.target.href;
+                            form.method = 'DELETEs';
+                            form.innerHTML = `
+                    @csrf
+                `;
+                            document.body.appendChild(form);
+                            form.submit();
                         }
                     });
                 }

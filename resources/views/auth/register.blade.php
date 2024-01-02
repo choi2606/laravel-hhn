@@ -83,21 +83,6 @@
                         @error('confirm-password')
                             <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
-                        <div class="form-group">
-                            <label>Địa chỉ</label>
-                            <input type="text" class="form-control" name="address">
-                        </div>
-                        @error('address')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
-                        <div class="form-group">
-                            <label>Số điện thoại</label>
-                            <input type="text" class="form-control"
-                                name="phone_number">
-                        </div>
-                        @error('phone_number')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
                         <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Đăng ký</button>
                         <div class="register-link m-t-15 text-center">
                             <p>Đã có tài khoản ? <a href="{{ url('login') }}"> Đăng nhập ngay</a></p>

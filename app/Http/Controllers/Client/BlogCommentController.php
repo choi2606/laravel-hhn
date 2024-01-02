@@ -17,17 +17,6 @@ class BlogCommentController extends Controller
             'commentContent' => 'required',
         ]);
 
-        // if ($request->hasFile('commentImage')) {
-        //     $get_file_image = $request->file('commentImage');
-        //     $get_image_name = $get_file_image->getClientOriginalName();
-        //     $get_image_extension = $get_file_image->getClientOriginalExtension();
-        //     $name_image = current(explode('.', $get_image_name));
-        //     $imagePath = time() . "-" . $name_image . "." . $get_image_extension;
-        //     $get_file_image->move('./client/images/blog/comment', $imagePath);
-        // } else {
-        //     $imagePath = "placeholder.png";
-        // }
-
         if ($request->userID == -1){
             BlogComment::create([
                 'blog_id' => $request->blogID,
@@ -36,14 +25,14 @@ class BlogCommentController extends Controller
                 'text' => $request->commentContent,
             ]);
         }
-        else {
+        else 
+        {
             BlogComment::create([
                 'blog_id' => $request->blogID,
                 'user_id' => $request->userID,
                 'text' => $request->commentContent,
             ]);
         }
-        
         return redirect()->back();
     }
 }

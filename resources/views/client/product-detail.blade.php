@@ -39,20 +39,7 @@
                 </div>
                 <div class="col-lg-6 product-details pl-md-5 ftco-animate">
                     <h3>{{ $product->name }}</h3>
-                    <div class="rating d-flex">
-                        <p class="text-left mr-4">
-                            <a href="#" class="mr-2">5.0</a>
-                            <a href="#"><span class="ion-ios-star-outline"></span></a>
-                            <a href="#"><span class="ion-ios-star-outline"></span></a>
-                            <a href="#"><span class="ion-ios-star-outline"></span></a>
-                            <a href="#"><span class="ion-ios-star-outline"></span></a>
-                            <a href="#"><span class="ion-ios-star-outline"></span></a>
-                        </p>
-                        <p class="text-left mr-4">
-                            <a href="#" class="mr-2" style="color: #000;">100 <span style="color: #bbb;">đánh
-                                    giá</span></a>
-                        </p>
-                    </div>
+                    
                     @if ($product->selling_price < $product->original_price)
                         <p class="price position-relative">
                             <span class="tdc-line">
@@ -64,7 +51,7 @@
                             </span>
                         </p>
                     @endif
-                    <p class="price"><span>{{ $product->selling_price }}đ/1</span></p>
+                    <p class="price"><span>{{ sellingPrice($product) }}đ/1</span></p>
                     <p>{{ $product->description }}</p>
                     <div class="row mt-4">
                         <div class="w-100"></div>

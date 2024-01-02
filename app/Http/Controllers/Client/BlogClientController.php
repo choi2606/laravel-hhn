@@ -37,7 +37,6 @@ class BlogClientController extends Controller
 
     public function blog_single($blog_id)
     {
-
         $blog = DB::table('blogs')
             ->where('blog_id', $blog_id)
             ->select('blogs.blog_id', 'blogs.title', 'blogs.text', 'blogs.image_url', 'blogs.created_at')
