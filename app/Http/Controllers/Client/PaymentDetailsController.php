@@ -58,7 +58,7 @@ class PaymentDetailsController extends Controller
     public function addPaymentDetail(Request $request, $payment_method)
     {
         if (!Auth::check()) {
-            return view('client.login');
+            return view('auth.login');
         }
         $validated = $request->validate([
             'receiveName' => 'required',

@@ -78,7 +78,7 @@ class CartController extends Controller
         if ($discount_code == '') {
             return response()->json(['total' => $total, 'discount' => 0, 'type' => 2]);
         }
-        $discount = Discount::where('discount_code', $discount_code)->where('expire', '>=', date('d-m-Y'))->first();
+        $discount = Discount::where('discount_code', $discount_code)->where('expire', '>=', date('Y-m-d'))->first();
         if ($discount) {
             if ($discount->type == 1) {
                 $total = round($total - $total * $discount->discount / 100);

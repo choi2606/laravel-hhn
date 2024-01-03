@@ -37,7 +37,6 @@ class AddBlogController extends Controller
 
         Blog::create([
             'title' => $request->blogTitle,
-            'user_id' => $request->user()->user_id,
             'text' => $request->blogContent,
             'image_url' => $imagePath,
         ]);
@@ -81,6 +80,7 @@ class AddBlogController extends Controller
 
     public function deleteBlog($blog_id)
     {
+        BlogComment::where('blog_id', $blog_id)->delete();
         Blog::where('blog_id', $blog_id)->delete();
         return redirect()->back();
     }

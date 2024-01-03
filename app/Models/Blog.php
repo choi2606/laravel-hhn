@@ -11,7 +11,6 @@ class Blog extends Model
     protected $table = "blogs";
     protected $fillable = [
         'title',
-        'user_id',
         'text',
         'image_url'
     ];
